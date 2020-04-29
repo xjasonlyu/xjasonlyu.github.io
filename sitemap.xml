@@ -3,62 +3,62 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://12x.me/about/</loc>
+    <loc>/about/</loc>
     <lastmod>2020-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/</loc>
+    <loc>/</loc>
     <lastmod>2020-04-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/tags/ctf/</loc>
+    <loc>/tags/ctf/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/tags/hgame/</loc>
+    <loc>/tags/hgame/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/hgame-final-writeup/</loc>
+    <loc>/post/hgame-final-writeup/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/</loc>
+    <loc>/post/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/tags/</loc>
+    <loc>/tags/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/hgame-week4-writeup/</loc>
+    <loc>/post/hgame-week4-writeup/</loc>
     <lastmod>2020-02-07T20:01:10+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/hgame-week3-writeup/</loc>
+    <loc>/post/hgame-week3-writeup/</loc>
     <lastmod>2020-01-31T16:55:28+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/hgame-week2-writeup/</loc>
+    <loc>/post/hgame-week2-writeup/</loc>
     <lastmod>2020-01-24T11:25:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/post/hgame-week1-writeup/</loc>
+    <loc>/post/hgame-week1-writeup/</loc>
     <lastmod>2020-01-17T13:18:03+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://12x.me/categories/</loc>
+    <loc>/categories/</loc>
   </url>
   
 </urlset>
