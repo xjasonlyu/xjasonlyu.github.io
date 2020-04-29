@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hgame on I&#39;m Jason Lyu</title>
+    <link>https://12x.me/tags/hgame/</link>
+    <description>Recent content in Hgame on I&#39;m Jason Lyu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Mar 2020 18:18:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://12x.me/tags/hgame/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hgame Final Writeup</title>
+      <link>https://12x.me/post/hgame-final-writeup/</link>
+      <pubDate>Sat, 07 Mar 2020 18:18:34 +0800</pubDate>
+      
+      <guid>https://12x.me/post/hgame-final-writeup/</guid>
+      <description>Hgame Final Writeup 我太太太菜了，后期心态不好不太有动力打下去，所以现在决赛基本摸鱼状态。。Orz
+0x03 Crypto Response 这的确是签到题。。不过感觉AES的题都蛮好玩的。。 知道CBC的工作方式就OK了，有range(3)次机会，其中IV不变，不停伪造密文/明文来异或就行了。。
+直接上exp（时间原因没写自动脚本，60s的时间，手慢就要重来了。。）</description>
+    </item>
+    
+    <item>
+      <title>Hgame Week4 Writeup</title>
+      <link>https://12x.me/post/hgame-week4-writeup/</link>
+      <pubDate>Fri, 07 Feb 2020 20:01:10 +0800</pubDate>
+      
+      <guid>https://12x.me/post/hgame-week4-writeup/</guid>
+      <description>我太菜了，被学弟吊打到自闭，所以这周睡去了😷 </description>
+    </item>
+    
+    <item>
+      <title>Hgame Week3 Writeup</title>
+      <link>https://12x.me/post/hgame-week3-writeup/</link>
+      <pubDate>Fri, 31 Jan 2020 16:55:28 +0800</pubDate>
+      
+      <guid>https://12x.me/post/hgame-week3-writeup/</guid>
+      <description>Hgame Week3 Writeup 这周不怎么想做题Orz，咕咕咕
+0x00 Web Cosmos的聊天室2.0 做了同源限制的CSP策略，刚开始没用Burp打开，就是找不到能上传js的点，后来才发现在/send?message=上。。 测试一下&amp;lt;scscriptript src=&amp;quot;/send？message=alert(123)&amp;quot;&amp;gt;&amp;lt;/scscriptript&amp;gt;成功弹窗。 这是第一步，成功绕过。 第二步是怎么传回cookie，因为CSP所以不能直接访问外部URL。。 试了用link标签的prerender来传，console里成功传回cookie，但是到/send会把所有字符小写导致报错（==） 我原来的payload是</description>
+    </item>
+    
+    <item>
+      <title>Hgame Week2 Writeup</title>
+      <link>https://12x.me/post/hgame-week2-writeup/</link>
+      <pubDate>Fri, 24 Jan 2020 11:25:24 +0800</pubDate>
+      
+      <guid>https://12x.me/post/hgame-week2-writeup/</guid>
+      <description>Hgame Week2 Writeup 0x00 Web Cosmos的博客后台 PHP文件包含的题目。/?action=url 于是用php://filter/convert.base64-encode/resource=login.php拿到了login.php的源码（部分源码如下）
+if (DEBUG_MODE){ if(isset($_GET[&amp;#39;debug&amp;#39;])) { $debug = $_GET[&amp;#39;debug&amp;#39;]; if (!</description>
+    </item>
+    
+    <item>
+      <title>Hgame Week1 Writeup</title>
+      <link>https://12x.me/post/hgame-week1-writeup/</link>
+      <pubDate>Fri, 17 Jan 2020 13:18:03 +0800</pubDate>
+      
+      <guid>https://12x.me/post/hgame-week1-writeup/</guid>
+      <description>Hgame Week1 Writeup 0x00 Web Cosmos 的博客 既然是 Github+版本管理工具，那么就想到.git目录了，/.git/config进去如下图 找到了项目的GitHub地址，然后找commit，找到了这个 base64解码后拿到flag</description>
+    </item>
+    
+  </channel>
+</rss>

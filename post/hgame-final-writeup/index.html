@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Hgame Final Writeup </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="ID = randint(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="https://12x.me/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="https://12x.me">
+    
+    <link rel="shortcut icon" href="https://12x.me/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://12x.me/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://12x.me/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://12x.me/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://12x.me/post/hgame-final-writeup/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://12x.me/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>ID = randint(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Archive</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Hgame Final Writeup
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Sat, Mar 7, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">1-minute read</span>
+        </div>
+        
+        </div>
+
+    <h2 id="hgame-final-writeup">Hgame Final Writeup</h2>
+<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<p>我太太太菜了，后期心态不好不太有动力打下去，所以现在决赛基本摸鱼状态。。Orz</p>
+<h3 id="0x03-crypto">0x03 Crypto</h3>
+<h4 id="response">Response</h4>
+<p>这的确是签到题。。不过感觉AES的题都蛮好玩的。。
+知道CBC的工作方式就OK了，有<code>range(3)</code>次机会，其中IV不变，不停伪造密文/明文来异或就行了。。</p>
+<p>直接上exp（时间原因没写自动脚本，60s的时间，手慢就要重来了。。）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> binascii
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_print</span>(promot, msg):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">+</span>binascii<span style="color:#f92672">.</span>hexlify(msg)<span style="color:#f92672">.</span>decode()<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+
+xor <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> p, q: bytes(x<span style="color:#f92672">^</span>y <span style="color:#66d9ef">for</span> x,y <span style="color:#f92672">in</span> zip(p,q))
+
+<span style="color:#75715e">## &gt;&gt;&gt; b&#39;0000000000&#39;</span>
+plaintext_0_suffix <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>
+_print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, plaintext_0_suffix)
+
+<span style="color:#75715e">##### first respones in hex</span>
+r0 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
+r0 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(r0)
+
+_print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, r0)
+
+iv <span style="color:#f92672">=</span> r0[:<span style="color:#ae81ff">16</span>]
+
+text <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;Alice&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">11</span>
+x1 <span style="color:#f92672">=</span> xor(iv, text)
+
+r0c0 <span style="color:#f92672">=</span> r0[<span style="color:#ae81ff">16</span>:<span style="color:#ae81ff">32</span>]
+plaintext_1 <span style="color:#f92672">=</span> xor(r0c0, x1)
+
+<span style="color:#75715e">## &gt;&gt;&gt;</span>
+_print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, plaintext_0_suffix <span style="color:#f92672">+</span> plaintext_1 <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>)
+
+<span style="color:#75715e">###### second reponses in hex</span>
+r1 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
+r1 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(r1)
+
+_print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, iv <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>])
+
+<span style="color:#75715e">###### third challenge</span>
+challenge2 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
+challenge2 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(challenge2)
+
+_print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, iv <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>] <span style="color:#f92672">+</span> xor(x1, challenge2) <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>])
+</code></pre></div><p>代码写的很乱，跟着走拿到flag
+<code>hgame{RefL3cti0n_@tt4ck_wiTh_c8C~B1t-fLiPpiNg}</code></p>
+<h3 id="0x04-misc">0x04 Misc</h3>
+<h4 id="good-video">Good Video</h4>
+<p>解压，是hevc编码的视频，看着75的分值应该是签到题不用想太复杂
+看了一遍之后发现有几个快速闪过的画面，于是考虑有内容夹在帧内</p>
+<p>先试了用ffmpeg提取出所有frame，结果发现提取不完整，于是用py临时写了个脚本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> cv2
+
+cap <span style="color:#f92672">=</span> cv2<span style="color:#f92672">.</span>VideoCapture(<span style="color:#e6db74">&#39;GoodVideo.mp4&#39;</span>)
+
+i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">while</span>(cap<span style="color:#f92672">.</span>isOpened()):
+    ret, frame <span style="color:#f92672">=</span> cap<span style="color:#f92672">.</span>read()
+    
+    <span style="color:#66d9ef">if</span> ret:
+        i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        
+        name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;img2/frame</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.jpg&#34;</span><span style="color:#f92672">%</span>str(i)<span style="color:#f92672">.</span>rjust(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;0&#39;</span>)
+        cv2<span style="color:#f92672">.</span>imwrite(name, frame)
+        
+        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\r</span><span style="color:#e6db74">frame={i}&#39;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+        <span style="color:#75715e">#cv2.imshow(&#39;Frame&#39;,frame)</span>
+        <span style="color:#66d9ef">if</span> cv2<span style="color:#f92672">.</span>waitKey(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span> <span style="color:#f92672">==</span> ord(<span style="color:#e6db74">&#39;q&#39;</span>):
+            <span style="color:#66d9ef">break</span>
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">break</span>
+
+cap<span style="color:#f92672">.</span>release()
+cv2<span style="color:#f92672">.</span>destroyAllWindows()
+</code></pre></div><p>所有frame提取出来后发现有二维码的片段，于是开始慢慢找。。
+找完再用PS拼上。。思路简单，操作其实有点耗时。。</p>
+<p>拼完之后就是
+<img src="media/15835864961646/qrcode.png" alt="qrcode-w1572">
+扫出二维码拿到flag
+<code>hgame{gO0D_vId3O_EESvLoEPyC$zHlOJEHc0h&amp;14}</code></p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+    <span class="separator"><a class="tag" href="/tags/ctf/">CTF</a><a class="tag" href="/tags/hgame/">Hgame</a></span>
+
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="https://12x.me/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-appear.min.js"></script></html></body>
+
+</html>

