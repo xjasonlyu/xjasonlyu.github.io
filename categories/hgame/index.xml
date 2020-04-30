@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Jason&#39;s Blog</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on Jason&#39;s Blog</description>
+    <title>Hgame on Jason&#39;s Blog</title>
+    <link>/categories/hgame/</link>
+    <description>Recent content in Hgame on Jason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Apr 2020 20:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2020 18:18:34 +0800</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/hgame/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>SchoolWorks Project</title>
-      <link>/post/schoolworks-project/</link>
-      <pubDate>Thu, 30 Apr 2020 20:00:00 +0800</pubDate>
-      
-      <guid>/post/schoolworks-project/</guid>
-      <description>整理了一下，把大学里计算机相关的项目作业整合到了GitHub仓库里。
-Link  SchoolWorks  灵感来自 ➡︎ oyiadin
-End 因为这些学校项目/作业时间不一&amp;amp;能力有限，必有错误而且应该不会改了，权当备份了。。</description>
-    </item>
     
     <item>
       <title>Hgame Final Writeup</title>

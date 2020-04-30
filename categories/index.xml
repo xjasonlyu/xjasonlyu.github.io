@@ -6,9 +6,46 @@
     <description>Recent content in Categories on Jason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <lastBuildDate>Thu, 30 Apr 2020 20:00:00 +0800</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SchoolWorks</title>
+      <link>/categories/schoolworks/</link>
+      <pubDate>Thu, 30 Apr 2020 20:00:00 +0800</pubDate>
+      
+      <guid>/categories/schoolworks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>/categories/ctf/</link>
+      <pubDate>Sat, 07 Mar 2020 18:18:34 +0800</pubDate>
+      
+      <guid>/categories/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hgame</title>
+      <link>/categories/hgame/</link>
+      <pubDate>Sat, 07 Mar 2020 18:18:34 +0800</pubDate>
+      
+      <guid>/categories/hgame/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oops</title>
+      <link>/categories/oops/</link>
+      <pubDate>Fri, 07 Feb 2020 20:01:10 +0800</pubDate>
+      
+      <guid>/categories/oops/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

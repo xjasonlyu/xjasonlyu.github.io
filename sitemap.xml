@@ -8,6 +8,36 @@
   </url>
   
   <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/schoolworks/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/schoolworks/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/schoolworks-project/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-04-30T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/</loc>
     <lastmod>2020-04-29T00:00:00+00:00</lastmod>
   </url>
@@ -18,7 +48,17 @@
   </url>
   
   <url>
+    <loc>/categories/ctf/</loc>
+    <lastmod>2020-03-07T18:18:34+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/hgame/</loc>
+    <lastmod>2020-03-07T18:18:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/hgame/</loc>
     <lastmod>2020-03-07T18:18:34+08:00</lastmod>
   </url>
   
@@ -28,17 +68,12 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2020-03-07T18:18:34+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-03-07T18:18:34+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/hgame-week4-writeup/</loc>
+    <lastmod>2020-02-07T20:01:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/oops/</loc>
     <lastmod>2020-02-07T20:01:10+08:00</lastmod>
   </url>
   
@@ -55,10 +90,6 @@
   <url>
     <loc>/post/hgame-week1-writeup/</loc>
     <lastmod>2020-01-17T13:18:03+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
   </url>
   
 </urlset>
