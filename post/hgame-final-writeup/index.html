@@ -74,11 +74,11 @@
         
         </div>
 
-    <h2 id="hgame-final-writeup">Hgame Final Writeup</h2>
+    <h3 id="hgame-final-writeup">Hgame Final Writeup</h3>
 <p><img src="media/15792383134168/logo.png" alt="logo"></p>
 <p>我太太太菜了，后期心态不好不太有动力打下去，所以现在决赛基本摸鱼状态。。Orz</p>
-<h3 id="0x03-crypto">0x03 Crypto</h3>
-<h4 id="response">Response</h4>
+<h4 id="0x03-crypto">0x03 Crypto</h4>
+<h5 id="response">Response</h5>
 <p>这的确是签到题。。不过感觉AES的题都蛮好玩的。。
 知道CBC的工作方式就OK了，有<code>range(3)</code>次机会，其中IV不变，不停伪造密文/明文来异或就行了。。</p>
 <p>直接上exp（时间原因没写自动脚本，60s的时间，手慢就要重来了。。）</p>
@@ -89,11 +89,11 @@
 
 xor <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> p, q: bytes(x<span style="color:#f92672">^</span>y <span style="color:#66d9ef">for</span> x,y <span style="color:#f92672">in</span> zip(p,q))
 
-<span style="color:#75715e">## &gt;&gt;&gt; b&#39;0000000000&#39;</span>
+<span style="color:#75715e">### &gt;&gt;&gt; b&#39;0000000000&#39;</span>
 plaintext_0_suffix <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>
 _print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, plaintext_0_suffix)
 
-<span style="color:#75715e">##### first respones in hex</span>
+<span style="color:#75715e">###### first respones in hex</span>
 r0 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
 r0 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(r0)
 
@@ -107,24 +107,24 @@ x1 <span style="color:#f92672">=</span> xor(iv, text)
 r0c0 <span style="color:#f92672">=</span> r0[<span style="color:#ae81ff">16</span>:<span style="color:#ae81ff">32</span>]
 plaintext_1 <span style="color:#f92672">=</span> xor(r0c0, x1)
 
-<span style="color:#75715e">## &gt;&gt;&gt;</span>
+<span style="color:#75715e">### &gt;&gt;&gt;</span>
 _print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, plaintext_0_suffix <span style="color:#f92672">+</span> plaintext_1 <span style="color:#f92672">+</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>)
 
-<span style="color:#75715e">###### second reponses in hex</span>
+<span style="color:#75715e">####### second reponses in hex</span>
 r1 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
 r1 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(r1)
 
 _print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, iv <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>])
 
-<span style="color:#75715e">###### third challenge</span>
+<span style="color:#75715e">####### third challenge</span>
 challenge2 <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &#39;</span>)<span style="color:#f92672">.</span>encode()
 challenge2 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(challenge2)
 
 _print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&#39;</span>, iv <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>] <span style="color:#f92672">+</span> xor(x1, challenge2) <span style="color:#f92672">+</span> r1[<span style="color:#ae81ff">32</span>:<span style="color:#ae81ff">48</span>])
 </code></pre></div><p>代码写的很乱，跟着走拿到flag
 <code>hgame{RefL3cti0n_@tt4ck_wiTh_c8C~B1t-fLiPpiNg}</code></p>
-<h3 id="0x04-misc">0x04 Misc</h3>
-<h4 id="good-video">Good Video</h4>
+<h4 id="0x04-misc">0x04 Misc</h4>
+<h5 id="good-video">Good Video</h5>
 <p>解压，是hevc编码的视频，看着75的分值应该是签到题不用想太复杂
 看了一遍之后发现有几个快速闪过的画面，于是考虑有内容夹在帧内</p>
 <p>先试了用ffmpeg提取出所有frame，结果发现提取不完整，于是用py临时写了个脚本</p>

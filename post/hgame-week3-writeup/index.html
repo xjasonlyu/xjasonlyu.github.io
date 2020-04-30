@@ -74,11 +74,11 @@
         
         </div>
 
-    <h2 id="hgame-week3-writeup">Hgame Week3 Writeup</h2>
+    <h3 id="hgame-week3-writeup">Hgame Week3 Writeup</h3>
 <p><img src="media/15792383134168/logo.png" alt="logo"></p>
 <p>这周不怎么想做题Orz，咕咕咕</p>
-<h3 id="0x00-web">0x00 Web</h3>
-<h4 id="cosmos的聊天室20">Cosmos的聊天室2.0</h4>
+<h4 id="0x00-web">0x00 Web</h4>
+<h5 id="cosmos的聊天室20">Cosmos的聊天室2.0</h5>
 <p>做了同源限制的CSP策略，刚开始没用Burp打开，就是找不到能上传js的点，后来才发现在<code>/send?message=</code>上。。
 测试一下<code>&lt;scscriptript src=&quot;/send？message=alert(123)&quot;&gt;&lt;/scscriptript&gt;</code>成功弹窗。
 这是第一步，成功绕过。
@@ -104,13 +104,13 @@
 Burp提交上去。。
 <img src="media/15804580147047/Screen%20Shot%202020-02-01%20at%208.30.39%20PM.png" alt="Screen Shot 2020-02-01 at 8.30.39 P-w1012">
 拿到flag。。（这周脑子坏了）</p>
-<h3 id="0x01-reverse">0x01 Reverse</h3>
-<h3 id="0x02-pwn">0x02 Pwn</h3>
-<h3 id="0x03-crypto">0x03 Crypto</h3>
-<h4 id="rsa">RSA?</h4>
-<h4 id="toycipher_xorshift">ToyCipher_XorShift</h4>
-<h4 id="exchange">Exchange</h4>
-<h4 id="feedback">Feedback</h4>
+<h4 id="0x01-reverse">0x01 Reverse</h4>
+<h4 id="0x02-pwn">0x02 Pwn</h4>
+<h4 id="0x03-crypto">0x03 Crypto</h4>
+<h5 id="rsa">RSA?</h5>
+<h5 id="toycipher_xorshift">ToyCipher_XorShift</h5>
+<h5 id="exchange">Exchange</h5>
+<h5 id="feedback">Feedback</h5>
 <p>这题不难但是有点繁琐。。首先要知道CFB的工作模式
 <img src="media/15804580147047/1202px-CFB_encryption.svg.png" alt="1202px-CFB_encryption.svg-w601">
 <img src="media/15804580147047/1202px-CFB_decryption.svg.png" alt="1202px-CFB_decryption.svg-w601">
@@ -159,7 +159,7 @@ flag_2 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span>
 flag_3 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;&#39;</span>
 
 init_seg <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>urandom(<span style="color:#ae81ff">16</span>)
-<span style="color:#75715e">## 0x00</span>
+<span style="color:#75715e">### 0x00</span>
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;*&#39;</span>, binascii<span style="color:#f92672">.</span>hexlify(init_seg)<span style="color:#f92672">.</span>decode())
 _の_text_1 <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(input(<span style="color:#e6db74">&#39;1: Round 1. output&gt; &#39;</span>)<span style="color:#f92672">.</span>encode())
 
@@ -186,7 +186,7 @@ flag <span style="color:#f92672">=</span> flag_1 <span style="color:#f92672">+</
 <img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.42%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.42 P-w920">
 <img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.32%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.32 P-w566">
 拿到flag</p>
-<h3 id="0x04-misc">0x04 Misc</h3>
+<h4 id="0x04-misc">0x04 Misc</h4>
 
     </div>
     <div class="post-footer">

