@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Cisco Packet Tracer Basic </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="var ID = rand(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="/">
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/cisco-packet-tracer-basic/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>var ID = rand(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Posts</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Cisco Packet Tracer Basic
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Sat, Mar 14, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">1-minute read</span>
+        </div>
+        
+        </div>
+
+    <h3 id="实验1通过console访问交换机">实验1：通过Console访问交换机</h3>
+<h4 id="11-实验说明">1.1 实验说明</h4>
+<p>设计一台PC和一台交换机网络架构，进行相关配置以及调用命令，使PC通过Console线访问交换机，通过login成功验证访问成功。</p>
+<h4 id="12-实验过程及结果截图">1.2 实验过程及结果截图</h4>
+<h5 id="121-网络模拟图">1.2.1 网络模拟图</h5>
+<p><img src="media/15884032733582/image1.png" alt="image"></p>
+<p>网络拓扑图很简单，用console线连接switch和PC即可。</p>
+<h5 id="122-网络配置过程">1.2.2 网络配置过程</h5>
+<p><img src="media/15884032733582/image2.png" alt="image"></p>
+<p><img src="media/15884032733582/image3.png" alt="image"></p>
+<p>①点击PC的Desktop选项，选择Terminal即可</p>
+<p>②打开Terminal即可登入进交换机</p>
+<h3 id="实验2通过telnet和ssh访问交换机">实验2：通过Telnet和SSH访问交换机</h3>
+<h4 id="21-实验说明">2.1 实验说明</h4>
+<p>设计一台PC和一台交换机网络网络架构，进行相关配置以及调用命令，让PC通过Telnet和SSH访问交换机，通过ping成功验证访问成功。</p>
+<h4 id="22-实验过程及结果截图">2.2 实验过程及结果截图</h4>
+<h5 id="221-网络模拟图">2.2.1 网络模拟图</h5>
+<p><img src="media/15884032733582/image4.png" alt="image"></p>
+<p>网络拓扑图也很简单，通过网线直接与交换机连接即可。</p>
+<h5 id="222-网络配置过程">2.2.2 网络配置过程</h5>
+<p>①设置交换机的VLAN，配置IP地址（192.168.1.10/24）</p>
+<p><img src="media/15884032733582/image5.png" alt="image"></p>
+<p>②配置交换机的ssh访问（telnet同）</p>
+<p><img src="media/15884032733582/image6.png" alt="image"></p>
+<p>③给PC分配静态IP地址（192.168.1.11/24）并设置任意网关</p>
+<p><img src="media/15884032733582/image7.png" alt="image"></p>
+<p>④通过PC端CMD的ping命令验证访问成功</p>
+<p><img src="media/15884032733582/image8.png" alt="image"></p>
+<p>⑤通过ssh访问交换机（telnet同）</p>
+<p><img src="media/15884032733582/image9.png" alt="image"></p>
+<h3 id="实验3通过终端服务器访问交换机">实验3：通过终端服务器访问交换机</h3>
+<h4 id="31-实验说明">3.1 实验说明</h4>
+<p>设计网络架构，包含一台PC通过console线连接一台终端管理服务器，终端服务器通过Console线分别连接4台路由器和4台交换机，进行相关配置以及调用命令，使PC通过终端管理服务器访问路由器和交换机，通过telnet成功验证访问成功。</p>
+<h4 id="32-实验过程及结果截图">3.2 实验过程及结果截图</h4>
+<h5 id="321-网络模拟图">3.2.1 网络模拟图</h5>
+<p><img src="media/15884032733582/image10.png" alt="image"></p>
+<p>1. 先为1941路由器配置HWIC-8A模块，并用octal线分别与四个交换机和四个路由器的console口相连。</p>
+<p>2. 添加PC，并用console线与路由器（终端管理服务器）直连。</p>
+<h5 id="322-网络配置过程">3.2.2 网络配置过程</h5>
+<p>1. 配置终端服务器</p>
+<p><img src="media/15884032733582/image11.png" alt="image"></p>
+<p>首先给回环interface分配IP</p>
+<p><img src="media/15884032733582/image12.png" alt="image"></p>
+<p>设置用户名和密码</p>
+<p><img src="media/15884032733582/image13.png" alt="image"></p>
+<p>通过show line查看line number</p>
+<p><img src="media/15884032733582/image14.png" alt="image"></p>
+<p>配置line的telnet服务</p>
+<p><img src="media/15884032733582/image15.png" alt="image"></p>
+<p><img src="media/15884032733582/image16.png" alt="image"></p>
+<p>通过show line查看有关信息</p>
+<p>2. 在PC上通过终端服务器管理交换机</p>
+<p><img src="media/15884032733582/image17.png" alt="image"></p>
+<p>通过terminal成功登入终端服务器，并用telnet命令连接上了switch，即line
+number为3的交换机。</p>
+<p>同理，需要登录其他设备只需要telnet 10.0.0.1 2000+line number就可以了。</p>
+<h3 id="实验4交换机基本配置">实验4：交换机基本配置</h3>
+<h4 id="41-实验说明">4.1 实验说明</h4>
+<p>设计一台PC和一台交换机连接的网络架构，连接方式根据第一次的实验结果自行选择，配置交换机主机名、IP地址、登录口令、保存配置、查看配置信息等。</p>
+<h4 id="42-实验过程及结果截图">4.2 实验过程及结果截图</h4>
+<h5 id="421-网络模拟图">4.2.1 网络模拟图</h5>
+<p><img src="media/15884032733582/image18.png" alt="image"></p>
+<p>连接直接用PC和交换机用网线相连即可，与实验二类似。</p>
+<h5 id="422-网络配置过程">4.2.2 网络配置过程</h5>
+<p>1. 配置交换机VLAN，分配IP：192，168.0.3</p>
+<p><img src="media/15884032733582/image19.png" alt="image"></p>
+<p>2. 通过ping命令验证IP配置成功</p>
+<p><img src="media/15884032733582/image20.png" alt="image"></p>
+<p>3. 接着配置SSH</p>
+<p><img src="media/15884032733582/image21.png" alt="image"></p>
+<p>4. 接着再配置PC的IP地址</p>
+<p><img src="media/15884032733582/image22.png" alt="image"></p>
+<p>5. 使用ping命令验证PC能够访问交换机</p>
+<p><img src="media/15884032733582/image23.png" alt="image"></p>
+<p>6. 给交换机配置用户密码以便登入</p>
+<p><img src="media/15884032733582/image24.png" alt="image"></p>
+<p>7. 通过SSH成功登入交换机</p>
+<p><img src="media/15884032733582/image25.png" alt="image"></p>
+<p>8. 通过SSH编辑交换机配置并保存</p>
+<p><img src="media/15884032733582/image26.png" alt="image"></p>
+<p>（通过conf t命令即可进入编辑交换机配置）</p>
+<h3 id="实验5交换机基本配置">实验5：交换机基本配置</h3>
+<h4 id="51-实验说明">5.1 实验说明</h4>
+<p>设计一台PC、一台交换机和一台FTP服务器连接的网络架构，连接方式采用FTP，用FTP协议在设备之间传输文件。</p>
+<p>实验内容：交换机基本配置、FTP服务器配置、测试设备之间连通性、查看交换机配置文件、备份交换机配置文件到FTP服务器；删除交换机上的配置文件、从FTP服务器恢复交换机的配置文件等。</p>
+<h4 id="52-实验过程及结果截图">5.2 实验过程及结果截图</h4>
+<h5 id="521-网络模拟图">5.2.1 网络模拟图</h5>
+<p><img src="media/15884032733582/image27.png" alt="image"></p>
+<p>连接很简单，用网线分别将服务器，PC，交换机如上图所示相连即可</p>
+<h5 id="522-网络配置过程">5.2.2 网络配置过程</h5>
+<p>1. 首先给服务器和PC分配IP地址信息</p>
+<p><img src="media/15884032733582/image28.png" alt="image"></p>
+<p>服务器分配的IP是192.168.0.5，同时作为网关</p>
+<p><img src="media/15884032733582/image29.png" alt="image"></p>
+<p>PC分配IP为192.168.0.7</p>
+<p>2. 通过ping验证联通性</p>
+<p><img src="media/15884032733582/image30.png" alt="image"></p>
+<p>可见PC与服务器之间的联通性没问题</p>
+<p>3. 接着配置服务器的FTP服务</p>
+<p><img src="media/15884032733582/image31.png" alt="image"></p>
+<p>这里FTP账户的用户名是admin，密码为test</p>
+<p>4. 接着配置交换机上的Telnet以便PC进行操作</p>
+<p><img src="media/15884032733582/image32.png" alt="image"></p>
+<p>配置过程与之前的实验相似，最终如上图。</p>
+<p><img src="media/15884032733582/image33.png" alt="image"></p>
+<p>PC已经成功通过Telnet访问交换机</p>
+<p>5. 交换机配置文件查看</p>
+<p><img src="media/15884032733582/image34.png" alt="image"></p>
+<p>通过show run命令可以查看当前的run-config</p>
+<p>6. 将交换机上的配置文件备份到FTP服务器上</p>
+<p><img src="media/15884032733582/image35.png" alt="image"></p>
+<p>首先要配置交换机的ftp用户名与密码，配置如上图</p>
+<p><img src="media/15884032733582/image36.png" alt="image"></p>
+<p>接着将配置文件拷贝到FTP服务器，如上图，已成功写入</p>
+<p><img src="media/15884032733582/image37.png" alt="image"></p>
+<p>在FTP服务器界面上也能看到刚备份写入的config.txt文件</p>
+<p>7. 从FTP服务器上恢复交换机上的配置文件</p>
+<p><img src="media/15884032733582/image38.png" alt="image"></p>
+<p>从FTP服务器copy回配置文件，然后reload即可，如上图所示（其他配置文件如startup-config，flash等的备份也与以上相同）</p>
+<p><img src="media/15884032733582/image39.png" alt="image"></p>
+<p>通过show run可见，还原的交换机配置文件前后一致。</p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+<span class="separator"><a class="category" href="/categories/cisco-packet-tracer/">Cisco Packet Tracer</a></span>
+
+        
+    <span class="separator"><a class="tag" href="/tags/cisco-packet-tracer/">Cisco Packet Tracer</a></span>
+
+      </div>
+    </div>
+
+    
+    <div id="fb_comments_container">
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "12x" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>       
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/js/jquery-appear.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-165340490-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</html></body>
+
+</html>

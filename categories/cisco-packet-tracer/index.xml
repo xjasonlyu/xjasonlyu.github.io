@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cisco Packet Tracer on Jason&#39;s Blog</title>
+    <link>/categories/cisco-packet-tracer/</link>
+    <description>Recent content in Cisco Packet Tracer on Jason&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 14 Mar 2020 14:45:04 +0800</lastBuildDate>
+    
+	<atom:link href="/categories/cisco-packet-tracer/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Cisco Packet Tracer Basic</title>
+      <link>/post/cisco-packet-tracer-basic/</link>
+      <pubDate>Sat, 14 Mar 2020 14:45:04 +0800</pubDate>
+      
+      <guid>/post/cisco-packet-tracer-basic/</guid>
+      <description>实验1：通过Console访问交换机 1.1 实验说明 设计一台PC和一台交换机网络架构，进行相关配置以及调用命令，使PC通过Console线访问交换机，通过login成功验证访问成功。
+1.2 实验过程及结果截图 1.2.1 网络模拟图 网络拓扑图很简单，用console线连接switch和PC即可。
+1.2.2 网络配置过程 ①点击PC的Desktop选项，选择Terminal即可</description>
+    </item>
+    
+  </channel>
+</rss>
