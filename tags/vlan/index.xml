@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cisco Packet Tracer on Jason&#39;s Blog</title>
-    <link>/categories/cisco-packet-tracer/</link>
-    <description>Recent content in Cisco Packet Tracer on Jason&#39;s Blog</description>
+    <title>VLAN on Jason&#39;s Blog</title>
+    <link>/tags/vlan/</link>
+    <description>Recent content in VLAN on Jason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 01 Apr 2020 14:45:04 +0800</lastBuildDate>
     
-	<atom:link href="/categories/cisco-packet-tracer/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/vlan/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,17 +19,6 @@
       <guid>/post/cisco-packet-tracer-vlan/</guid>
       <description>实验1：单交换机VLAN配置 1.1 实验说明 应用场景：某公司A只有十二名员工，分布到三个部门，分别为财务部（Finance）、市场部（Marketing）和生产部（Production），所有员工的PC（PC1-PC12）连接到一台Cisco 2960交换机上，为确保数据传输的安全性，现在将工作部门划分为三个VLAN，对应于三个工作部门，VLAN规划如下表：
    VLAN ID VLAN名称 端口分配 内网地址 备注     VLAN 10 Finance Fa0/1~4 192.</description>
-    </item>
-    
-    <item>
-      <title>Cisco Packet Tracer Basic</title>
-      <link>/post/cisco-packet-tracer-basic/</link>
-      <pubDate>Sat, 14 Mar 2020 14:45:04 +0800</pubDate>
-      
-      <guid>/post/cisco-packet-tracer-basic/</guid>
-      <description>实验1：通过Console访问交换机 1.1 实验说明 设计一台PC和一台交换机网络架构，进行相关配置以及调用命令，使PC通过Console线访问交换机，通过login成功验证访问成功。
-1.2 实验过程及结果截图 1.2.1 网络模拟图 网络拓扑图很简单，用console线连接switch和PC即可。
-1.2.2 网络配置过程 ①点击PC的Desktop选项，选择Terminal即可</description>
     </item>
     
   </channel>

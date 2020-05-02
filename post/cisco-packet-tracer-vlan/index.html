@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <title> xᴊᴀsᴏɴʟʏᴜ | Cisco Packet Tracer VLAN </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.69.2" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="var ID = rand(0, 1) ? 12x : xjasonlyu">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <base href="/">
+    
+    <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+
+    <link rel="canonical" href="/post/cisco-packet-tracer-vlan/">
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/images/profile.jpg" alt="profile picture" style="width:127px;border-radius: 50%;">
+        <h3 title=""><a href="/">I&#39;m Jason Lyu</a></h3>
+        <div class="description">
+          <p>var ID = rand(0, 1) ? 12x : xjasonlyu</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <a href="https://twitter.com/xjasonlyu" rel="me" >
+          <i class="fa fa-twitter" aria-hidden="true" title="Twitter"></i>
+        </a>
+        
+        <a href="https://github.com/xjasonlyu" rel="me" >
+          <i class="fa fa-github" aria-hidden="true" title="GitHub"></i>
+        </a>
+        
+        <a href="mailto:this@12x.me" rel="me" >
+          <i class="fa fa-envelope" aria-hidden="true" title="e-mail"></i>
+        </a>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; xᴊᴀsᴏɴʟʏᴜ 2020 </div>
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <div class="nav">
+        
+        
+        <li><a  href="/" title="">Home</a></li>
+
+        
+        <li><a  href="/post/" title="">Posts</a></li>
+
+        
+        <li><a  href="/about/" title="About">About</a></li>
+
+        
+    </div>
+</div>
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Cisco Packet Tracer VLAN
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i><span class="date">Wed, Apr 1, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">2-minute read</span>
+        </div>
+        
+        </div>
+
+    <h3 id="实验1单交换机vlan配置">实验1：单交换机VLAN配置</h3>
+<h4 id="11-实验说明">1.1 实验说明</h4>
+<p>应用场景：某公司A只有十二名员工，分布到三个部门，分别为财务部（Finance）、市场部（Marketing）和生产部（Production），所有员工的PC（PC1-PC12）连接到一台Cisco
+2960交换机上，为确保数据传输的安全性，现在将工作部门划分为三个VLAN，对应于三个工作部门，VLAN规划如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">VLAN ID</th>
+<th align="center">VLAN名称</th>
+<th>端口分配</th>
+<th>内网地址</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">VLAN 10</td>
+<td align="center">Finance</td>
+<td>Fa0/1~4</td>
+<td>192.168.0.0/24</td>
+<td>财务部</td>
+</tr>
+<tr>
+<td align="center">VLAN 20</td>
+<td align="center">Marketing</td>
+<td>Fa0/5~8</td>
+<td>192.168.1.0/24</td>
+<td>市场部</td>
+</tr>
+<tr>
+<td align="center">VLAN 30</td>
+<td align="center">Production</td>
+<td>Fa0/6~12</td>
+<td>192.168.2.0/24</td>
+<td>生产部</td>
+</tr>
+</tbody>
+</table>
+<p>任务要求：</p>
+<p>（1）创建VLAN；</p>
+<p>（2）添加成员；</p>
+<p>（3）查看VLAN信息；</p>
+<p>（4）配置PC的IP地址，测试网络连通性：同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信。</p>
+<h4 id="12-实验过程及结果截图">1.2 实验过程及结果截图</h4>
+<h5 id="121-网络模拟图">1.2.1 网络模拟图</h5>
+<p><img src="media/15884051009382/image1.png" alt="image"></p>
+<p>划分好区域，直接连接即可</p>
+<h5 id="122-网络配置过程">1.2.2 网络配置过程</h5>
+<p>1）创建VLAN：首先设置VLAN ID，然后命名，如图</p>
+<p><img src="media/15884051009382/image2.png" alt="image"></p>
+<p>2）添加成员：给交换机端口分配VLAN，先用interface命令选择交换机端口，再用switchport access vlan 命令分配vlan号。</p>
+<p><img src="media/15884051009382/image3.png" alt="image"></p>
+<p><img src="media/15884051009382/image4.png" alt="image"></p>
+<p>3）查看VLAN信息：使用 show vlan brief
+命令查看分配好的vlan，可见己经将fa0/1-4，fa0/5-8，fa0/9-12端口分别分配给了finance（VLAN10），marketing（VLAN 20），production（VLAN30）。</p>
+<p><img src="media/15884051009382/image5.png" alt="image"></p>
+<p>4）配置PC的IP地址，如图的PC0和PC1所示，分别给VLAN
+10中的PC分配192.168.0.10/24至192.168.0.13/24的IP，VLAN
+20中的PC分配192.168.1.10/24至192.168.1.13/24的IP，VLAN
+30的PC分配192.168.2.10/24至192.168.2.13/24的IP。#### 注：PC0-PC11</p>
+<p><img src="media/15884051009382/image7.png" alt="image"></p>
+<p>5）测试网络连通性：同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信。</p>
+<p><img src="media/15884051009382/image9.png" alt="image"></p>
+<p>如上图可见：</p>
+<p>在PC0中通过ping命令可以ping通PC1，却无法ping通PC5</p>
+<p>在PC4中通过ping命令可以ping通PC5，却无法ping通PC0</p>
+<p><img src="media/15884051009382/image10.png" alt="image"></p>
+<p><img src="media/15884051009382/image11.png" alt="image"></p>
+<p>接着通过简单PDU测试，也能很明显的看出同一VLAN下可以通信，而不同VLAN下无法通信，测试成功。</p>
+<h3 id="实验2-跨交换机vlan配置">实验2： 跨交换机VLAN配置</h3>
+<h4 id="21-实验说明">2.1 实验说明</h4>
+<p>应用场景：某公司只有十二名员工，分布到三个部门，分别为财务部（Finance）、市场部（Marketing）和生产部（Production），部分员工的PC（PC1-PC6）连接到一台Cisco 2960交换机上，另一些员工的PC（PC7-PC12）连接到另一台Cisco 2960交换机上，两台交换机级联在一起。为确保数据传输的安全性，现在将工作部门划分为三个VLAN，对应于三个工作部门，VLAN规划如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">VLAN ID</th>
+<th align="center">VLAN名称</th>
+<th>端口分配</th>
+<th>内网地址</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">VLAN 10</td>
+<td align="center">Finance</td>
+<td>SW1:Fa0/1~4</td>
+<td>192.168.0.0/24</td>
+<td>财务部</td>
+</tr>
+<tr>
+<td align="center">VLAN 20</td>
+<td align="center">Marketing</td>
+<td>SW1:Fa0/5~6,G0/1 SW2:Fa0/5~6,G0/1</td>
+<td>192.168.1.0/24</td>
+<td>市场部</td>
+</tr>
+<tr>
+<td align="center">VLAN 30</td>
+<td align="center">Production</td>
+<td>SW2:Fa0/1~4</td>
+<td>192.168.2.0/24</td>
+<td>生产部</td>
+</tr>
+</tbody>
+</table>
+<p>任务要求：</p>
+<p>（1）在两台交换机上创建VLAN 10、VLAN 20、VLAN 30，并添加成员；</p>
+<p>（2）查看VLAN 10、VLAN 20、VLAN 30信息；</p>
+<p>（3）配置PC的IP地址，测试网络连通性：同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信。</p>
+<h4 id="22-实验过程及结果截图">2.2 实验过程及结果截图</h4>
+<h5 id="221-网络模拟图">2.2.1 网络模拟图</h5>
+<p><img src="media/15884051009382/image12.png" alt="image"></p>
+<p>网络拓扑图如上所示，使用12条copper straight-through线连接PC与交换机，再用copper crossover线连接两台交换机</p>
+<h5 id="222-网络配置过程">2.2.2 网络配置过程</h5>
+<p>1）在两台交换机上创建VLAN 10、VLAN 20、VLAN 30</p>
+<p>创建VLAN并命名</p>
+<p>SW1:</p>
+<p><img src="media/15884051009382/image13.png" alt="image"></p>
+<p>SW2:</p>
+<p><img src="media/15884051009382/image14.png" alt="image"></p>
+<p>2）添加成员</p>
+<p>SW1:</p>
+<p><img src="media/15884051009382/image15.png" alt="image"></p>
+<p>SW2:</p>
+<p><img src="media/15884051009382/image16.png" alt="image"></p>
+<p>3）交换机互联</p>
+<p>为交换机的互联端口做trunk</p>
+<p>SW1:</p>
+<p><img src="media/15884051009382/image17.png" alt="image"></p>
+<p>SW2:</p>
+<p><img src="media/15884051009382/image18.png" alt="image"></p>
+<p>4）查看VLAN 10、VLAN 20、VLAN 30信息</p>
+<p>SW1:</p>
+<p><img src="media/15884051009382/image19.png" alt="image"></p>
+<p>SW2:</p>
+<p><img src="media/15884051009382/image20.png" alt="image"></p>
+<p>如上图，PC与交换机之间的vlan已经按要求分配完毕</p>
+<p>5）配置PC的IP地址，</p>
+<p><img src="media/15884051009382/image22.png" alt="image"></p>
+<p><img src="media/15884051009382/image24.png" alt="image"></p>
+<p>如上图所示，分别为所有PC分配自己所在VLAN的IP地址</p>
+<p>6）测试网络连通性：同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信。</p>
+<p>先以PC5为例在终端用ping做通信测试</p>
+<p><img src="media/15884051009382/image26.png" alt="image"></p>
+<p>由上图可见</p>
+<p>PC5与同VLAN下的PC6，PC7（跨交换机VLAN），可以通信</p>
+<p>PC5与不同VLAN下的PC1，PC9均不可以通信</p>
+<p>接着再用PDU做连通性测试</p>
+<p><img src="media/15884051009382/image27.png" alt="image"></p>
+<p><img src="media/15884051009382/image28.png" alt="image"></p>
+<p><img src="media/15884051009382/image29.png" alt="image"></p>
+<p><img src="media/15884051009382/image30.png" alt="image"></p>
+<p>很明显可以看出，同一VLAN下的PC可以跨交换机通信，不同VLAN下的PC始终无法通信，测试成功。</p>
+<h3 id="实验3vtp配置">实验3：VTP配置</h3>
+<p>基础知识</p>
+<p>（1）VTP域的规划条件：</p>
+<p>Ø 交换机之间通过Trunk互联</p>
+<p>Ø 相同域内交换机域名必须相同</p>
+<p>Ø 交换机必须相邻，即相邻交换机需要有相同域名</p>
+<p>（2）VTP域中交换机的角色：</p>
+<p>Ø 服务器模式（Server）：提供VTP消息，包括VLAN
+ID和名字信息；学习相同域名的VTP消息；转发相同域名的VTP消息；可以添加、删除和更改VLAN，把VLAN信息写入数据库文件；能产生VTP通告，能学习和转发VTP通告。</p>
+<p>Ø
+客户机模式（Client）：请求VTP消息，学习相同域名的VTP通告消息，转发相同域名的VTP通告消息不可以添加、删除和更改VLAN，不会更新数据信息；</p>
+<p>Ø
+透明模式（Transparent）：不提供VTP消息，不学习VTP通告消息，转发VTP通告消息，可以添加、删除和更改VLAN，只在本地有效
+VLAN信息写入数据库。</p>
+<h4 id="31-实验说明">3.1 实验说明</h4>
+<p>某公司采用网上店铺和实体销售双向并行销售模式，业务量剧增。目前，财务部、市场部、生产部和客服部4个部门的员工正面临大调整，财务部的部分人员分别调入市场部和客服部，办公地点也进行了很大变动，每个部门分散到3个楼层工作，但不变的是同部门之间还像往常一样通过公司内容协同工作，部门之间依然实现安全隔离。现在公司为每个部门都配备了一台专用服务器，要求几种托管。</p>
+<p>任务要求是重新规划原网络，网络拓扑如下：</p>
+<p><img src="media/15884051009382/image31.png" alt="image"></p>
+<p>网络规划如下：</p>
+<p><img src="media/15884051009382/image32.png" alt="image"></p>
+<p>任务要求：采用VTP技术实现VLAN的配置，具体包括：</p>
+<p>（1）在3个交换机上配置Trunk:</p>
+<p>（2）在3个交换机上配置VTP：配置交换机SW1为VTP服务器模式，其他交换机为客户机模式；</p>
+<p>（3）在服务器上创建VLAN，添加VLAN成员；</p>
+<p>（4）检查在VTP客户机上是否存在VLAN信息；</p>
+<p>（5）配置DHCP服务器，为VLAN主机自动分配地址；</p>
+<p>（6）测试连通性：同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信。</p>
+<h4 id="32-实验过程及结果截图">3.2 实验过程及结果截图</h4>
+<h5 id="321-网络模拟图">3.2.1 网络模拟图</h5>
+<p><img src="media/15884051009382/image33.png" alt="image"></p>
+<p>按照任务要求连接好交换机与PC、Server，网络拓扑图如上图所示</p>
+<h5 id="322-网络配置过程">3.2.2 网络配置过程</h5>
+<p>1）在3个交换机上配置Trunk</p>
+<p>SW1在G0/1端口设置Trunk：</p>
+<p><img src="media/15884051009382/image34.png" alt="image"></p>
+<p>SW2在G0/1，G0/2端口设置Trunk：</p>
+<p><img src="media/15884051009382/image35.png" alt="image"></p>
+<p>SW3在G0/2端口设置Trunk：</p>
+<p><img src="media/15884051009382/image36.png" alt="image"></p>
+<p>2）在3个交换机上配置VTP：配置交换机SW1为VTP服务器模式，其他交换机为客户机模式；</p>
+<p>可以使用以下命令配置VTP</p>
+<ul>
+<li>
+<p>vtp mode server/client</p>
+</li>
+<li>
+<p>vtp domain example.com</p>
+</li>
+<li>
+<p>vtp password test</p>
+</li>
+</ul>
+<p>SW1配置VTP服务器模式：</p>
+<p><img src="media/15884051009382/image37.png" alt="image"></p>
+<p>SW2配置VTP客户机模式：</p>
+<p><img src="media/15884051009382/image38.png" alt="image"></p>
+<p>SW3配置VTP客户机模式：</p>
+<p><img src="media/15884051009382/image39.png" alt="image"></p>
+<p>3）在服务器上创建VLAN，添加VLAN成员；</p>
+<p>首先在SW1（VTP服务器）上创建VLAN</p>
+<p><img src="media/15884051009382/image40.png" alt="image"></p>
+<p>在客户机上检查VLAN是否存在</p>
+<p><img src="media/15884051009382/image41.png" alt="image"></p>
+<p>可见，在SW2上VLAN信息已经存在了</p>
+<p>接着添加VLAN成员</p>
+<p>为了方便起见，先把命令写好，直接在CLI界面粘贴上去就行了</p>
+<ul>
+<li>
+<p>int range fa0/1-2</p>
+</li>
+<li>
+<p>sw m a</p>
+</li>
+<li>
+<p>sw a vl 10</p>
+</li>
+<li>
+<p>int range fa0/3-11</p>
+</li>
+<li>
+<p>sw m a</p>
+</li>
+<li>
+<p>sw a vl 20</p>
+</li>
+<li>
+<p>int range fa0/12-20</p>
+</li>
+<li>
+<p>sw m a</p>
+</li>
+<li>
+<p>sw a vl 30</p>
+</li>
+<li>
+<p>int range fa0/21-24</p>
+</li>
+<li>
+<p>sw m a</p>
+</li>
+<li>
+<p>sw a vl 40</p>
+</li>
+<li>
+<p>end</p>
+</li>
+</ul>
+<p>SW1:</p>
+<p><img src="media/15884051009382/image42.png" alt="image"></p>
+<p>SW2:</p>
+<p><img src="media/15884051009382/image43.png" alt="image"></p>
+<p>SW3:</p>
+<p><img src="media/15884051009382/image44.png" alt="image"></p>
+<p>4）检查在VTP客户机上是否存在VLAN信息；</p>
+<p>在SW2，SW3上使用show vlan brief查看vlan信息</p>
+<p><img src="media/15884051009382/image45.png" alt="image"></p>
+<p>可见各交换机上的vlan已经配置完成了</p>
+<p>5）配置DHCP服务器，为VLAN主机自动分配地址；</p>
+<p>首先配置VLAN的IP</p>
+<p><img src="media/15884051009382/image46.png" alt="image"></p>
+<p>接着配置每一个VLAN内Server的DHCP服务（这里以VLAN 10为例）</p>
+<p>a）给服务器分配静态IP地址</p>
+<p><img src="media/15884051009382/image47.png" alt="image"></p>
+<p>b）开启DHCP服务，配置地址池</p>
+<p><img src="media/15884051009382/image48.png" alt="image"></p>
+<p>c）在PC上启用DHCP</p>
+<p><img src="media/15884051009382/image49.png" alt="image"></p>
+<p>重复以上步骤，配置完所有的Server以及PC</p>
+<p>6）测试连通性</p>
+<p>使用简单PDU测试连通性</p>
+<p><img src="media/15884051009382/image50.png" alt="image"></p>
+<p>可见，同一个VLAN内PC之间可以通信，不同VLAN内PC之间不可通信，测试成功。</p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+<span class="separator"><a class="category" href="/categories/cisco-packet-tracer/">Cisco Packet Tracer</a></span>
+
+        
+    <span class="separator"><a class="tag" href="/tags/cisco-packet-tracer/">Cisco Packet Tracer</a><a class="tag" href="/tags/vlan/">VLAN</a></span>
+
+      </div>
+    </div>
+
+    
+    <div id="fb_comments_container">
+      <h2>Comments</h2>
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "12x" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>       
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="/js/jquery-appear.min.js"></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-165340490-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+</html></body>
+
+</html>

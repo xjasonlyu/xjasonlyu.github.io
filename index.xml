@@ -32,6 +32,16 @@ End 因为这些学校项目/作业时间不一&amp;amp;能力有限，必有错
     </item>
     
     <item>
+      <title>Cisco Packet Tracer VLAN</title>
+      <link>/post/cisco-packet-tracer-vlan/</link>
+      <pubDate>Wed, 01 Apr 2020 14:45:04 +0800</pubDate>
+      
+      <guid>/post/cisco-packet-tracer-vlan/</guid>
+      <description>实验1：单交换机VLAN配置 1.1 实验说明 应用场景：某公司A只有十二名员工，分布到三个部门，分别为财务部（Finance）、市场部（Marketing）和生产部（Production），所有员工的PC（PC1-PC12）连接到一台Cisco 2960交换机上，为确保数据传输的安全性，现在将工作部门划分为三个VLAN，对应于三个工作部门，VLAN规划如下表：
+   VLAN ID VLAN名称 端口分配 内网地址 备注     VLAN 10 Finance Fa0/1~4 192.</description>
+    </item>
+    
+    <item>
       <title>Cisco Packet Tracer Basic</title>
       <link>/post/cisco-packet-tracer-basic/</link>
       <pubDate>Sat, 14 Mar 2020 14:45:04 +0800</pubDate>
