@@ -93,33 +93,33 @@
         </div>
 
     <h3 id="hgame-week1-writeup">Hgame Week1 Writeup</h3>
-<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<p><img src="/media/15792383134168/logo.png" alt="logo"></p>
 <h4 id="0x00-web">0x00 Web</h4>
 <h5 id="cosmos-的博客">Cosmos 的博客</h5>
 <p>既然是 Github+版本管理工具，那么就想到<code>.git</code>目录了，<code>/.git/config</code>进去如下图
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.20.13%20PM.png" alt="Screen Shot 2020-01-17 at 1.20.13 Π">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%201.20.13%20PM.png" alt="Screen Shot 2020-01-17 at 1.20.13 Π">
 找到了项目的GitHub地址，然后找commit，找到了这个
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%201.22.34%20PM.png" alt="Screen Shot 2020-01-17 at 1.22.34 Π">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%201.22.34%20PM.png" alt="Screen Shot 2020-01-17 at 1.22.34 Π">
 base64解码后拿到flag</p>
 <h5 id="接-头-霸-王">接 头 霸 王</h5>
 <p>呃，反正就是跟着提示一步一步伪造HTTP请求头呗，
 直接拿Burp上了，然后拿到flag。
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.12.36%20PM.png" alt="Screen Shot 2020-01-17 at 2.12.36 P"></p>
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%202.12.36%20PM.png" alt="Screen Shot 2020-01-17 at 2.12.36 P"></p>
 <h5 id="code-world">Code World</h5>
 <p>这道题有一点点迷，打开网页403，抓包看到<code>Location</code>跳转。。
 不管/new.php，因为看上去没啥用。。
 回到/
 HTTP状态码302，但是html是405。。
 想来想去不知道干嘛，乱试了几下，用了HEAD，PUT，POST后发现POST有东西。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.29.48%20PM.png" alt="Screen Shot 2020-01-17 at 2.29.48 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%202.29.48%20PM.png" alt="Screen Shot 2020-01-17 at 2.29.48 P">
 然后根据提示POST，把<code>+</code>用url编码成<code>%2B</code>然后提交，flag就出来了。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%202.33.17%20PM.png" alt="Screen Shot 2020-01-17 at 2.33.17 P"></p>
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%202.33.17%20PM.png" alt="Screen Shot 2020-01-17 at 2.33.17 P"></p>
 <h5 id="尼泰玫">🐔尼泰玫</h5>
 <p>打了一关，提示要30000分以上，然后F12，Network，发现有submit
 那么就<code>Edit and Resend</code>好了。
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.06.14%20PM.png" alt="Screen Shot 2020-01-17 at 3.06.14 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%203.06.14%20PM.png" alt="Screen Shot 2020-01-17 at 3.06.14 P">
 改成了35000分，双击拿到flag。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%203.07.25%20PM.png" alt="Screen Shot 2020-01-17 at 3.07.25 P"></p>
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%203.07.25%20PM.png" alt="Screen Shot 2020-01-17 at 3.07.25 P"></p>
 <h6 id="week1-web-ak">Week1 Web AK</h6>
 <h4 id="0x01-reverse">0x01 Reverse</h4>
 <h5 id="maze-迷宫">Maze 迷宫</h5>
@@ -348,16 +348,16 @@ j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
         <span style="color:#66d9ef">print</span>()
 <span style="color:#66d9ef">print</span>()
 </code></pre></div><p>经过一通莫得感情的debug之后写完了，运行出了这个
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%203.26.58%20PM.png" alt="Screen Shot 2020-01-18 at 3.26.58 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%203.26.58%20PM.png" alt="Screen Shot 2020-01-18 at 3.26.58 P">
 然后跟着无脑走就行了。。
 输入<code>ssssddddddsssssddwwdddssssdssdd</code>就拿到了flag。</p>
 <h5 id="bitwise_operation2">bitwise_operation2</h5>
 <p>这题真的做了我好久。。不算难但是真的好复杂。。。
 先拖ida，F5看源码。
 主函数体
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.28.24%20PM.png" alt="Screen Shot 2020-01-18 at 10.28.24 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.28.24%20PM.png" alt="Screen Shot 2020-01-18 at 10.28.24 P">
 另一个函数
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%205.55.43%20PM.png" alt="Screen Shot 2020-01-18 at 5.55.43 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%205.55.43%20PM.png" alt="Screen Shot 2020-01-18 at 5.55.43 P">
 这里两个函数，main和那个sub_400616，是主要的逻辑块，
 我写成了python，方便调试</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sub_400616</span>(a1, a2):
@@ -415,16 +415,16 @@ byte_602060 <span style="color:#f92672">=</span> <span style="color:#e6db74">b</
             exit(<span style="color:#ae81ff">0</span>);
 </code></pre></div><p>然后倒推出每一阶段的v14，v16的值，一步步推一步步推。。
 主要是耐心，，我基本推到后面人快傻了一步算错就错了，，最后终于算出来了。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.34.51%20PM.png" alt="Screen Shot 2020-01-18 at 10.34.51 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%2010.34.51%20PM.png" alt="Screen Shot 2020-01-18 at 10.34.51 P">
 Done！</p>
 <h5 id="advance">advance</h5>
 <p>ida打开，刷一波函数，找到三个重要的函数
 主函数
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.52%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.52 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.52%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.52 P">
 我也不知道叫什么的函数
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.07.42%20PM.png" alt="Screen Shot 2020-01-19 at 5.07.42 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%205.07.42%20PM.png" alt="Screen Shot 2020-01-19 at 5.07.42 P">
 和编码函数
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.08%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.08 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%205.06.08%20PM.png" alt="Screen Shot 2020-01-19 at 5.06.08 P">
 研究了半天，，略感复杂，但是最后对比的<code>0g371wvVy9qPztz7xQ+PxNuKxQv74B/5n/zwuPfX</code>字符串有点眼熟，base64可以解，但是乱码。
 想到<code>aAbcdefghijklmn</code>这个变量，是个字符串，像是base64的变种。。可能就是顺序换了下。
 网上找了一份c的base64源码对比了一下发现惊人的相似，于是拿网上正常的base64用python码了个，换个循序就行了</p>
@@ -674,9 +674,9 @@ v17 <span style="color:#f92672">=</span> [
 <h4 id="0x02-pwn">0x02 Pwn</h4>
 <h5 id="hard_aaaaa">Hard_AAAAA</h5>
 <p>拖进ida，F5
-<img src="media/15792383134168/%E5%9B%BE%E7%89%873.png" alt="图片3">
+<img src="/media/15792383134168/%E5%9B%BE%E7%89%873.png" alt="图片3">
 找到s和v5之间的距离，然后看memcpy条件
-<img src="media/15792383134168/%E5%9B%BE%E7%89%872.png" alt="图片2">
+<img src="/media/15792383134168/%E5%9B%BE%E7%89%872.png" alt="图片2">
 再写exp</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 context(arch <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;i386&#39;</span>, os <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;linux&#39;</span>)
@@ -685,7 +685,7 @@ sh<span style="color:#f92672">.</span>send((<span style="color:#ae81ff">0xac</sp
 sh<span style="color:#f92672">.</span>interactive()
 sh<span style="color:#f92672">.</span>close()
 </code></pre></div><p>getshell，然后cat拿到flag
-<img src="media/15792383134168/%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
+<img src="/media/15792383134168/%E5%9B%BE%E7%89%871.png" alt="图片1"></p>
 <h5 id="number_killer">Number_Killer</h5>
 <p>栈溢出然后执行shellcode的事情，因为刚学所以也做了挺久的。
 ida打开研究，发现程序是把每一行输入的数字转换成long long保存在栈上。
@@ -711,13 +711,13 @@ p<span style="color:#f92672">.</span>recv()
 
 p<span style="color:#f92672">.</span>interactive()
 p<span style="color:#f92672">.</span>close()
-</code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-22%20at%2012.25.07%20AM.png" alt="Screen Shot 2020-01-22 at 12.25.07 A">
+</code></pre></div><p><img src="/media/15792383134168/Screen%20Shot%202020-01-22%20at%2012.25.07%20AM.png" alt="Screen Shot 2020-01-22 at 12.25.07 A">
 拿到flag</p>
 <h5 id="one_shot">One_Shot</h5>
 <p>拖ida打开
-<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%204.58.44%20PM.png" alt="Screen Shot 2020-01-20 at 4.58.44 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-20%20at%204.58.44%20PM.png" alt="Screen Shot 2020-01-20 at 4.58.44 P">
 可知flag一开始就被读到.bss那段内存上了，flag上面是name变量
-<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%205.01.37%20PM.png" alt="Screen Shot 2020-01-20 at 5.01.37 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-20%20at%205.01.37%20PM.png" alt="Screen Shot 2020-01-20 at 5.01.37 P">
 name和flag之间相差32，而<code>scanf(&quot;%32s&quot;, &amp;name)</code>最多读32个字符然后第33个字符就会被置零<code>\0</code>。
 再往下看发现会让输入一个整数（地址），然后<code>*v4 = 1</code>会把它置为一，这样printf就可把name和flag一起打印出来了。
 写脚本（其实手输也行）</p>
@@ -735,7 +735,7 @@ r <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span>recv
 <span style="color:#75715e">###p.interactive()</span>
 p<span style="color:#f92672">.</span>close()
 </code></pre></div><p>运行
-<img src="media/15792383134168/Screen%20Shot%202020-01-20%20at%205.09.46%20PM.png" alt="Screen Shot 2020-01-20 at 5.09.46 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-20%20at%205.09.46%20PM.png" alt="Screen Shot 2020-01-20 at 5.09.46 P">
 拿到flag</p>
 <h5 id="rop_level0">ROP_LEVEL0</h5>
 <p>学习了两天的ROP然后终于知道一点点操作了。。。
@@ -792,7 +792,7 @@ payload <span style="color:#f92672">+=</span> p64(SYSTEM)
 p<span style="color:#f92672">.</span>send(payload)
 p<span style="color:#f92672">.</span>interactive()
 p<span style="color:#f92672">.</span>close()
-</code></pre></div><p><img src="media/15792383134168/Screen%20Shot%202020-01-21%20at%206.24.42%20PM.png" alt="Screen Shot 2020-01-21 at 6.24.42 P">
+</code></pre></div><p><img src="/media/15792383134168/Screen%20Shot%202020-01-21%20at%206.24.42%20PM.png" alt="Screen Shot 2020-01-21 at 6.24.42 P">
 成功拿到shell。
 后续：后来问了出题人，，他说预期是先open再read然后puts，原来open的返回值是有规律的2333。。</p>
 <h6 id="week1-pwn-ak">Week1 Pwn AK</h6>
@@ -1109,14 +1109,14 @@ m <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span
 <h5 id="壁纸">壁纸</h5>
 <p>这题，开始解压zip包得到一张图
 <code>binwalk</code>一下
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.08.17%20PM.png" alt="Screen Shot 2020-01-17 at 7.08.17 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%207.08.17%20PM.png" alt="Screen Shot 2020-01-17 at 7.08.17 P">
 然后得知图里有图本身和一个有flag.txt加密了的压缩包
 压缩包提示<code>Password is picture ID</code>。
 然后就到了这题最坑的地方了，我先是天真试了一下图片名解压，不行，那我就Stegsolve打开分析。。然后看到里面有图片的xml一些段，其中有一串ID。。我以为找到了，试了一下发现不行。。。
 前前后后试图揣测出题人本意硬是熬了快一天，，最后顶不住去问出题人。。。
 结果提醒我去百度<code>Pixiv搜图</code>找ID。。嘤。。。终于找到了（二次元盲落泪）
 最后终于成功解压，flag.txt里是一串unicode码，丢py里拿到flag
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%207.07.04%20PM.png" alt="Screen Shot 2020-01-17 at 7.07.04 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%207.07.04%20PM.png" alt="Screen Shot 2020-01-17 at 7.07.04 P">
 （一点点吐槽，，这题跟unicode没多少关系啊呜呜呜）</p>
 <h5 id="克苏鲁神话">克苏鲁神话</h5>
 <p>解压得到一个加密压缩包和一个Bacon.txt，起初没想到怎么弄，后来查了一下古典密码才发现这是培根加密。
@@ -1167,7 +1167,7 @@ aababababbaaaaaaabbaaabbbabaaaaaabbaaabbaabaaabbababaaaabbabaaabbabbbaaaaba 75
 再研究了一下，发现压缩包里的也有Bacon.txt，和给的Bacon.txt有一样的CRC32校验值，那就zip明文攻击喽，同样的格式不带密码加密后丢进ARCHPR成功还原出不带密码压缩包。
 打开压缩包里的doc，提示密码，输入<code>FLAGHIDDENINDOC</code>，成功进入。
 瞄了一眼全是文字，没有flag，再去查了一下，原来还有隐藏文字选项，打开就找到了flag。
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.24.41%20AM.png" alt="Screen Shot 2020-01-19 at 11.24.41 A"></p>
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.24.41%20AM.png" alt="Screen Shot 2020-01-19 at 11.24.41 A"></p>
 <h5 id="签到题proplus">签到题ProPlus</h5>
 <p>先根据提示</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Rdjxfwxjfimkn z,ts wntzi xtjrwm xsfjt jm ywt rtntwhf f y   h jnsxf qjFjf jnb  rg fiyykwtbsnkm tm  xa jsdwqjfmkjy wlviHtqzqsGsffywjjyynf yssm xfjypnyihjn.
@@ -1177,24 +1177,24 @@ JRFVJYFZVRUAGMAI
 
 * Three fenses first, Five Caesar next. English sentense first,  zip password next.
 </code></pre></div><p>三位栅栏，五位凯撒，解出上面的原话
-<img src="media/15792383134168/Screen%20Shot%202020-01-17%20at%209.38.43%20PM.png" alt="Screen Shot 2020-01-17 at 9.38.43 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-17%20at%209.38.43%20PM.png" alt="Screen Shot 2020-01-17 at 9.38.43 P">
 然后这里卡了我好久，迷之卡。。刚开始我没看懂<code>English sentense first,  zip password next.</code>的意思。。后来发现就是把下面的那一串也三位栅栏，五位凯撒就行了。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.30.08%20AM.png" alt="Screen Shot 2020-01-19 at 11.30.08 A">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%2011.30.08%20AM.png" alt="Screen Shot 2020-01-19 at 11.30.08 A">
 拿到zip密码<code>EAVMUBAQHQMVEPDT</code>，打开压缩包。
 打开OK.txt之后是一坨Ook!，查了一下才知道Ook!也是编码。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.15.22%20PM.png" alt="Screen Shot 2020-01-19 at 12.15.22 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.15.22%20PM.png" alt="Screen Shot 2020-01-19 at 12.15.22 P">
 在线解码得到一串base32，python解base32得到另一串base64，再解base64发现时png图片，保存之后是二维码图。
-<img src="media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.14.36%20PM.png" alt="Screen Shot 2020-01-19 at 12.14.36 P">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-19%20at%2012.14.36%20PM.png" alt="Screen Shot 2020-01-19 at 12.14.36 P">
 然后简单粗暴拿iPhone扫了一下
-<img src="media/15792383134168/IMG_1973.jpg" alt="IMG_1973">
+<img src="/media/15792383134168/IMG_1973.jpg" alt="IMG_1973">
 拿到flag</p>
 <h5 id="每日推荐">每日推荐</h5>
 <p>压缩包打开，是Wireshark抓包文件，稍微分析一下，题目提到音乐，就干脆Wireshark里选择HTTP导出，大小从大到小排列，第一个研究了一下发现是个压缩包，导出保存。
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.24.25%20AM.png" alt="Screen Shot 2020-01-18 at 11.24.25 A">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.24.25%20AM.png" alt="Screen Shot 2020-01-18 at 11.24.25 A">
 解压需要密码，7zip打开看提示说密码为六位数字，上ARCHPR爆破半分钟拿到密码。
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.35%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.35 A">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.35%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.35 A">
 解压出一首歌，考虑是音频隐写，Audacity打开，一番乱试之后。。。
-<img src="media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.09%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.09 A">
+<img src="/media/15792383134168/Screen%20Shot%202020-01-18%20at%2011.23.09%20AM.png" alt="Screen Shot 2020-01-18 at 11.23.09 A">
 拿到flag。</p>
 <h6 id="week1-misc-ak">Week1 Misc AK</h6>
 

