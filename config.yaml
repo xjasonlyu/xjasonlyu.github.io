@@ -17,21 +17,6 @@ markup:
     renderer:
       unsafe: true
 
-# taxonomies:
-#   category: categories
-#   series: series
-#   tag: tags
-
-# related:
-#   includeNewer: true
-#   threshold: 80
-#   toLower: true
-#   indices:
-#     - name: keywords
-#       weight: 100
-#     - name: tags
-#       weight: 80
-
 disqusShortname: 12x
 # googleAnalytics: UA-165340490-1
 
@@ -45,18 +30,9 @@ markup:
     endLevel: 3
     ordered: false
     startLevel: 2
-  # needed to render raw HTML (e.g. <sub>, <sup>, <kbd>, <mark>)
   goldmark:
     renderer:
       unsafe: true
-
-# Social links in footer, support github,twitter,stackoverflow,facebook
-social:
-  # e.g.
-  github: https://github.com/xjasonlyu
-  twitter: your-github-link
-  # stackoverflow: your-github-link
-  # facebook: your-facebook-link
 
 # Site parameters
 params:
@@ -80,16 +56,16 @@ params:
   socialIcons:
     - icon: fas fa-envelope
       title: e-mail
-      url: 'mailto:xjasonlyu@gmail.com'
+      url: mailto:xjasonlyu@gmail.com
     - icon: fab fa-github
       title: GitHub
-      url: 'https://github.com/xjasonlyu'
+      url: https://github.com/xjasonlyu
     - icon: fab fa-telegram
       title: Telegram
-      url: 'https://t.me/xjasonlyu'
+      url: https://t.me/xjasonlyu
     - icon: fab fa-twitter
       title: Twitter
-      url: 'https://twitter.com/xjasonlyu'
+      url: https://twitter.com/xjasonlyu
 
 menu:
   main:
