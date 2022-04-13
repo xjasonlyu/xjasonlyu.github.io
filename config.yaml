@@ -33,7 +33,7 @@ markup:
 #       weight: 80
 
 disqusShortname: 12x
-googleAnalytics: UA-165340490-1
+# googleAnalytics: UA-165340490-1
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup#
