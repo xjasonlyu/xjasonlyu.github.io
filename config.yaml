@@ -101,10 +101,10 @@ menu:
       weight: 200
       identifier: posts
       url: /posts/
-    - name: Links
-      weight: 300
-      identifier: links
-      url: /links/
+    # - name: Links
+    #   weight: 300
+    #   identifier: links
+    #   url: /links/
     - name: Resume
       weight: 400
       identifier: resume
