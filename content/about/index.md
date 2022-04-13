@@ -2,8 +2,6 @@
 title: About Me
 ---
 
-- 😴 Always lazy
-- 👽 Sometimes boring
 - 💻 Just coding for fun
 - 🪐 Digital Immigrants
 - 📺 Fan of movies & shows
