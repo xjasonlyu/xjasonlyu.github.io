@@ -3,7 +3,6 @@ title: About Me
 ---
 
 - 💻 Just coding for fun
-- 🪐 Digital Immigrants
 - 📺 Fan of movies & shows
   - Star Wars Series
     - The Mandalorian
