@@ -6,7 +6,7 @@ Hi, I'm **Jason Lyu**.
 
 - [About Me](/about)
 - [Curriculum Vitae](/resume)
-- [Blog (Chinese) / 中文博客](/posts)
+- [Blog (Chinese)](/posts)
 
 I'm also available at:
 
