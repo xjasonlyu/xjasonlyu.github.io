@@ -1,5 +1,5 @@
-module github.com/xjasonlyu/pages
+module github.com/xjasonlyu/xjasonlyu.github.io
 
 go 1.18
 
-require github.com/lxndrblz/anatole v1.9.0 // indirect
+require github.com/lxndrblz/anatole v1.12.0 // indirect
