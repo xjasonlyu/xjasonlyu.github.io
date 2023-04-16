@@ -51,6 +51,9 @@ params:
   doNotLoadAnimations: true
   enableMediumZoom: false
 
+  displayMode: light
+  disableThemeSwitcher: true
+
   customCSS:
   customJS:
 
@@ -74,26 +77,26 @@ params:
 
 menu:
   main:
-    - name: Home
+    - name: LYU's Homepage
       identifier: home
       weight: 100
       url: /
-    - name: Posts
-      weight: 200
-      identifier: posts
-      url: /posts/
+    # - name: Posts
+    #   weight: 200
+    #   identifier: posts
+    #   url: /posts/
     # - name: Links
     #   weight: 300
     #   identifier: links
     #   url: /links/
-    - name: CV
-      weight: 400
-      identifier: cv
-      url: /cv/
-    - name: About
-      weight: 500
-      identifier: about
-      url: /about/
+    # - name: CV
+    #   weight: 400
+    #   identifier: cv
+    #   url: /cv/
+    # - name: About
+    #   weight: 500
+    #   identifier: about
+    #   url: /about/
   footer:
     - name: Anatole
       weight: 1
