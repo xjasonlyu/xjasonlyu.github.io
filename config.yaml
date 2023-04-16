@@ -59,12 +59,12 @@ params:
     - icon: fab fa-github
       title: GitHub
       url: https://github.com/xjasonlyu
-    - icon: fab fa-telegram
-      title: Telegram
-      url: https://t.me/xjasonlyu
     - icon: fab fa-twitter
       title: Twitter
       url: https://twitter.com/xjasonlyu
+    - icon: fas fa-rss
+      title: RSS
+      url: index.xml
 
 menu:
   main:
