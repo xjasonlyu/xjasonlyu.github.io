@@ -4,14 +4,13 @@ title: Homepage
 
 Hi, I'm **Jason Lyu**.
 
-- [About Me](/about)
-- [Curriculum Vitae](/resume)
-- [Blog (Chinese)](/posts)
+- [About Me](/about/)
+- [Curriculum Vitae](/cv/)
+- [Blog (Chinese)](/posts/)
 
 I'm also available at:
 
 - [GitHub](https://github.com/xjasonlyu)
-- [Telegram](https://t.me/xjasonlyu)
 - [Twitter](https://twitter.com/xjasonlyu)
 - Email: `xjasonlyu at gmail dot com`
 
