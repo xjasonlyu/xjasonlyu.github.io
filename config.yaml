@@ -18,7 +18,6 @@ markup:
       unsafe: true
 
 disqusShortname: 12x
-# googleAnalytics: UA-165340490-1
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup#
@@ -81,10 +80,10 @@ menu:
     #   weight: 300
     #   identifier: links
     #   url: /links/
-    - name: Resume
+    - name: CV
       weight: 400
-      identifier: resume
-      url: /resume/
+      identifier: cv
+      url: /cv/
     - name: About
       weight: 500
       identifier: about
