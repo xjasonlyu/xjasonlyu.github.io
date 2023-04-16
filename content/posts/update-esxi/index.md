@@ -7,7 +7,7 @@ Categories: [ESXi]
 DisableComments: false
 ---
 
-jump to:
+VMware ESXi 版本更新参考链接:
 
 - [https://esxi-patches.v-front.de/](https://esxi-patches.v-front.de/)
 - [https://www.vediotalk.com/archives/3956](https://www.vediotalk.com/archives/3956)

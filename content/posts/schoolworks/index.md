@@ -9,7 +9,7 @@ DisableComments: false
 
 ### Main
 
-整理了一下，把大学里Programing相关的项目作业整合到了GitHub仓库里。
+整理了一下，把大学里Programming相关的项目作业整合到了GitHub仓库里。
 
 - 👉 [Schoolworks](https://github.com/xjasonlyu/Schoolworks)
 
