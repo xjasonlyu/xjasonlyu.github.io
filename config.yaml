@@ -35,7 +35,8 @@ markup:
 
 # Site parameters
 params:
-  title: JASON LYU
+  title: Jason Lyu
+  # title: Zhexuan (Jason) Lyu
   author: xᴊᴀsᴏɴʟʏᴜ
   description: An open-source developer who codes for fun.
   profilePicture: https://avatars.githubusercontent.com/u/28824352
@@ -44,6 +45,11 @@ params:
   postSectionName: posts
   keywords: ''
   # copyright: '2020-{{ YEAR }} xᴊᴀsᴏɴʟʏᴜ'
+
+  contentratio: 0.75
+
+  doNotLoadAnimations: true
+  enableMediumZoom: false
 
   customCSS:
   customJS:
@@ -89,10 +95,10 @@ menu:
       identifier: about
       url: /about/
   footer:
-    # - name: anatole
-    #   weight: 1
-    #   identifier: anatole
-    #   url: https://github.com/lxndrblz/anatole
+    - name: Anatole
+      weight: 1
+      identifier: anatole
+      url: https://github.com/lxndrblz/anatole
     - name: Hugo
       weight: 2
       identifier: hugo
