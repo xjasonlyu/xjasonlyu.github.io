@@ -1,0 +1,9 @@
+/* Disable Uppercase Title */
+h1.sidebar__introduction-title {
+    text-transform: none;
+}
+
+/* Disable Uppercase Navbar */
+li.nav__list-item {
+    text-transform: none;
+}
