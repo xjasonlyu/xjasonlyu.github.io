@@ -8,7 +8,7 @@
     text-transform: none;
 }
 
-/* Temporary workaround to support monospace font in codeblock  */
+/* Temporary workaround: https://github.com/lxndrblz/anatole/issues/406 */
 * {
     /* font-family: monospace, helvetica neue, Arial, sans-serif, pinghei, pingfang sc, work sans, hiragino sans gb; */
     font-family: inherit;
