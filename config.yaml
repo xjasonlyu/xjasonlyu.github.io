@@ -12,19 +12,17 @@ pygmentsUseClasses: true
 pygmentsCodeFences: true
 pygmentsCodefencesGuessSyntax: true
 
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-
 disqusShortname: 12x
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup#
 markup:
   highlight:
+    codeFences: true
     guessSyntax: true
-    style: emacs
+    lineNos: false
+    style: github
+    tabWidth: 4
   tableOfContents:
     endLevel: 3
     ordered: false
