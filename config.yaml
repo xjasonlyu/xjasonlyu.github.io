@@ -21,12 +21,12 @@ markup:
     # anchorLineNos: true
     # codeFences: true
     # guessSyntax: true
-    # lineNos: true
+    lineNos: true
     # lineNumbersInTable: true
     # noClasses: true
     # noHl: false
-    # style: github
-    # tabWidth: 4
+    style: github
+    tabWidth: 4
   tableOfContents:
     endLevel: 3
     ordered: false
@@ -59,7 +59,6 @@ params:
 
   customCSS:
     - css/custom.css
-    - css/syntax.css
   customJS:
     - js/custom.js
 
