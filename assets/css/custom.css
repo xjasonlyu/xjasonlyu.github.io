@@ -8,7 +8,12 @@
     text-transform: none;
 }
 
-/* Font settings */
+/* Temporary workaround to support monospace font in codeblock  */
 * {
-    font-family: helvetica neue, Arial, sans-serif, pinghei, pingfang sc, work sans, hiragino sans gb
+    /* font-family: monospace, helvetica neue, Arial, sans-serif, pinghei, pingfang sc, work sans, hiragino sans gb; */
+    font-family: inherit;
+}
+
+body {
+    font-family: 'PingHei', 'PingFang SC', 'Helvetica Neue', 'Work Sans', 'Hiragino Sans GB', sans-serif;
 }
