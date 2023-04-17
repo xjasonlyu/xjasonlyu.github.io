@@ -89,6 +89,10 @@ menu:
       weight: 200
       identifier: posts
       url: /posts/
+    # - name: LeetCode
+    #   weight: 300
+    #   identifier: leetcode
+    #   url: https://leetcode.com/xjasonlyu
     - name: CV
       weight: 400
       identifier: cv
