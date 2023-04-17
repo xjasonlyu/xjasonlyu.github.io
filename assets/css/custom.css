@@ -1,9 +1,14 @@
-/* Disable Uppercase Title */
-h1.sidebar__introduction-title {
+/* Disable uppercase title */
+.sidebar__introduction-title {
     text-transform: none;
 }
 
-/* Disable Uppercase Navbar */
-li.nav__list-item {
+/* Disable uppercase navbar */
+.nav__list-item {
     text-transform: none;
+}
+
+/* Font settings */
+* {
+    font-family: helvetica neue, Arial, sans-serif, pinghei, pingfang sc, work sans, hiragino sans gb
 }
