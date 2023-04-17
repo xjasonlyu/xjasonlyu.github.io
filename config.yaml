@@ -19,7 +19,7 @@ disqusShortname: 12x
 markup:
   highlight:
     anchorLineNos: true
-    lineNos: true
+    lineNos: false
     noClasses: true
   tableOfContents:
     endLevel: 3
@@ -75,9 +75,6 @@ params:
     - icon: fab fa-twitter
       title: Twitter
       url: https://twitter.com/xjasonlyu
-    # - icon: fas fa-rss
-    #   title: RSS
-    #   url: index.xml
 
 menu:
   main:
