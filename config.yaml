@@ -46,16 +46,18 @@ params:
   keywords: ''
   # copyright: '2020-{{ YEAR }} xᴊᴀsᴏɴʟʏᴜ'
 
-  contentratio: 0.75
+  # contentratio: 0.75
 
   doNotLoadAnimations: true
   enableMediumZoom: false
 
-  displayMode: light
-  disableThemeSwitcher: true
+  # displayMode: light
+  # disableThemeSwitcher: true
 
   customCSS:
+    - css/custom.css
   customJS:
+    - js/custom.js
 
   math:
     enable: false
@@ -68,35 +70,38 @@ params:
     - icon: fab fa-github
       title: GitHub
       url: https://github.com/xjasonlyu
+    - icon: fab fa-linkedin
+      title: LinkedIn
+      url: https://www.linkedin.com/ # /in/zhexuan-lyu/
     - icon: fab fa-twitter
       title: Twitter
       url: https://twitter.com/xjasonlyu
-    - icon: fas fa-rss
-      title: RSS
-      url: index.xml
+    # - icon: fas fa-rss
+    #   title: RSS
+    #   url: index.xml
 
 menu:
   main:
-    - name: LYU's Homepage
+    - name: Home
       identifier: home
       weight: 100
       url: /
-    # - name: Posts
-    #   weight: 200
-    #   identifier: posts
-    #   url: /posts/
+    - name: Posts
+      weight: 200
+      identifier: posts
+      url: /posts/
     # - name: Links
     #   weight: 300
     #   identifier: links
     #   url: /links/
-    # - name: CV
-    #   weight: 400
-    #   identifier: cv
-    #   url: /cv/
-    # - name: About
-    #   weight: 500
-    #   identifier: about
-    #   url: /about/
+    - name: CV
+      weight: 400
+      identifier: cv
+      url: /cv/
+    - name: About
+      weight: 500
+      identifier: about
+      url: /about/
   footer:
     - name: Anatole
       weight: 1
