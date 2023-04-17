@@ -88,10 +88,6 @@ menu:
       weight: 200
       identifier: posts
       url: /posts/
-    # - name: Links
-    #   weight: 300
-    #   identifier: links
-    #   url: /links/
     - name: CV
       weight: 400
       identifier: cv
