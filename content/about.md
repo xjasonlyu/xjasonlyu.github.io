@@ -8,7 +8,7 @@ As a passionate open-source developer, I am always eager to be part of the vibra
 
 When it comes to my favorite TV shows and movies, I have a diverse taste. From the Star Wars franchise, including the highly-acclaimed The Mandalorian, to the beloved Doctor Who, and the magical world of Harry Potter. I also love the Marvel Cinematic Universe (MCU), with its iconic characters like Iron Man, Hulk, The Punisher, Wolverine, and Deadpool. DC Comics also holds a special place in my heart, especially when it comes to the legendary Bruce Wayne. My love for TV shows includes Friends, HIMYM, TBBT, the Sherlock, etc.
 
-In short, I am a well-rounded individual with a passion for technology and a love for TV shows and movies. Feel from to contact me via email or follow me on twitter. 😉
+In short, I am a well-rounded individual with a passion for technology and a love for TV shows and movies. Feel free to contact me via email or follow me on twitter. 😉
 
 ### 📍 Location
 
