@@ -15,14 +15,18 @@ pygmentsCodefencesGuessSyntax: true
 disqusShortname: 12x
 
 # Hugo Configure Markup
-# More info: https://gohugo.io/getting-started/configuration-markup#
+# More info: https://gohugo.io/getting-started/configuration-markup
 markup:
   highlight:
-    codeFences: true
-    guessSyntax: true
-    lineNos: false
-    style: github
-    tabWidth: 4
+    # anchorLineNos: true
+    # codeFences: true
+    # guessSyntax: true
+    # lineNos: true
+    # lineNumbersInTable: true
+    # noClasses: true
+    # noHl: false
+    # style: github
+    # tabWidth: 4
   tableOfContents:
     endLevel: 3
     ordered: false
@@ -41,7 +45,8 @@ params:
   favicon: https://avatars.githubusercontent.com/u/28824352?
   mainSections: home
   postSectionName: posts
-  keywords: ''
+  # readMore: true
+  keywords:
   # copyright: '2020-{{ YEAR }} xᴊᴀsᴏɴʟʏᴜ'
 
   # contentratio: 0.75
@@ -54,6 +59,7 @@ params:
 
   customCSS:
     - css/custom.css
+    - css/syntax.css
   customJS:
     - js/custom.js
 
