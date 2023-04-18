@@ -1,5 +1,5 @@
 ---
-# title: Homepage
+title: Homepage
 ---
 
 Hi, I'm **Jason Lyu**.
