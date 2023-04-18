@@ -13,6 +13,13 @@
     text-transform: none;
 }
 
+/* Fix giant font-size in mobile view */
+@media (max-width: 900px) {
+    .post__content h1 {
+        font-size: 2.8rem;
+    }
+}
+
 /* Temporary workaround: https://github.com/lxndrblz/anatole/issues/406 */
 * {
     font-family: inherit;
