@@ -40,7 +40,11 @@ params:
   postSectionName: posts
   # readMore: true
   # keywords:
-  # copyright: '2020-{{ YEAR }} Jason Lyu'
+
+  copyright: >-
+    {{ YEAR }} Jason Lyu · Powered by
+    [Hugo](https://gohugo.io/) &
+    [Anatole](https://github.com/lxndrblz/anatole)
 
   # contentratio: 0.75
 
@@ -97,12 +101,12 @@ menu:
       weight: 500
       identifier: about
       url: /about/
-  footer:
-    - name: Anatole
-      weight: 1
-      identifier: anatole
-      url: https://github.com/lxndrblz/anatole
-    - name: Hugo
-      weight: 2
-      identifier: hugo
-      url: https://gohugo.io/
+  # footer:
+  #   - name: Anatole
+  #     weight: 1
+  #     identifier: anatole
+  #     url: https://github.com/lxndrblz/anatole
+  #   - name: Hugo
+  #     weight: 2
+  #     identifier: hugo
+  #     url: https://gohugo.io/
