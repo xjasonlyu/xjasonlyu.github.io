@@ -12,7 +12,7 @@ pygmentsUseClasses: true
 pygmentsCodeFences: true
 pygmentsCodefencesGuessSyntax: true
 
-disqusShortname: 12x
+# disqusShortname:
 
 # Hugo Configure Markup
 # More info: https://gohugo.io/getting-started/configuration-markup
@@ -60,6 +60,10 @@ params:
   # displayMode: light
   # disableThemeSwitcher: true
   # hidesidebar: true
+
+  # Hack to use giscus
+  utterances:
+    repo: xjasonlyu/xjasonlyu.github.io
 
   customCSS:
     - css/custom.css
