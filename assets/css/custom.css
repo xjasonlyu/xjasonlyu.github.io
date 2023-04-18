@@ -1,16 +1,20 @@
-/* Disable uppercase title */
+/* Disable uppercase sidebar__introduction-title */
 .sidebar__introduction-title {
     text-transform: none;
 }
 
-/* Disable uppercase navbar */
+/* Disable uppercase nav__list-item */
 .nav__list-item {
+    text-transform: none;
+}
+
+/* Disable uppercase archive__list-title */
+.archive__list-title {
     text-transform: none;
 }
 
 /* Temporary workaround: https://github.com/lxndrblz/anatole/issues/406 */
 * {
-    /* font-family: monospace, helvetica neue, Arial, sans-serif, pinghei, pingfang sc, work sans, hiragino sans gb; */
     font-family: inherit;
 }
 
