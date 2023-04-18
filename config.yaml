@@ -41,10 +41,15 @@ params:
   # readMore: true
   # keywords:
 
+  # copyright: >-
+  #   {{ YEAR }} Jason Lyu · Powered by
+  #   [Hugo](https://gohugo.io/) &
+  #   [Anatole](https://github.com/lxndrblz/anatole)
+
   copyright: >-
-    {{ YEAR }} Jason Lyu · Powered by
-    [Hugo](https://gohugo.io/) &
-    [Anatole](https://github.com/lxndrblz/anatole)
+    {{ YEAR }} Jason Lyu ·
+    [Anatole](https://github.com/lxndrblz/anatole) theme on
+    [Hugo](https://gohugo.io/)
 
   # contentratio: 0.75
 
