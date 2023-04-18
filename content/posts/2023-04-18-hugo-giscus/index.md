@@ -1,5 +1,5 @@
 ---
-title: "Hugo: How to Enable Giscus Comments System"
+title: "How to Enable Giscus Comments System in Hugo"
 date: 2023-04-18T18:11:48+08:00
 Description: ""
 Tags: [hugo, theme, github, comments, giscus]
@@ -50,7 +50,7 @@ toc: true
 
 所以这就比较好办了，因为我们可以通过[Hugo Template](https://gohugo.io/templates/base/)的`layouts/partials`这类目录，覆写掉原先的comments代码，而不用去修改主题源代码。
 
-## 添加giscus的JS脚本
+## 添加giscus的HTML模版
 
 这里以修改`utterances`为`giscus`评论系统为例，只需要在本地`layouts/partials/comments`目录下创建`utterances.html`文件，即可替换掉相关源码内容。
 
@@ -91,3 +91,5 @@ utterances:
 现在giscus是配置好了，但是如果主题原先是支持`Light/Dark`这种模式的话，会发现giscus的主题不会随着网站主题的颜色变化而变化，~~这是不能忍的~~。
 
 TBC
+
+Ref: [https://github.com/giscus/giscus/issues/336](https://github.com/giscus/giscus/issues/336)
