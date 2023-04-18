@@ -1,5 +1,5 @@
 ---
-title: "Hugo: How to Embed Raw Html Code"
+title: "How to Embed Raw Html Code in Hugo"
 date: 2022-02-14T14:15:50+08:00
 Description: ""
 Tags: [HTML, hugo, rawhtml]

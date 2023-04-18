@@ -1,5 +1,5 @@
 ---
-title: "Hugo: Collection of Shortcodes"
+title: "Collection of Hugo Shortcodes"
 date: 2023-04-17T14:24:47+08:00
 Tags: [hugo, theme, github, gist, shortcodes]
 Categories: [Hugo, Blog, GitHub]

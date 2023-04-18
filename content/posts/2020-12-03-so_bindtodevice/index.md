@@ -1,5 +1,5 @@
 ---
-title: "SO_BINDTODEVICE: How It Works in Linux"
+title: "SO_BINDTODEVICE Socket Option in Linux"
 date: 2020-12-03T16:14:24+08:00
 Description: ""
 Tags: [linux, bindtodevice, socketopt, vpn]
