@@ -57,21 +57,22 @@ toc: true
 文件里面可以添加如下代码：
 
 ```html
-<script src="https://giscus.app/client.js"
-        data-repo="[ENTER REPO HERE]"
-        data-repo-id="[ENTER REPO ID HERE]"
-        data-category="[ENTER CATEGORY NAME HERE]"
-        data-category-id="[ENTER CATEGORY ID HERE]"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="en"
-        crossorigin="anonymous"
-        async>
-</script>
+<script 
+    src="https://giscus.app/client.js"
+    data-repo="[ENTER REPO HERE]"
+    data-repo-id="[ENTER REPO ID HERE]"
+    data-category="[ENTER CATEGORY NAME HERE]"
+    data-category-id="[ENTER CATEGORY ID HERE]"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
 ```
 
 ## 修改配置文件
@@ -90,6 +91,34 @@ utterances:
 
 现在giscus是配置好了，但是如果主题原先是支持`Light/Dark`这种模式的话，会发现giscus的主题不会随着网站主题的颜色变化而变化，~~这是不能忍的~~。
 
-TBC
+但是好在我们可以添加JS脚本来解决这个问题，例如将原有的代码更换为以下代码时，可以在访问页面时自动适配当前主题。
+
+```html
+<script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "[ENTER REPO HERE]",
+        "data-repo-id": "[ENTER REPO ID HERE]",
+        "data-category": "[ENTER CATEGORY NAME HERE]",
+        "data-category-id": "[ENTER CATEGORY ID HERE]",
+        "data-mapping": "pathname",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("comment").appendChild(giscusScript);
+</script>
+```
+
+但是又可以发现，当我们手动切换主题时，giscus的主题是不会跟着更新的。
+
+> TBC
 
 Ref: [https://github.com/giscus/giscus/issues/336](https://github.com/giscus/giscus/issues/336)
