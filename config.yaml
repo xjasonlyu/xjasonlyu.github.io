@@ -32,7 +32,7 @@ markup:
 # Site parameters
 params:
   title: Jason Lyu
-  author: xᴊᴀsᴏɴʟʏᴜ
+  author: Jason Lyu
   description: An open-source developer who codes for fun.
   profilePicture: https://avatars.githubusercontent.com/u/28824352
   favicon: https://avatars.githubusercontent.com/u/28824352?
@@ -40,7 +40,7 @@ params:
   postSectionName: posts
   # readMore: true
   # keywords:
-  # copyright: '2020-{{ YEAR }} xᴊᴀsᴏɴʟʏᴜ'
+  # copyright: '2020-{{ YEAR }} Jason Lyu'
 
   # contentratio: 0.75
 
