@@ -1,15 +1,16 @@
 ---
-title: "Schoolworks"
+title: "Undergraduate Schoolworks"
 date: 2020-12-03T11:45:50+08:00
 Description: ""
-Tags: [Schoolworks]
-Categories: []
+Tags: [schoolworks, assignments, projects]
+Categories: [Undergraduate]
 DisableComments: false
+aliases: [schoolworks]
 ---
 
-### Main
+## Main
 
-整理了一下，把大学里Programming相关的项目作业整合到了GitHub仓库里。
+整理了一下，把本科阶段Programming相关的项目作业整合到了GitHub仓库里。
 
 - 👉 [Schoolworks](https://github.com/xjasonlyu/Schoolworks)
 
@@ -17,6 +18,6 @@ DisableComments: false
 
 究其原因还是自己太菜了，所以还要好好学啊👀。
 
-### Credit
+## Credit
 
-- 🖖 [oyiadin](https://github.com/oyiadin/Schoolworks)
+- 👏 [oyiadin](https://github.com/oyiadin/Schoolworks)

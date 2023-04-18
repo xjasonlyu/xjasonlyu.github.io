@@ -1,10 +1,12 @@
 ---
-title: "Linux下socket的SO_BINDTODEVICE选项"
+title: "Linux 下 socket 的 SO_BINDTODEVICE 选项"
 date: 2020-12-03T16:14:24+08:00
 Description: ""
-Tags: [linux, bindtodevice, socketopt]
-Categories: [linux, network]
+Tags: [linux, bindtodevice, socketopt, vpn]
+Categories: [Linux, Network, OS]
 DisableComments: false
+toc: true
+aliases: [so_bindtodevice]
 ---
 
 ### 起因
