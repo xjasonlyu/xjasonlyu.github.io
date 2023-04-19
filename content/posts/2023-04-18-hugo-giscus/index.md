@@ -119,6 +119,56 @@ utterances:
 
 但是又可以发现，当我们手动切换主题时，giscus的主题是不会跟着更新的。
 
-> TBC
+所以，我们需要监听主题开关的点击事件，然后随之更换giscus的主题，于是最终代码：
+
+```html
+<script>
+    const getStoredTheme = () => localStorage.getItem("theme") === "dark" ? "dark" : "light";
+
+    const setGiscusTheme = () => {
+        const sendMessage = (message) => {
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (iframe) {
+                iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+            }
+        }
+        sendMessage({ setConfig: { theme: getStoredTheme() } })
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const giscusAttributes = {
+            "src": "https://giscus.app/client.js",
+            "data-repo": "[ENTER REPO HERE]",
+            "data-repo-id": "[ENTER REPO ID HERE]",
+            "data-category": "[ENTER CATEGORY NAME HERE]",
+            "data-category-id": "[ENTER CATEGORY ID HERE]",
+            "data-mapping": "pathname",
+            "data-strict": "0",
+            "data-reactions-enabled": "1",
+            "data-emit-metadata": "0",
+            "data-input-position": "bottom",
+            "data-theme": getStoredTheme(),
+            "data-lang": "en",
+            "data-loading": "lazy",
+            "crossorigin": "anonymous",
+            "async": "",
+        };
+
+        // Dynamically create script tag.
+        const giscusScript = document.createElement("script");
+        Object.entries(giscusAttributes).forEach(
+            ([key, value]) => giscusScript.setAttribute(key, value));
+        document.getElementById("comment").appendChild(giscusScript);
+
+        // Update giscus theme when the theme switcher is clicked.
+        const themeSwitcher = document.querySelector(".themeswitch");
+        if (themeSwitcher) {
+            themeSwitcher.addEventListener("click", setGiscusTheme);
+        }
+    });
+</script>
+```
+
+完事，收工！🎉
 
 Ref: [https://github.com/giscus/giscus/issues/336](https://github.com/giscus/giscus/issues/336)
