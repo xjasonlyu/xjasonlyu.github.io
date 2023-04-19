@@ -80,7 +80,6 @@ toc: true
 为了开启Giscus支持，还是需要在配置文件中配置Hack的评论系统的，相当于一个激活开关：
 
 ```yaml
-# Hack to use giscus
 utterances:
     repo: anything here
 ```
