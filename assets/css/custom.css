@@ -20,6 +20,11 @@
     }
 }
 
+/* Fix giant font size in code blocks in iOS Safari view */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
 /*
     Temporary workaround: 
     - https://github.com/lxndrblz/anatole/issues/406
