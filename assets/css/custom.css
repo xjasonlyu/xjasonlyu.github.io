@@ -44,7 +44,9 @@ body {
 
 /* Temporary workaround: https://github.com/lxndrblz/anatole/issues/447 */
 .post__content code {
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
     line-height: 1.9rem;
     display: inline-block;
+
+    /* Reset code font preference */
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
 }
