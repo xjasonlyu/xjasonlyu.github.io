@@ -8,7 +8,7 @@ DisableComments: false
 aliases: [rawhtml]
 ---
 
-有时候受限于Markdown的语法或者功能，需要添加一些额外的组建，这时候直接内嵌进去HTML代码即可，如：
+有时候受限于Markdown的语法或者功能，需要添加一些额外的组件，这时候直接内嵌进去HTML代码即可，如：
 
 ```html
 <iframe 
