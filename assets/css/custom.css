@@ -27,16 +27,6 @@
     }
 }
 
-/*
-    Temporary workaround: 
-    - https://github.com/lxndrblz/anatole/issues/406
-    - https://github.com/lxndrblz/anatole/issues/449
-*/
-* {
-    font-family: inherit;
-    font-size: inherit;
-}
-
 body {
     font-family: 'Helvetica Neue', 'Arial', 'PingHei', 'PingFang SC', 'Work Sans', 'Hiragino Sans GB', sans-serif;
     font-size: 1.6rem;
