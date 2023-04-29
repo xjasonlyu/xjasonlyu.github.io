@@ -61,9 +61,16 @@ params:
   # disableThemeSwitcher: true
   # hidesidebar: true
 
-  # Hack to use giscus
-  utterances:
+  giscus:
     repo: xjasonlyu/xjasonlyu.github.io
+    repoID: R_kgDOHKlHkQ
+    category: Announcements
+    categoryID: DIC_kwDOHKlHkc4CUKNc
+    mapping: og:title
+    strict: 1
+    reactionsEnabled: 1
+    inputPosition: bottom
+    loading: lazy
 
   customCSS:
     - css/custom.css
