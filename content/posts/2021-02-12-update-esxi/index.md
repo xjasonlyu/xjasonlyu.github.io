@@ -8,7 +8,11 @@ DisableComments: false
 aliases: [update-esxi]
 ---
 
-VMware ESXi 版本更新参考链接:
+### VMware ESXi 版本更新参考链接
 
-- [https://esxi-patches.v-front.de/](https://esxi-patches.v-front.de/)
-- [https://www.vediotalk.com/archives/3956](https://www.vediotalk.com/archives/3956)
+- <https://esxi-patches.v-front.de/>
+- <https://vt.wooomooo.com/?p=3956>
+
+### Community Networking Driver for ESXi
+
+- <https://flings.vmware.com/community-networking-driver-for-esxi>
