@@ -2,7 +2,7 @@
 title: About Me
 ---
 
-I am an incoming M.Eng. student of Computing and Software at [McMaster University](https://mcmaster.ca/). Previously, I obtained my bachelor’s degree in Network Engineering from [Hangzhou Dianzi University](https://www.hdu.edu.cn/).
+I am a M.Eng. student of Computing and Software (CAS) at [McMaster University](https://mcmaster.ca/). Previously, I obtained my bachelor’s degree in Network Engineering from [Hangzhou Dianzi University](https://www.hdu.edu.cn/).
 
 As a passionate open-source developer, I am always eager to be part of the vibrant open-source community. My interest extends beyond technology and into a variety of areas. My primary areas of interests include networking, software engineering, computer systems, microservices, and cloud computing. I am always exploring new technologies and keeping up to date with the latest advancements in these fields.
 
