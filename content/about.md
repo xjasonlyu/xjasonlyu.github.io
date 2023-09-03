@@ -15,4 +15,4 @@ In short, I am a well-rounded individual with a passion for technology and a lov
 ### 📍 Location
 
 - 🪐 **not** on [Gallifrey](https://en.wikipedia.org/wiki/Gallifrey)
-- 🍁 coming to Canada!
+- 🍁 Ontario
