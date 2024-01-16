@@ -11,7 +11,7 @@ Hi, I'm **Jason Lyu**.
 I'm also available at:
 
 - [GitHub](https://github.com/xjasonlyu)
-- [Twitter](https://twitter.com/xjasonlyu)
+- [Twitter](https://twitter.com/)
 - Email: `xjasonlyu at gmail dot com`
 
 _Homepage inspired by [www.skyzh.dev](https://www.skyzh.dev/)_
