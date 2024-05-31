@@ -90,10 +90,10 @@ params:
       url: https://github.com/xjasonlyu
     - icon: fab fa-linkedin
       title: LinkedIn
-      url: https://www.linkedin.com/in/zhexuan-lyu
+      url: https://www.linkedin.com/feed/
     - icon: fab fa-twitter
       title: Twitter
-      url: https://twitter.com
+      url: https://twitter.com/twitter
 
 menu:
   main:
