@@ -2,16 +2,16 @@
 title: Homepage
 ---
 
-Hi, I'm **Jason Lyu**.
+Hey, I'm **Jason Lyu**.
 
 - [About Me](/about/)
 - [Curriculum Vitae](/cv/)
 - [Blog in Chinese](/posts/)
 
-I'm also available at:
+You can find me on:
 
+- Email: `xjasonlyu at gmail dot com`
 - [GitHub](https://github.com/xjasonlyu)
 - [Twitter](https://twitter.com/twitter)
-- Email: `xjasonlyu at gmail dot com`
 
 _Homepage inspired by [www.skyzh.dev](https://www.skyzh.dev/)_
