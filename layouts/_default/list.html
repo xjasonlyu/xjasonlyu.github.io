@@ -33,6 +33,9 @@
   {{ end }}
 
   {{ range .Pages }}
+    {{ if .Page.Params.Hidden }}
+      {{ continue }}
+    {{ end }}
     <div
       class="post {{ with .Site.Params.doNotLoadAnimations }}
         .
