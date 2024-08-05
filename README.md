@@ -2,4 +2,4 @@
 
 > Website inspired by [skyzh-site](https://github.com/skyzh/skyzh-site).
 
-This is the source code of my personal website. You may visit it at [12x.me](https://12x.me).
+This repo contains the source code of my personal website and is powered by [Cloudflare Pages](https://pages.cloudflare.com/).
