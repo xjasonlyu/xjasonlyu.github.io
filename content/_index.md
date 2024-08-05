@@ -2,7 +2,9 @@
 title: Homepage
 ---
 
-Hey, I'm **Jason Lyu**.
+## Hey, I'm Jason Lyu
+
+Currently CAS MEng @ [McMaster](https://www.mcmaster.ca/)
 
 - [About Me](/about/)
 - [Curriculum Vitae](/cv/)
