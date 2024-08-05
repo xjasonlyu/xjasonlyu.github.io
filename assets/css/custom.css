@@ -32,10 +32,14 @@ body {
     font-size: 1.6rem;
 }
 
-/* Temporary workaround: https://github.com/lxndrblz/anatole/issues/447 */
 .post__content code {
     line-height: 1.9rem;
     display: inline-block;
+
+    background-color: #eee;
+
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
 
     /* Adjust code font size */
     font-size: .85em;
