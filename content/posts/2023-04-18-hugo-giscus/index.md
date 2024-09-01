@@ -12,14 +12,14 @@ toc: true
 
 [Giscus](https://giscus.app/)是一个基于GitHub Discussions的开源评论系统，非常好用！
 
-- [Open source](https://github.com/giscus/giscus). 🌏
-- No tracking, no ads, always free. 📡 🚫
-- No database needed. All data is stored in GitHub Discussions. :octocat:
-- Supports [custom themes](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#data-theme)! 🌗
-- Supports [multiple languages](https://github.com/giscus/giscus/blob/main/CONTRIBUTING.md#adding-localizations). 🌐
-- [Extensively configurable](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md). 🔧
-- Automatically fetches new comments and edits from GitHub. 🔃
-- [Can be self-hosted](https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md)! 🤳
+- [Open source](https://github.com/giscus/giscus).
+- No tracking, no ads, always free.
+- No database needed. All data is stored in GitHub Discussions.
+- Supports [custom themes](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#data-theme)!
+- Supports [multiple languages](https://github.com/giscus/giscus/blob/main/CONTRIBUTING.md#adding-localizations).
+- [Extensively configurable](https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md).
+- Automatically fetches new comments and edits from GitHub.
+- [Can be self-hosted](https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md)!
 
 然而，不是所有的Hugo主题都支持这个评论系统，或者说大部分都不支持。🫠
 

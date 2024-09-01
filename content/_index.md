@@ -8,7 +8,7 @@ Currently CAS MEng @ [McMaster](https://www.mcmaster.ca/)
 
 - [About Me](/about/)
 - [Curriculum Vitae](/cv/)
-- [Blog in Chinese](/posts/)
+- [Blog](/posts/)
 
 You can find me on:
 
