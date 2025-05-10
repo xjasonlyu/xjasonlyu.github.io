@@ -2,7 +2,7 @@
 title: About Me
 ---
 
-I am an M.Eng. student of Computing and Software (CAS) at [McMaster University](https://mcmaster.ca/). Previously, I obtained my bachelor’s degree in Network Engineering from [Hangzhou Dianzi University](https://www.hdu.edu.cn/).
+I obtained my bachelor's degree in Network Engineering from [Hangzhou Dianzi University](https://www.hdu.edu.cn/) and my master's degree in Computing and Software (CAS) from [McMaster University](https://mcmaster.ca/).
 
 As a passionate open-source developer, I am always eager to be part of the vibrant open-source community. My interest extends beyond technology and into a variety of areas. My primary areas of interests include networking, software engineering, computer systems, microservices, and cloud computing. I am always exploring new technologies and keeping up to date with the latest advancements in these fields.
 
@@ -12,5 +12,6 @@ In short, I am a well-rounded individual with a passion for technology and a lov
 
 ### 📍 Location
 
-- 🪐 **not** on [Gallifrey](https://en.wikipedia.org/wiki/Gallifrey)
-- 🍁 Ontario
+<!-- - 🪐 **not** on [Gallifrey](https://en.wikipedia.org/wiki/Gallifrey) -->
+
+- 🍁 Toronto, ON
