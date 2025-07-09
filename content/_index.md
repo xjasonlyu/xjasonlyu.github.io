@@ -15,7 +15,7 @@ You can find me on:
 - Email: `xjasonlyu at gmail dot com`
 - [GitHub](https://github.com/xjasonlyu)
 - [LinkedIn](https://www.linkedin.com/feed/)
-- [Twitter](https://twitter.com/twitter)
+<!-- - [Twitter](https://twitter.com/twitter) -->
 
 ### FAQ
 
