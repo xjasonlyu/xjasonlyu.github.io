@@ -19,6 +19,4 @@ You can find me on:
 
 ### FAQ
 
-[WIP]
-
-_Homepage inspired by [www.skyzh.dev](https://www.skyzh.dev/)_
+[TBA]
