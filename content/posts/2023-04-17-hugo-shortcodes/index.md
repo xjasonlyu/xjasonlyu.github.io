@@ -7,13 +7,13 @@ DisableComments: false
 toc: true
 ---
 
-整理了一些在 Hugo 下使用比较方便的技巧，以及一些可行的优化。
+Here are a few handy tricks for Hugo, along with some practical improvements.
 
 ## Gist
 
-Hugo 可以直接使用其内置的`shortcodes`来嵌入Gist代码块。
+Hugo can embed Gist code blocks directly using its built-in `shortcodes`.
 
-### 显示所有的gist文件
+### Display All Gist Files
 
 ```text
 {{</* gist jmooring 50a7482715eac222e230d1e64dd9a89b */>}}
@@ -21,7 +21,7 @@ Hugo 可以直接使用其内置的`shortcodes`来嵌入Gist代码块。
 
 {{< gist jmooring 50a7482715eac222e230d1e64dd9a89b >}}
 
-### 显示指定的文件
+### Display a Specific File
 
 ```text
 {{</* gist jmooring 50a7482715eac222e230d1e64dd9a89b 1-template.html */>}}
@@ -33,11 +33,11 @@ Ref: [Hugo Shortcodes](https://gohugo.io/content-management/shortcodes/)
 
 ## GitHub
 
-Hugo本身并不支持直接显示GitHub上的代码文件，所以想要这么做的话，需要添加一个自定义的shortcode。
+Hugo itself doesn't support displaying code files from GitHub directly, so we'll need to add a custom shortcode.
 
-### 添加Shortcode代码
+### Add the Shortcode
 
-在`layouts/shortcodes`下创建`github.html`文件，并粘贴如下代码：
+Create a `github.html` file under `layouts/shortcodes`, then paste in the following code:
 
 ```text
 {{ $dataJ := getJSON "https://api.github.com/repos/"  (.Get "repo")  "/contents/"  (.Get "file")  }}
@@ -46,9 +46,9 @@ Hugo本身并不支持直接显示GitHub上的代码文件，所以想要这么�
 {{ highlight $con (.Get "lang") (.Get "options") }}
 ```
 
-### 显示GitHub代码
+### Display GitHub Code
 
-直接调用如下shortcode即可：
+Simply call the shortcode like this:
 
 ```text
 {{</* github repo="username/repo-name" file="/path/to/file" lang="language" options="highlight-options" */>}}

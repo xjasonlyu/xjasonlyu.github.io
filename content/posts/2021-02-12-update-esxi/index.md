@@ -8,7 +8,7 @@ DisableComments: false
 aliases: [update-esxi]
 ---
 
-### VMware ESXi 版本更新参考链接
+### VMware ESXi Update References
 
 - <https://esxi-patches.v-front.de/>
 - <https://vt.wooomooo.com/?p=3956>

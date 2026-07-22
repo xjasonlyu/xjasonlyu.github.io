@@ -8,9 +8,9 @@ DisableComments: false
 toc: true
 ---
 
-## Giscus介绍
+## Introduction to Giscus
 
-[Giscus](https://giscus.app/)是一个基于GitHub Discussions的开源评论系统，非常好用！
+[Giscus](https://giscus.app/) is an open-source comment system powered by GitHub Discussions, and it works really well!
 
 - [Open source](https://github.com/giscus/giscus).
 - No tracking, no ads, always free.
@@ -21,15 +21,15 @@ toc: true
 - Automatically fetches new comments and edits from GitHub.
 - [Can be self-hosted](https://github.com/giscus/giscus/blob/main/SELF-HOSTING.md)!
 
-然而，不是所有的Hugo主题都支持这个评论系统，或者说大部分都不支持。🫠
+However, not every Hugo theme supports this comment system. In fact, most of them don't. 🫠
 
-所以，本篇使用了一种比较hack的方式（即不修改主题源代码），为原先不支持giscus的主题开启giscus评论系统的支持。
+So, in this post, I'll use a somewhat hacky approach (without modifying the theme's source code) to add Giscus support to a theme that doesn't support it out of the box.
 
-> 注意，本教程以目前所使用的[Anatole](https://github.com/lxndrblz/anatole)主题为例，其他主题会略有不同，但原理是相似的。
+> Note: this tutorial uses the [Anatole](https://github.com/lxndrblz/anatole) theme I'm currently using as an example. Other themes will be slightly different, but the basic idea is the same.
 
-## Hack原理解释
+## How the Hack Works
 
-首先，大部分主题应该是有`Disqus`或者其他的评论支持的，然后它们判断是否开启评论区一般是这么实现的：
+First, most themes already support `Disqus` or another comment system. They usually decide whether to enable comments with logic like this:
 
 ```html
 {{- if .Site.DisqusShortname -}}
@@ -46,15 +46,15 @@ toc: true
 {{- end -}}
 ```
 
-可以看到，他们通过判断config文件中是否存在相关评论系统的配置来开启对应的Comments System。
+As we can see, the theme enables the corresponding comment system by checking whether its configuration exists in the config file.
 
-所以这就比较好办了，因为我们可以通过[Hugo Template](https://gohugo.io/templates/base/)的`layouts/partials`这类目录，覆写掉原先的comments代码，而不用去修改主题源代码。
+That makes things much easier: we can use directories such as `layouts/partials` from [Hugo Templates](https://gohugo.io/templates/base/) to override the original comments code without modifying the theme's source code.
 
-## 添加giscus的HTML模版
+## Add the Giscus HTML Template
 
-这里以修改`utterances`为`giscus`评论系统为例，只需要在本地`layouts/partials/comments`目录下创建`utterances.html`文件，即可替换掉相关源码内容。
+Here, we'll replace the `utterances` comment system with `giscus` as an example. Simply create an `utterances.html` file under the local `layouts/partials/comments` directory, and it will override the corresponding source file.
 
-文件里面可以添加如下代码：
+Add the following code to the file:
 
 ```html
 <script 
@@ -75,22 +75,22 @@ toc: true
 ></script>
 ```
 
-## 修改配置文件
+## Update the Config File
 
-为了开启Giscus支持，还是需要在配置文件中配置Hack的评论系统的，相当于一个激活开关：
+To enable Giscus support, we still need to configure our hacked comment system in the config file. Think of it as an activation switch:
 
 ```yaml
 utterances:
     repo: anything here
 ```
 
-然后不出意外的话，就OK了！
+And if nothing unexpected happens, that's it!
 
-## 自动更换主题
+## Switch Themes Automatically
 
-现在giscus是配置好了，但是如果主题原先是支持`Light/Dark`这种模式的话，会发现giscus的主题不会随着网站主题的颜色变化而变化，~~这是不能忍的~~。
+Giscus is now configured, but if the theme already supports `Light/Dark` modes, you'll notice that the Giscus theme doesn't change along with the site's color scheme. ~~This is unacceptable.~~
 
-但是好在我们可以添加JS脚本来解决这个问题，例如将原有的代码更换为以下代码时，可以在访问页面时自动适配当前主题。
+Luckily, we can fix this with some JavaScript. For example, replacing the original code with the following makes Giscus adapt to the current theme when the page loads.
 
 ```html
 <script>
@@ -116,9 +116,9 @@ utterances:
 </script>
 ```
 
-但是又可以发现，当我们手动切换主题时，giscus的主题是不会跟着更新的。
+But then there's another problem: when we switch the site theme manually, the Giscus theme still doesn't update with it.
 
-所以，我们需要监听主题开关的点击事件，然后随之更换giscus的主题，于是最终代码：
+So, we need to listen for clicks on the theme switcher and update the Giscus theme accordingly. Here's the final code:
 
 ```html
 <script>
@@ -168,6 +168,6 @@ utterances:
 </script>
 ```
 
-完事，收工！🎉
+Done and dusted! 🎉
 
 Ref: [https://github.com/giscus/giscus/issues/336](https://github.com/giscus/giscus/issues/336)

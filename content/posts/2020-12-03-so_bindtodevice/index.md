@@ -9,57 +9,57 @@ toc: true
 aliases: [so_bindtodevice]
 ---
 
-### 起因
+### Motivation
 
-因为写tun2socks的缘故，近来断断续续搜索+研究了一下下如何让socket流量只从特定的interface发出而不走路由表，这样就可以防止特定流量经过tun接口然后无限循环。
+While working on tun2socks, I spent some time on and off looking into how to make socket traffic leave through a specific interface instead of following the routing table. This would prevent certain traffic from going through the TUN interface and getting stuck in an infinite loop.
 
-### 策略路由+bind
+### Policy Routing + bind
 
-在Linux下其实方法挺多的，比如可以用策略路由（`policy routing`），先用`bind`绑定特定的接口地址，然后根据源地址配置用双路由表即可。
+There are actually quite a few ways to do this on Linux. One option is policy routing: use `bind` to bind to a specific interface address, then configure two routing tables based on the source address.
 
-~~这里不得不吐槽Windows下既不能绑接口也没有策略路由，可能是我还没找到，反正目前没想好怎么解决。~~
+~~I have to complain about Windows here: it supports neither binding to an interface nor policy routing. Maybe I just haven't found the right way yet, but for now I have no idea how to solve this there.~~
 
-`bind`函数的作用只是让发送包的源地址是你绑定的接口地址，但是在匹配路由表的时候该怎么走还是怎么走（匹配路由只看目的地址），而且还可能因为源地址不对直接回不来了。
+The `bind` function only makes the bound interface address the source address of outgoing packets. Route lookup still works exactly as before (it only looks at the destination address), and the reply might not even make it back if the source address is wrong.
 
 ### SO_BINDTODEVICE
 
-当然，在Linux下有个更好的解决方案：`SO_BINDTODEVICE`，这与`bind`是不同的。
+Of course, Linux has a better solution: `SO_BINDTODEVICE`, which is different from `bind`.
 
-根据文档，
+According to the documentation:
 
 > Bind this socket to a particular device like "eth0", as specified in the passed interface name. If the name is an empty string or the option length is zero, the socket device binding is removed. The passed option is a variable-length null-terminated interface name string with the maximum size of IFNAMSIZ. If a socket is bound to an interface, only packets received from that particular interface are processed by the socket. Note that this only works for some socket types, particularly AF_INET sockets. It is not supported for packet sockets (use normal bind(2) there).
 > Before Linux 3.8, this socket option could be set, but could not retrieved with getsockopt(2). Since Linux 3.8, it is readable. The optlen argument should contain the buffer size available to receive the device name and is recommended to be IFNAMSZ bytes. The real device name length is reported back in the optlen argument.
 
-嗯，看的似懂非懂，而且没找到跟路由有关的信息。
+Hmm. I sort of understood it, but couldn't find anything about routing.
 
-然后再查资料，终于看到
+After digging around some more, I finally found this:
 
 > The bind() system call is frequently misunderstood. It is used to bind to a particular IP address. Only packets destined to that IP address will be received, and any transmitted packets will carry that IP address as their source. bind() does not control anything about the routing of transmitted packets. So for example, if you bound to the IP address of eth0 but you send a packet to a destination where the kernel's best route goes out eth1, it will happily send the packet out eth1 with the source IP address of eth0. This is perfectly valid for TCP/IP, where packets can traverse unrelated networks on their way to the destination.
 
-`SO_BINDTODEVICE`会保证该socket的所有流量都会从该接口出去，但依旧会有查询路由表的操作，只是会跳过不匹配的接口，如果路由表找不到就会network unreachable。
+`SO_BINDTODEVICE` ensures that all traffic from the socket goes through that interface. The routing table is still consulted, but routes for other interfaces are skipped; if no matching route can be found, the result is `network unreachable`.
 
-同样类似的还有`SO_DONTROUTE`选项，并不是不路由的意思，而且依旧要查询路由表，只是不走网关，作用仅在LINK范围。
+There is also a similar option called `SO_DONTROUTE`. Despite the name, it doesn't mean "don't route," and the routing table is still consulted. It only avoids gateways, so it works within link scope.
 
-所以可以配置两个不同优先级的默认路由，这样就可以在绑定接口后走不同的路由了。同样的，可以拿多端口来做负载均衡。
+This means we can configure two default routes with different priorities and use different routes after binding to an interface. The same idea can also be used with multiple ports for load balancing.
 
-然后注意要关闭rp_filter内核参数，虽然Linux内核是默认禁用的，但是有的发行版为了安全会打开，不然抓包看数据都有，但是socket拿不到。
+Also, remember to disable the `rp_filter` kernel parameter. The Linux kernel disables it by default, but some distributions enable it for security. Otherwise, packet captures will show that the data is there, but the socket won't receive it.
 
 ```sh
 sysctl -w net.ipv4.conf.eth0.rp_filter=0
 ```
 
-最后拿Docker跑了个双接口的容器验证了一下，具体的细节就不贴了
+Finally, I verified this with a dual-interface container running in Docker. I'll skip the details here.
 
-### 补充（2021-08-27）
+### Update (2021-08-27)
 
-除了BINDTODEVICE以外也有其他方式解决
+There are other ways to solve this besides `BINDTODEVICE`:
 
 - [cgroup + namespace](https://www.wireguard.com/netns/)
-- 魔改Kernel（直接pass原Interface）
+- Hack the kernel (pass through the original interface directly)
 
-### 参考
+### References
 
-- [SO_DONTROUTE和SO_BINDTODEVICE的深层次分析][1]
+- [An In-Depth Analysis of SO_DONTROUTE and SO_BINDTODEVICE][1]
 - [SO_BINDTODEVICE socket option for Linux 2.0.30+][2]
 - [Code Snippet: SO_BINDTODEVICE][3]
 
