@@ -1,6 +1,6 @@
-{{ $dataJ := getJSON "https://api.github.com/repos/"  (.Get "repo")  "/contents/"  (.Get "file")  }}
-{{ $con := base64Decode $dataJ.content }}
-
-{{ highlight $con (.Get "lang") (.Get "options") }}
+{{ with resources.GetRemote (printf "https://api.github.com/repos/%s/contents/%s" (.Get "repo") (.Get "file")) }}
+{{ $data := . | transform.Unmarshal }}
+{{ transform.Highlight ($data.content | encoding.Base64Decode) ($.Get "lang") ($.Get "options") }}
+{{ end }}
 
 {{/* Usage: {{<github repo="username/repo-name" file="/path/to/file" lang="language" options="highlight-options">}} */}}
