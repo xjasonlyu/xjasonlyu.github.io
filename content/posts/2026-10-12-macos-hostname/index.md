@@ -1,26 +1,24 @@
 ---
 title: "Tracing a Changing Hostname on macOS"
 date: 2026-10-12T14:00:00-04:00
-Description: "Tracing an unexpected macOS hostname from SSH agent sockets to DHCP Option 12, Private Wi-Fi Address, and Apple's bootp source code."
-Tags: [macos, dhcp, hostname, wifi, ssh]
-Categories: [macOS, Network, SSH]
+Description: "Tracing an unexpected macOS hostname from an iTerm2 title to DHCP Option 12, Private Wi-Fi Address, and Apple's bootp source code."
+Tags: [macos, dhcp, hostname, wifi]
+Categories: [macOS, Network]
 DisableComments: false
 toc: true
 ---
 
 ## Motivation
 
-I keep my SSH agent sockets under `~/.ssh/agent`, with the current hostname as the socket name. One day, I noticed two of them:
+One day, I noticed that the title in my iTerm2 window had changed:
 
-```console
-$ ls -l ~/.ssh/agent
-srw-------  ... Jasons-MacBook-Pro
-srw-------  ... Mac
+```text
+jason@Jasons-MacBook-Pro  ->  jason@Mac
 ```
 
-`Jasons-MacBook-Pro` looked familiar: it was the Mac's local hostname. `Mac`, however, was new. I definitely didn't remember renaming the machine to something that generic.
+The first title looked familiar: `Jasons-MacBook-Pro` was the hostname I expected to see. `Mac`, however, was new. I definitely didn't remember renaming the machine to something that generic.
 
-The socket names told me that `hostname` had, at different times, returned `Jasons-MacBook-Pro` and `Mac`; they didn't tell me what changed it.
+Since the shell title included the current hostname, the change meant that `hostname` had started returning `Mac`. It didn't tell me what changed it.
 
 So I started from the names macOS already knew about.
 
@@ -48,9 +46,9 @@ $ hostname
 Mac
 ```
 
-Because `HostName` was not explicitly set, this value could be supplied dynamically by the network environment. That explained why my SSH setup could create sockets under different names: it used the result of `hostname`, not `ComputerName` or `LocalHostName`.
+Because `HostName` was not explicitly set, this value could be supplied dynamically by the network environment. That explained why the iTerm2 title could differ from both `ComputerName` and `LocalHostName`: it reflected the live result of `hostname`.
 
-The existing `Jasons-MacBook-Pro` socket showed that the live hostname had matched `LocalHostName` at some earlier point. I hadn't captured the system or network state when that socket was created, so I couldn't yet say why or exactly when it was replaced by `Mac`.
+The old iTerm2 title showed that the live hostname had previously resembled `LocalHostName`. I hadn't captured the system or network state at the moment the title changed, so I couldn't yet say why or exactly when it was replaced by `Mac`.
 
 Next I needed to see where `Mac` came from.
 
@@ -261,7 +259,7 @@ private Wi-Fi address
   -> device type "Mac" in Option 12
   -> Bell Giga Hub publishes Mac. as the local PTR
   -> the live hostname becomes Mac
-  -> my SSH setup creates ~/.ssh/agent/Mac
+  -> iTerm2 displays jason@Mac
 ```
 
 With it disabled:
@@ -275,14 +273,14 @@ hardware Wi-Fi address
   -> Jasons-MBP in Option 12
   -> Bell Giga Hub publishes Jasons-MBP. as the local PTR
   -> the live hostname becomes Jasons-MBP
-  -> my SSH setup creates ~/.ssh/agent/Jasons-MBP
+  -> iTerm2 displays jason@Jasons-MBP
 ```
 
 The packet captures establish what the Mac sent, the Giga Hub lookup shows what the router published, and the `configd` logs show the hostname transitions. The public Apple source explains the two strings macOS chose. I haven't separately proven every internal step by which `IPMonitor` consumes the network's naming information, but that uncertainty doesn't affect the origin of either DHCP hostname.
 
-The original two sockets were therefore never really an SSH problem. They were records of two different values returned by the system hostname. The controlled tests explain the live `Mac` state and the later `Jasons-MBP` state; the older `Jasons-MacBook-Pro` socket predates those captures, so its exact creation-time network state remains unverified.
+The title change was therefore never really an iTerm2 problem. It simply exposed a change in the system hostname. The controlled tests explain the live `Mac` state and the later `Jasons-MBP` state; the earlier `Jasons-MacBook-Pro` state predates those captures, so the exact network state at that moment remains unverified.
 
-Still, that harmless pair of socket files was the first visible trace of a DHCP privacy decision deep inside macOS—and eventually led to a hostname shortening rule hidden in Apple's open-source network code.
+Still, that small change in a terminal title was the first visible trace of a DHCP privacy decision deep inside macOS—and eventually led to a hostname shortening rule hidden in Apple's open-source network code.
 
 ## References
 
